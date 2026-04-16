@@ -1,13 +1,10 @@
 const STORAGE_KEY = "happy-wife-menu-filters-v2";
 const RECIPE_CYCLE_STORAGE_KEY = "happy-wife-menu-recipe-cycle-v1";
 const pantryExclusions = [
-  "соль",
-  "перец",
-  "подсолнечное масло",
-  "растительное масло",
-  "оливковое масло"
+  "соль", "перец", "подсолнечное масло", "растительное масло", "оливковое масло"
 ];
 
+const recipes =
 const recipes = [
   {
     id: 1,
@@ -520,42 +517,23 @@ const recipes = [
     ]
   }
 ];
+;
+
+// ---------- Цикл рецептов по неделям ----------
 
 const getMoscowDateParts = (date = new Date()) => {
   const formatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Europe/Moscow",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
+    timeZone: "Europe/Moscow", year: "numeric", month: "2-digit",
+    day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
   });
-
   const parts = Object.fromEntries(
-    formatter
-      .formatToParts(date)
-      .filter((part) => part.type !== "literal")
-      .map((part) => [part.type, part.value])
+    formatter.formatToParts(date).filter((p) => p.type !== "literal").map((p) => [p.type, p.value])
   );
-
-  return {
-    year: Number(parts.year),
-    month: Number(parts.month),
-    day: Number(parts.day),
-    hour: Number(parts.hour),
-    minute: Number(parts.minute),
-    second: Number(parts.second)
-  };
+  return { year: Number(parts.year), month: Number(parts.month), day: Number(parts.day), hour: Number(parts.hour) };
 };
 
 const getMoscowWeekday = (date = new Date()) => {
-  const weekday = new Intl.DateTimeFormat("en-US", {
-    timeZone: "Europe/Moscow",
-    weekday: "short"
-  }).format(date);
-
+  const weekday = new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Moscow", weekday: "short" }).format(date);
   return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(weekday);
 };
 
@@ -564,84 +542,46 @@ const getCurrentRecipeCycleKey = () => {
   const parts = getMoscowDateParts(now);
   const weekday = getMoscowWeekday(now);
   const daysSinceMonday = (weekday + 6) % 7;
-
-  const cycleStart = new Date(
-    Date.UTC(parts.year, parts.month - 1, parts.day - daysSinceMonday, 3, 0, 0)
-  );
-
-  if (weekday === 1 && parts.hour < 6) {
-    cycleStart.setUTCDate(cycleStart.getUTCDate() - 7);
-  }
-
+  const cycleStart = new Date(Date.UTC(parts.year, parts.month - 1, parts.day - daysSinceMonday, 3, 0, 0));
+  if (weekday === 1 && parts.hour < 6) cycleStart.setUTCDate(cycleStart.getUTCDate() - 7);
   return cycleStart.toISOString().slice(0, 10);
 };
 
 const seededHash = (value) => {
   let hash = 0;
-  for (let index = 0; index < value.length; index += 1) {
-    hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
-  }
+  for (let i = 0; i < value.length; i++) hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
   return hash;
 };
 
 const sortRecipesByCycle = (allRecipes, cycleKey) =>
-  [...allRecipes].sort((left, right) => {
-    const leftWeight = seededHash(`${cycleKey}-${left.id}`);
-    const rightWeight = seededHash(`${cycleKey}-${right.id}`);
-    return leftWeight - rightWeight;
-  });
+  [...allRecipes].sort((a, b) => seededHash(`${cycleKey}-${a.id}`) - seededHash(`${cycleKey}-${b.id}`));
 
 const getNextRecipeRefreshLabel = () => {
   const now = new Date();
   const parts = getMoscowDateParts(now);
   const weekday = getMoscowWeekday(now);
   const daysUntilMonday = weekday === 1 && parts.hour < 6 ? 0 : (8 - weekday) % 7 || 7;
-  const nextRefresh = new Date(
-    Date.UTC(parts.year, parts.month - 1, parts.day + daysUntilMonday, 3, 0, 0)
-  );
-
-  const formatter = new Intl.DateTimeFormat("ru-RU", {
-    timeZone: "Europe/Moscow",
-    day: "2-digit",
-    month: "long",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-
-  return formatter.format(nextRefresh);
+  const nextRefresh = new Date(Date.UTC(parts.year, parts.month - 1, parts.day + daysUntilMonday, 3, 0, 0));
+  return new Intl.DateTimeFormat("ru-RU", {
+    timeZone: "Europe/Moscow", day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit"
+  }).format(nextRefresh);
 };
 
 const recipeCycleKey = getCurrentRecipeCycleKey();
 const sortedRecipes = sortRecipesByCycle(recipes, recipeCycleKey);
 
-const weekDays = [
-  "Понедельник",
-  "Вторник",
-  "Среда",
-  "Четверг",
-  "Пятница",
-  "Суббота",
-  "Воскресенье"
-];
+const weekDays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 
-const defaultFilters = {
-  ingredient: "",
-  excludeIngredient: "",
-  difficulty: "all",
-  time: "all",
-  meat: "all"
-};
+const defaultFilters = { ingredient: "", excludeIngredient: "", difficulty: "all", time: "all", meat: "all" };
 
 const state = {
   servings: 2,
   plannedRecipeIds: [],
   filters: { ...defaultFilters },
-  activeRecipeId: null,
-  isBasketConfirmationOpen: false,
-  confirmationBasket: [],
-  confirmationSignature: "",
-  transferSummary: null
+  activeRecipeId: null
 };
+
+// ---------- DOM refs ----------
 
 const recipesGrid = document.querySelector("#recipes-grid");
 const weeklyPlan = document.querySelector("#weekly-plan");
@@ -666,38 +606,26 @@ const recipeViewerServings = document.querySelector("#recipe-viewer-servings");
 const recipeViewerMacros = document.querySelector("#recipe-viewer-macros");
 const recipeViewerIngredients = document.querySelector("#recipe-viewer-ingredients");
 const recipeViewerSteps = document.querySelector("#recipe-viewer-steps");
-const basketConfirmation = document.querySelector("#basket-confirmation");
-const basketConfirmationCaption = document.querySelector("#basket-confirmation-caption");
-const basketConfirmationSummary = document.querySelector("#basket-confirmation-summary");
-const basketConfirmationList = document.querySelector("#basket-confirmation-list");
-const basketConfirmationResult = document.querySelector("#basket-confirmation-result");
-const basketTransferNote = document.querySelector("#basket-transfer-note");
-const openBasketConfirmationButton = document.querySelector("#open-basket-confirmation");
-const confirmBasketButton = document.querySelector("#confirm-basket-button");
-const storeConnector = window.HappyWifeStoreConnector;
-const basketMatcher = window.HappyWifeBasketMatcher;
+const copyListBtn = document.querySelector("#copy-list-btn");
+
+// ---------- Утилиты ----------
 
 const parseIngredientTokens = (value) =>
-  value
-    .split(",")
-    .map((item) => item.trim().toLowerCase())
-    .filter(Boolean);
+  value.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
 
 const getRecipeIngredientNames = (recipe) =>
-  recipe.ingredients.map((ingredient) => ingredient.name.toLowerCase());
+  recipe.ingredients.map((i) => i.name.toLowerCase());
 
-const isPantryStaple = (ingredientName) => {
-  const normalized = ingredientName.toLowerCase();
-  return pantryExclusions.some((item) => normalized.includes(item));
-};
+const isPantryStaple = (name) =>
+  pantryExclusions.some((p) => name.toLowerCase().includes(p));
 
 const buildRecipeSteps = (recipe) => {
   const [first, second, third, fourth] = recipe.ingredients;
   return [
-    `Шаг 1. Подготовьте продукты: нарежьте ${first.name.toLowerCase()} и ${second.name.toLowerCase()}, разогрейте рабочую поверхность и отмерьте остальные ингредиенты.`,
-    `Шаг 2. Начните основу блюда: приготовьте ${second.name.toLowerCase()} или другую базу рецепта, параллельно обжарьте или запеките ${first.name.toLowerCase()} до полуготовности.`,
-    `Шаг 3. Добавьте ${third.name.toLowerCase()} и ${fourth.name.toLowerCase()}, доведите блюдо до вкуса специями и готовьте ещё несколько минут до нужной текстуры.`,
-    `Шаг 4. Подавайте сразу: проверьте соль, разложите по тарелкам и завершите блюдо свежими акцентами или соусом из формы.`
+    `Шаг 1. Подготовьте продукты: нарежьте ${first.name.toLowerCase()} и ${second.name.toLowerCase()}, разогрейте рабочую поверхность.`,
+    `Шаг 2. Начните основу блюда: приготовьте ${second.name.toLowerCase()}, параллельно обжарьте ${first.name.toLowerCase()} до полуготовности.`,
+    `Шаг 3. Добавьте ${third?.name.toLowerCase() || "остальные ингредиенты"} и ${fourth?.name.toLowerCase() || "специи"}, доведите до вкуса.`,
+    `Шаг 4. Подавайте сразу: проверьте соль, разложите по тарелкам и украсьте свежей зеленью.`
   ];
 };
 
@@ -708,663 +636,269 @@ const loadFilters = () => {
     const parsed = JSON.parse(raw);
     state.filters = {
       ingredient: typeof parsed.ingredient === "string" ? parsed.ingredient : "",
-      excludeIngredient:
-        typeof parsed.excludeIngredient === "string" ? parsed.excludeIngredient : "",
+      excludeIngredient: typeof parsed.excludeIngredient === "string" ? parsed.excludeIngredient : "",
       difficulty: parsed.difficulty || "all",
       time: parsed.time || "all",
       meat: parsed.meat || "all"
     };
-  } catch {
-    state.filters = { ...defaultFilters };
-  }
+  } catch { state.filters = { ...defaultFilters }; }
 };
 
-const saveFilters = () => {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state.filters));
-};
-
-const resetFilters = () => {
-  state.filters = { ...defaultFilters };
-  saveFilters();
-  render();
-};
+const saveFilters = () => window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state.filters));
+const resetFilters = () => { state.filters = { ...defaultFilters }; saveFilters(); render(); };
 
 const formatAmount = (amount) => {
   const rounded = Math.round(amount * 10) / 10;
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
 };
 
-const getTimeLabel = (minutes) => {
-  if (minutes <= 20) return "до 20 мин";
-  if (minutes <= 40) return "20-40 мин";
-  return "более 40 мин";
-};
+const getTimeLabel = (minutes) =>
+  minutes <= 20 ? "до 20 мин" : minutes <= 40 ? "20-40 мин" : "более 40 мин";
 
 const syncFilterControls = () => {
   ingredientFilter.value = state.filters.ingredient;
   excludeIngredientFilter.value = state.filters.excludeIngredient;
   difficultyFilter.value = state.filters.difficulty;
   meatFilter.value = state.filters.meat;
-  timeFilters.forEach((filter) => {
-    filter.checked = filter.value === state.filters.time;
-  });
+  timeFilters.forEach((f) => { f.checked = f.value === state.filters.time; });
 };
 
 const matchesFilters = (recipe) => {
-  const ingredientNames = getRecipeIngredientNames(recipe);
+  const names = getRecipeIngredientNames(recipe);
   const includeTokens = parseIngredientTokens(state.filters.ingredient);
   const excludeTokens = parseIngredientTokens(state.filters.excludeIngredient);
 
-  const includeMatch =
-    includeTokens.length === 0 ||
-    includeTokens.every((token) =>
-      ingredientNames.some((ingredientName) => ingredientName.includes(token))
-    );
-
-  const excludeMatch =
-    excludeTokens.length === 0 ||
-    excludeTokens.every(
-      (token) => !ingredientNames.some((ingredientName) => ingredientName.includes(token))
-    );
-
-  const difficultyMatch =
-    state.filters.difficulty === "all" || recipe.difficulty === state.filters.difficulty;
-
-  const timeMatch =
-    state.filters.time === "all" ||
+  const includeMatch = includeTokens.length === 0 ||
+    includeTokens.every((t) => names.some((n) => n.includes(t)));
+  const excludeMatch = excludeTokens.length === 0 ||
+    excludeTokens.every((t) => !names.some((n) => n.includes(t)));
+  const difficultyMatch = state.filters.difficulty === "all" || recipe.difficulty === state.filters.difficulty;
+  const timeMatch = state.filters.time === "all" ||
     (state.filters.time === "20" && recipe.time <= 20) ||
     (state.filters.time === "20-40" && recipe.time > 20 && recipe.time <= 40) ||
     (state.filters.time === "40+" && recipe.time > 40);
-
-  const meatMatch =
-    state.filters.meat === "all" ||
+  const meatMatch = state.filters.meat === "all" ||
     (state.filters.meat === "no-red-meat" && recipe.meatCategory !== "red-meat") ||
     (state.filters.meat === "vegetarian" && recipe.diet === "vegetarian") ||
     (state.filters.meat === "vegan" && recipe.diet === "vegan");
 
-  return includeMatch && excludeMatch && difficultyMatch && timeMatch && meatMatch && !state.plannedRecipeIds.includes(recipe.id);
+  return includeMatch && excludeMatch && difficultyMatch && timeMatch && meatMatch &&
+    !state.plannedRecipeIds.includes(recipe.id);
 };
 
 const getScaledMacro = (value) => Math.round((value / 2) * state.servings);
-const getConfirmationSignature = () => `${state.servings}|${state.plannedRecipeIds.join(",")}`;
-const getStatusLabel = (status) =>
-  ({
-    found: "Найден",
-    "needs-confirmation": "Нужно подтвердить",
-    "not-found": "Не найден",
-    excluded: "Исключён"
-  })[status] || "Не найден";
 
 const syncBodyScrollLock = () => {
-  document.body.style.overflow =
-    state.activeRecipeId !== null || state.isBasketConfirmationOpen ? "hidden" : "";
+  document.body.style.overflow = state.activeRecipeId !== null ? "hidden" : "";
 };
 
-const openRecipeViewer = (recipeId) => {
-  state.activeRecipeId = recipeId;
-  renderRecipeViewer();
-};
+const openRecipeViewer = (recipeId) => { state.activeRecipeId = recipeId; renderRecipeViewer(); };
+const closeRecipeViewer = () => { state.activeRecipeId = null; renderRecipeViewer(); };
 
-const closeRecipeViewer = () => {
-  state.activeRecipeId = null;
-  renderRecipeViewer();
-};
-
-const ensureConfirmationBasket = (force = false) => {
-  if (!storeConnector || !basketMatcher) return;
-
-  const nextSignature = getConfirmationSignature();
-  if (!force && state.confirmationSignature === nextSignature && state.confirmationBasket.length > 0) {
-    return;
-  }
-
-  state.confirmationBasket = basketMatcher.buildConfirmableBasket({
-    plannedRecipeIds: state.plannedRecipeIds,
-    recipes: sortedRecipes,
-    servings: state.servings,
-    pantryExclusions,
-    connector: storeConnector
-  });
-  state.confirmationSignature = nextSignature;
-};
-
-const openBasketConfirmation = () => {
-  ensureConfirmationBasket();
-  state.isBasketConfirmationOpen = true;
-  renderBasketConfirmation();
-};
-
-const closeBasketConfirmation = () => {
-  state.isBasketConfirmationOpen = false;
-  renderBasketConfirmation();
-};
+// ---------- Рендер ----------
 
 const renderRecipes = () => {
-  const filteredRecipeList = sortedRecipes.filter(matchesFilters);
-
-  if (filteredRecipeList.length === 0) {
-    recipesGrid.innerHTML = `
-      <div class="empty-state">
-        По текущим фильтрам сейчас ничего не подходит. Попробуйте убрать часть условий или вернуть рецепт из недельного меню.
-      </div>
-    `;
+  const list = sortedRecipes.filter(matchesFilters);
+  if (!list.length) {
+    recipesGrid.innerHTML = `<div class="empty-state">По текущим фильтрам ничего не найдено. Попробуйте изменить условия или убрать рецепт из плана.</div>`;
     return;
   }
-
-  recipesGrid.innerHTML = filteredRecipeList
-    .map(
-      (recipe, index) => `
-        <article class="recipe-card" style="animation-delay: ${index * 50}ms">
-          <div class="recipe-card__image">
-            <img src="${recipe.image}" alt="${recipe.title}" />
-            <span class="recipe-card__badge">${getTimeLabel(recipe.time)}</span>
-          </div>
-          <div class="recipe-card__body">
-            <h3 class="recipe-card__title">${recipe.title}</h3>
-
-            <div class="recipe-card__meta">
-              <div class="meta-pill">
-                <strong>Время</strong>
-                <span>${recipe.time} минут</span>
-              </div>
-              <div class="meta-pill">
-                <strong>Сложность</strong>
-                <span>${recipe.difficulty}</span>
-              </div>
-            </div>
-
-            <div class="recipe-card__macros">
-              <div class="macro-pill">
-                <strong>Белки</strong>
-                <span>${getScaledMacro(recipe.macros.protein)} г</span>
-              </div>
-              <div class="macro-pill">
-                <strong>Жиры</strong>
-                <span>${getScaledMacro(recipe.macros.fat)} г</span>
-              </div>
-              <div class="macro-pill">
-                <strong>Углеводы</strong>
-                <span>${getScaledMacro(recipe.macros.carbs)} г</span>
-              </div>
-            </div>
-
-            <ul class="recipe-card__ingredients">
-              ${recipe.ingredients.map((ingredient) => `<li>${ingredient.name}</li>`).join("")}
-            </ul>
-
-            <div class="recipe-card__actions">
-              <button
-                class="add-button"
-                type="button"
-                data-action="toggle-plan"
-                data-recipe-id="${recipe.id}"
-                ${state.plannedRecipeIds.length >= 7 ? "disabled" : ""}
-              >
-                Добавить в меню
-              </button>
-              <button
-                class="ghost-button"
-                type="button"
-                data-action="show-ingredients"
-                data-recipe-id="${recipe.id}"
-              >
-                Рецепт
-              </button>
-            </div>
-          </div>
-        </article>
-      `
-    )
-    .join("");
+  recipesGrid.innerHTML = list.map((recipe, index) => `
+    <article class="recipe-card" style="animation-delay: ${index * 50}ms">
+      <div class="recipe-card__image">
+        <img src="${recipe.image}" alt="${recipe.title}" />
+        <span class="recipe-card__badge">${getTimeLabel(recipe.time)}</span>
+      </div>
+      <div class="recipe-card__body">
+        <h3 class="recipe-card__title">${recipe.title}</h3>
+        <div class="recipe-card__meta">
+          <div class="meta-pill"><strong>Время</strong><span>${recipe.time} минут</span></div>
+          <div class="meta-pill"><strong>Сложность</strong><span>${recipe.difficulty}</span></div>
+        </div>
+        <div class="recipe-card__macros">
+          <div class="macro-pill"><strong>Белки</strong><span>${getScaledMacro(recipe.macros.protein)} г</span></div>
+          <div class="macro-pill"><strong>Жиры</strong><span>${getScaledMacro(recipe.macros.fat)} г</span></div>
+          <div class="macro-pill"><strong>Углеводы</strong><span>${getScaledMacro(recipe.macros.carbs)} г</span></div>
+        </div>
+        <ul class="recipe-card__ingredients">
+          ${recipe.ingredients.map((i) => `<li>${i.name}</li>`).join("")}
+        </ul>
+        <div class="recipe-card__actions">
+          <button class="add-button" type="button" data-action="toggle-plan" data-recipe-id="${recipe.id}"
+            ${state.plannedRecipeIds.length >= 7 ? "disabled" : ""}>
+            Добавить в меню
+          </button>
+          <button class="ghost-button" type="button" data-action="show-ingredients" data-recipe-id="${recipe.id}">
+            Рецепт
+          </button>
+        </div>
+      </div>
+    </article>`).join("");
 };
 
 const renderWeeklyPlan = () => {
-  weeklyPlan.innerHTML = weekDays
-    .map((day, index) => {
-      const recipeId = state.plannedRecipeIds[index];
-      const recipe = sortedRecipes.find((item) => item.id === recipeId);
-
-      if (!recipe) {
-        return `
-          <div class="day-card">
-            <div class="day-card__index">${index + 1}</div>
-            <div>
-              <p class="day-card__title">${day}</p>
-              <p class="day-card__note">Свободный вечер. Выберите рецепт из каталога.</p>
-            </div>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="day-card">
-          <div class="day-card__index">${index + 1}</div>
-          <div>
-            <p class="day-card__title">${day}</p>
-            <p class="day-card__note">${recipe.title} • ${recipe.time} мин • ${recipe.difficulty}</p>
-          </div>
-          <button type="button" data-action="remove-plan" data-recipe-id="${recipe.id}">
-            Убрать
-          </button>
+  weeklyPlan.innerHTML = weekDays.map((day, index) => {
+    const recipeId = state.plannedRecipeIds[index];
+    const recipe = sortedRecipes.find((r) => r.id === recipeId);
+    if (!recipe) return `
+      <div class="day-card">
+        <div class="day-card__index">${index + 1}</div>
+        <div><p class="day-card__title">${day}</p><p class="day-card__note">Свободный вечер. Выберите рецепт из каталога.</p></div>
+      </div>`;
+    return `
+      <div class="day-card">
+        <div class="day-card__index">${index + 1}</div>
+        <div>
+          <p class="day-card__title">${day}</p>
+          <p class="day-card__note">${recipe.title} · ${recipe.time} мин · ${recipe.difficulty}</p>
         </div>
-      `;
-    })
-    .join("");
+        <button type="button" data-action="remove-plan" data-recipe-id="${recipe.id}">Убрать</button>
+      </div>`;
+  }).join("");
 };
 
 const buildShoppingItems = () => {
   const multiplier = state.servings / 2;
   const basket = new Map();
-
   state.plannedRecipeIds.forEach((recipeId) => {
-    const recipe = sortedRecipes.find((item) => item.id === recipeId);
+    const recipe = sortedRecipes.find((r) => r.id === recipeId);
     if (!recipe) return;
-
     recipe.ingredients.forEach((ingredient) => {
       if (isPantryStaple(ingredient.name)) return;
-
       const key = `${ingredient.name}-${ingredient.unit}`;
-      const previous = basket.get(key) || {
-        name: ingredient.name,
-        unit: ingredient.unit,
-        amount: 0
-      };
-      previous.amount += ingredient.amount * multiplier;
-      basket.set(key, previous);
+      const prev = basket.get(key) || { name: ingredient.name, unit: ingredient.unit, amount: 0 };
+      prev.amount += ingredient.amount * multiplier;
+      basket.set(key, prev);
     });
   });
-
   return Array.from(basket.values()).sort((a, b) => a.name.localeCompare(b.name, "ru"));
 };
 
 const renderShoppingList = () => {
   const items = buildShoppingItems();
   cartCount.textContent = String(items.length);
-
-  if (items.length === 0) {
-    shoppingList.innerHTML = `
-      <div class="empty-state">
-        Корзина появится после выбора рецептов. Базовые ингредиенты вроде соли, перца и масла мы сюда не добавляем.
-      </div>
-    `;
+  if (!items.length) {
+    shoppingList.innerHTML = `<div class="empty-state">Список появится после выбора рецептов. Базовые ингредиенты — соль, перец, масло — не включаем.</div>`;
     return;
   }
-
-  shoppingList.innerHTML = items
-    .map(
-      (item) => `
-        <div class="shopping-item">
-          <div class="shopping-item__meta">
-            <div>
-              <strong>${item.name}</strong>
-              <span>На ${state.servings} персон</span>
-            </div>
-          </div>
-          <div class="shopping-item__actions">
-            <strong>${formatAmount(item.amount)} ${item.unit}</strong>
-          </div>
+  shoppingList.innerHTML = items.map((item) => `
+    <div class="shopping-item">
+      <div class="shopping-item__meta">
+        <div>
+          <strong>${item.name}</strong>
+          <span>На ${state.servings} ${state.servings === 1 ? "персону" : "персоны"}</span>
         </div>
-      `
-    )
-    .join("");
+      </div>
+      <div class="shopping-item__actions">
+        <strong>${formatAmount(item.amount)} ${item.unit}</strong>
+      </div>
+    </div>`).join("");
 };
 
 const renderRecipeViewer = () => {
   if (!recipeViewer) return;
-
-  const recipe = sortedRecipes.find((item) => item.id === state.activeRecipeId);
-
-  if (!recipe) {
-    recipeViewer.hidden = true;
-    syncBodyScrollLock();
-    return;
-  }
+  const recipe = sortedRecipes.find((r) => r.id === state.activeRecipeId);
+  if (!recipe) { recipeViewer.hidden = true; syncBodyScrollLock(); return; }
 
   recipeViewer.hidden = false;
   syncBodyScrollLock();
-
   recipeViewerImage.src = recipe.image;
   recipeViewerImage.alt = recipe.title;
   recipeViewerTitle.textContent = recipe.title;
   recipeViewerTime.textContent = `${recipe.time} минут`;
   recipeViewerDifficulty.textContent = recipe.difficulty;
   recipeViewerServings.textContent = `${state.servings}`;
-
   recipeViewerMacros.innerHTML = `
-    <div class="macro-pill">
-      <strong>Белки</strong>
-      <span>${getScaledMacro(recipe.macros.protein)} г</span>
-    </div>
-    <div class="macro-pill">
-      <strong>Жиры</strong>
-      <span>${getScaledMacro(recipe.macros.fat)} г</span>
-    </div>
-    <div class="macro-pill">
-      <strong>Углеводы</strong>
-      <span>${getScaledMacro(recipe.macros.carbs)} г</span>
-    </div>
-  `;
-
-  recipeViewerIngredients.innerHTML = recipe.ingredients
-    .map(
-      (ingredient) => `
-        <li>
-          <span>${ingredient.name}</span>
-          <strong>${formatAmount((ingredient.amount / 2) * state.servings)} ${ingredient.unit}</strong>
-        </li>
-      `
-    )
-    .join("");
-
-  recipeViewerSteps.innerHTML = buildRecipeSteps(recipe)
-    .map((step) => `<li>${step}</li>`)
-    .join("");
-};
-
-const renderBasketConfirmation = () => {
-  if (!basketConfirmation || !basketConfirmationList || !confirmBasketButton) return;
-
-  basketConfirmation.hidden = !state.isBasketConfirmationOpen;
-  syncBodyScrollLock();
-
-  if (!state.isBasketConfirmationOpen) {
-    return;
-  }
-
-  ensureConfirmationBasket();
-
-  const confirmedItems = state.confirmationBasket.filter((item) => item.selectedProductId);
-  const needsAttention = state.confirmationBasket.filter(
-    (item) => item.status === "needs-confirmation" || item.status === "not-found"
-  );
-
-  basketConfirmationCaption.textContent =
-    state.confirmationBasket.length === 0
-      ? "Сначала выберите блюда на неделю. Затем здесь появится список ингредиентов и кандидатов товаров."
-      : `Магазин: ${storeConnector.name}. Проверьте найденные товары, подтвердите нужные варианты и затем откройте подтверждённый список.`;
-
-  basketConfirmationSummary.innerHTML = `
-    <span class="basket-summary-pill">Ингредиентов: ${state.confirmationBasket.length}</span>
-    <span class="basket-summary-pill">Подтверждено: ${confirmedItems.length}</span>
-    <span class="basket-summary-pill">Требует внимания: ${needsAttention.length}</span>
-  `;
-
-  if (state.confirmationBasket.length === 0) {
-    basketConfirmationList.innerHTML = `
-      <div class="empty-state">
-        Добавьте хотя бы один рецепт в недельное меню, чтобы перейти к подтверждаемой корзине.
-      </div>
-    `;
-  } else {
-    basketConfirmationList.innerHTML = state.confirmationBasket
-      .map(
-        (item) => `
-          <article class="basket-item-card">
-            <div>
-              <div class="basket-item-card__head">
-                <h3 class="basket-item-card__title">${item.ingredientName}</h3>
-                <span class="basket-status basket-status--${item.status}">${getStatusLabel(item.status)}</span>
-              </div>
-              <p class="basket-item-card__amount">${formatAmount(item.amount)} ${item.unit}</p>
-              <p class="basket-item-card__recipes">
-                Из рецептов: ${item.recipes.join(", ")}
-              </p>
-            </div>
-
-            <div class="basket-item-card__product">
-                      ${
-                item.selectedProductId
-                  ? `
-                    <div class="basket-product">
-                      <div class="basket-product__image">
-                        <img src="${item.selectedProductImage}" alt="${item.selectedProductTitle}" />
-                      </div>
-                      <div class="basket-product__meta">
-                        <strong>${item.selectedProductTitle}</strong>
-                        <span>${item.selectedProductPrice || "Цена уточняется"}</span>
-                        <a href="${item.selectedProductUrl}" target="_blank" rel="noreferrer">Открыть товар</a>
-                      </div>
-                    </div>
-                  `
-                  : `
-                    <div class="basket-empty-product">
-                      ${
-                        item.candidates.length > 0
-                          ? "Есть несколько подходящих вариантов. Выберите нужный товар ниже."
-                          : "Подходящий товар пока не найден. Эту позицию можно пропустить и вернуться к ней позже."
-                      }
-                    </div>
-                  `
-              }
-
-              ${
-                item.candidates.length > 0
-                  ? `
-                    <details>
-                      <summary>${item.selectedProductId ? "Выбрать или заменить товар" : "Выбрать товар"}</summary>
-                      <div class="basket-options">
-                        <label class="basket-option">
-                          <input
-                            type="radio"
-                            name="basket-item-${item.id}"
-                            value=""
-                            data-action="select-basket-product"
-                            data-item-id="${item.id}"
-                            ${item.selectedProductId ? "" : "checked"}
-                          />
-                          <span class="basket-option__image"></span>
-                          <div class="basket-option__meta">
-                            <strong>Не выбирать сейчас</strong>
-                            <span>Позиция останется в статусе подтверждения</span>
-                          </div>
-                        </label>
-
-                        ${item.candidates
-                          .map(
-                            (candidate) => `
-                              <label class="basket-option">
-                                <input
-                                  type="radio"
-                                  name="basket-item-${item.id}"
-                                  value="${candidate.id}"
-                                  data-action="select-basket-product"
-                                  data-item-id="${item.id}"
-                                  ${item.selectedProductId === candidate.id ? "checked" : ""}
-                                />
-                                <div class="basket-option__image">
-                                  <img src="${candidate.image}" alt="${candidate.title}" />
-                                </div>
-                                <div class="basket-option__meta">
-                                  <strong>${candidate.title}</strong>
-                                  <span>${candidate.price}</span>
-                                  <a href="${candidate.url}" target="_blank" rel="noreferrer">Открыть в магазине</a>
-                                </div>
-                              </label>
-                            `
-                          )
-                          .join("")}
-                      </div>
-                    </details>
-                  `
-                  : ""
-              }
-            </div>
-          </article>
-        `
-      )
-      .join("");
-  }
-
-  confirmBasketButton.disabled = confirmedItems.length === 0;
-  basketConfirmationResult.textContent = state.transferSummary
-    ? `Подтверждено товаров: ${state.transferSummary.confirmedCount}. Выбранные позиции сохранены, ссылки на товары можно открывать точечно из карточек.`
-    : "Подтверждённые позиции будут сохранены. Товары можно открывать вручную по ссылкам из карточек, без массового открытия вкладок.";
+    <div class="macro-pill"><strong>Белки</strong><span>${getScaledMacro(recipe.macros.protein)} г</span></div>
+    <div class="macro-pill"><strong>Жиры</strong><span>${getScaledMacro(recipe.macros.fat)} г</span></div>
+    <div class="macro-pill"><strong>Углеводы</strong><span>${getScaledMacro(recipe.macros.carbs)} г</span></div>`;
+  recipeViewerIngredients.innerHTML = recipe.ingredients.map((i) => `
+    <li><span>${i.name}</span><strong>${formatAmount((i.amount / 2) * state.servings)} ${i.unit}</strong></li>`).join("");
+  recipeViewerSteps.innerHTML = buildRecipeSteps(recipe).map((s) => `<li>${s}</li>`).join("");
 };
 
 const renderSummary = () => {
   servingsValue.textContent = String(state.servings);
   servingsNote.textContent = `База рецептов рассчитана на 2 персоны. Сейчас показан пересчёт на ${state.servings}.`;
   selectedCount.textContent = String(state.plannedRecipeIds.length);
-  if (basketTransferNote) {
-    basketTransferNote.textContent = state.transferSummary
-      ? `Для ${state.transferSummary.storeName} сохранено ${state.transferSummary.confirmedCount} подтверждённых товаров.`
-      : "После выбора меню откройте подтверждаемую корзину, проверьте подбор и сохраните подтверждённые товары.";
-  }
   if (catalogRefreshNote) {
-    catalogRefreshNote.textContent = `Каталог обновляется каждый понедельник в 06:00 по Москве. Следующее обновление: ${getNextRecipeRefreshLabel()}.`;
+    catalogRefreshNote.textContent = `Каталог обновляется каждый понедельник в 06:00 по Москве. Следующее: ${getNextRecipeRefreshLabel()}.`;
   }
 };
 
 const render = () => {
-  ensureConfirmationBasket();
   syncFilterControls();
   renderSummary();
   renderRecipes();
   renderWeeklyPlan();
   renderShoppingList();
   renderRecipeViewer();
-  renderBasketConfirmation();
 };
 
+// ---------- Копирование списка ----------
+
+const copyShoppingList = () => {
+  const items = buildShoppingItems();
+  if (!items.length) return;
+  const text = `Список покупок на ${state.servings} персон:\n\n` +
+    items.map((i) => `• ${i.name} — ${formatAmount(i.amount)} ${i.unit}`).join("\n");
+  navigator.clipboard.writeText(text).then(() => {
+    if (!copyListBtn) return;
+    const original = copyListBtn.textContent;
+    copyListBtn.textContent = "Скопировано!";
+    setTimeout(() => { copyListBtn.textContent = original; }, 2000);
+  });
+};
+
+// ---------- События ----------
+
 document.querySelector("#increase-servings").addEventListener("click", () => {
-  state.servings = Math.min(8, state.servings + 1);
-  render();
+  state.servings = Math.min(8, state.servings + 1); render();
 });
-
 document.querySelector("#decrease-servings").addEventListener("click", () => {
-  state.servings = Math.max(1, state.servings - 1);
-  render();
+  state.servings = Math.max(1, state.servings - 1); render();
 });
 
-ingredientFilter.addEventListener("input", (event) => {
-  state.filters.ingredient = event.target.value;
-  saveFilters();
-  renderRecipes();
-});
+ingredientFilter.addEventListener("input", (e) => { state.filters.ingredient = e.target.value; saveFilters(); renderRecipes(); });
+excludeIngredientFilter.addEventListener("input", (e) => { state.filters.excludeIngredient = e.target.value; saveFilters(); renderRecipes(); });
+difficultyFilter.addEventListener("change", (e) => { state.filters.difficulty = e.target.value; saveFilters(); renderRecipes(); });
+meatFilter.addEventListener("change", (e) => { state.filters.meat = e.target.value; saveFilters(); renderRecipes(); });
+timeFilters.forEach((f) => f.addEventListener("change", (e) => { state.filters.time = e.target.value; saveFilters(); renderRecipes(); }));
 
-excludeIngredientFilter.addEventListener("input", (event) => {
-  state.filters.excludeIngredient = event.target.value;
-  saveFilters();
-  renderRecipes();
-});
+if (resetFiltersButton) resetFiltersButton.addEventListener("click", resetFilters);
+if (copyListBtn) copyListBtn.addEventListener("click", copyShoppingList);
 
-difficultyFilter.addEventListener("change", (event) => {
-  state.filters.difficulty = event.target.value;
-  saveFilters();
-  renderRecipes();
-});
-
-meatFilter.addEventListener("change", (event) => {
-  state.filters.meat = event.target.value;
-  saveFilters();
-  renderRecipes();
-});
-
-timeFilters.forEach((filter) => {
-  filter.addEventListener("change", (event) => {
-    state.filters.time = event.target.value;
-    saveFilters();
-    renderRecipes();
-  });
-});
-
-if (resetFiltersButton) {
-  resetFiltersButton.addEventListener("click", () => {
-    resetFilters();
-  });
-}
-
-recipesGrid.addEventListener("click", (event) => {
-  const button = event.target.closest("button");
+recipesGrid.addEventListener("click", (e) => {
+  const button = e.target.closest("button");
   if (!button) return;
-
   const recipeId = Number(button.dataset.recipeId);
-  const recipe = sortedRecipes.find((item) => item.id === recipeId);
+  const recipe = sortedRecipes.find((r) => r.id === recipeId);
   if (!recipe) return;
-
   if (button.dataset.action === "toggle-plan") {
-    if (state.plannedRecipeIds.includes(recipeId)) return;
-    if (state.plannedRecipeIds.length >= 7) return;
-    state.plannedRecipeIds.push(recipeId);
-    render();
+    if (state.plannedRecipeIds.includes(recipeId) || state.plannedRecipeIds.length >= 7) return;
+    state.plannedRecipeIds.push(recipeId); render();
   }
-
-  if (button.dataset.action === "show-ingredients") {
-    openRecipeViewer(recipe.id);
-  }
+  if (button.dataset.action === "show-ingredients") openRecipeViewer(recipe.id);
 });
 
-weeklyPlan.addEventListener("click", (event) => {
-  const button = event.target.closest("button");
+weeklyPlan.addEventListener("click", (e) => {
+  const button = e.target.closest("button");
   if (!button || button.dataset.action !== "remove-plan") return;
-
-  const recipeId = Number(button.dataset.recipeId);
-  state.plannedRecipeIds = state.plannedRecipeIds.filter((item) => item !== recipeId);
+  state.plannedRecipeIds = state.plannedRecipeIds.filter((id) => id !== Number(button.dataset.recipeId));
   render();
 });
-
-shoppingList.addEventListener("click", (event) => {
-  void event;
-});
-
-if (openBasketConfirmationButton) {
-  openBasketConfirmationButton.addEventListener("click", () => {
-    state.transferSummary = null;
-    renderSummary();
-    openBasketConfirmation();
-  });
-}
-
-if (basketConfirmation) {
-  basketConfirmation.addEventListener("click", (event) => {
-    const closeTrigger = event.target.closest('[data-action="close-basket-confirmation"]');
-    if (closeTrigger) {
-      closeBasketConfirmation();
-    }
-  });
-
-  basketConfirmation.addEventListener("change", (event) => {
-    const input = event.target.closest('[data-action="select-basket-product"]');
-    if (!input) return;
-
-    state.confirmationBasket = state.confirmationBasket.map((item) =>
-      item.id === input.dataset.itemId
-        ? basketMatcher.applyCandidateSelection(item, input.value)
-        : item
-    );
-    state.transferSummary = null;
-    renderBasketConfirmation();
-  });
-}
-
-if (confirmBasketButton) {
-  confirmBasketButton.addEventListener("click", () => {
-    const confirmedItems = state.confirmationBasket.filter((item) => item.selectedProductId);
-    if (confirmedItems.length === 0) return;
-
-    basketMatcher.saveMappings(confirmedItems, storeConnector);
-    state.transferSummary = storeConnector.finalizeConfirmedItems(confirmedItems);
-    render();
-  });
-}
 
 if (recipeViewer) {
-  recipeViewer.addEventListener("click", (event) => {
-    const closeTrigger = event.target.closest('[data-action="close-recipe-viewer"]');
-    if (closeTrigger) {
-      closeRecipeViewer();
-    }
+  recipeViewer.addEventListener("click", (e) => {
+    if (e.target.closest('[data-action="close-recipe-viewer"]')) closeRecipeViewer();
   });
 }
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && state.activeRecipeId !== null) {
-    closeRecipeViewer();
-  }
-  if (event.key === "Escape" && state.isBasketConfirmationOpen) {
-    closeBasketConfirmation();
-  }
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && state.activeRecipeId !== null) closeRecipeViewer();
 });
+
+// ---------- Инициализация ----------
 
 loadFilters();
 window.localStorage.setItem(RECIPE_CYCLE_STORAGE_KEY, recipeCycleKey);
