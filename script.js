@@ -4,7 +4,6 @@ const pantryExclusions = [
   "соль", "перец", "подсолнечное масло", "растительное масло", "оливковое масло"
 ];
 
-const recipes =
 const recipes = [
   {
     id: 1,
