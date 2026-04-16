@@ -1263,3 +1263,96 @@ select {
 .shopping-export__btn:active {
   transform: translateY(0);
 }
+
+/* ---------- Переключатель магазина ---------- */
+
+.store-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.store-tab {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper-strong);
+  color: var(--muted);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.store-tab:hover {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  transform: translateY(-1px);
+}
+
+.store-tab--active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.store-tab--active:hover {
+  background: var(--accent-dark);
+  color: white;
+}
+
+/* ---------- Кнопка "Открыть всё" ---------- */
+
+.open-all-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.open-all-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+}
+
+.open-all-btn:active {
+  transform: translateY(0);
+}
+
+/* ---------- Кнопка "Найти" у ингредиента ---------- */
+
+.find-in-store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.find-in-store-btn:hover {
+  background: rgba(208, 111, 69, 0.22);
+  transform: translateY(-1px);
+}

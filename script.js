@@ -577,7 +577,8 @@ const state = {
   servings: 2,
   plannedRecipeIds: [],
   filters: { ...defaultFilters },
-  activeRecipeId: null
+  activeRecipeId: null,
+  selectedStore: "perekrestok"
 };
 
 // ---------- DOM refs ----------
@@ -807,12 +808,37 @@ const groupByCategory = (items) => {
   return groups;
 };
 
+
+// ---------- Магазины ----------
+
+const STORES = {
+  perekrestok: {
+    id: "perekrestok",
+    label: "Перекрёсток",
+    searchUrl: (q) => `https://www.perekrestok.ru/cat?search=${encodeURIComponent(q)}`
+  },
+  lavka: {
+    id: "lavka",
+    label: "Яндекс Лавка",
+    searchUrl: (q) => `https://lavka.yandex.ru/search?text=${encodeURIComponent(q)}`
+  },
+  vkusvill: {
+    id: "vkusvill",
+    label: "ВкусВилл",
+    searchUrl: (q) => `https://vkusvill.ru/search/?q=${encodeURIComponent(q)}`
+  }
+};
+
+const getStoreSearchUrl = (ingredientName) =>
+  STORES[state.selectedStore].searchUrl(ingredientName);
+
 // Хранилище отмеченных позиций (ключ = название-единица)
 const checkedItems = new Set();
 
 const renderShoppingItem = (item) => {
   const key = `${item.name}-${item.unit}`;
   const checked = checkedItems.has(key);
+  const searchUrl = getStoreSearchUrl(item.name);
   return `
     <div class="shopping-item shopping-item--checkable ${checked ? "shopping-item--checked" : ""}"
          data-action="toggle-check" data-key="${key}">
@@ -827,6 +853,10 @@ const renderShoppingItem = (item) => {
       </div>
       <div class="shopping-item__actions">
         <strong>${formatAmount(item.amount)} ${item.unit}</strong>
+        ${!checked ? `<a class="find-in-store-btn" href="${searchUrl}" target="_blank" rel="noreferrer" data-action="find-in-store">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 5.5h8M5.5 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Найти
+        </a>` : ""}
       </div>
     </div>`;
 };
@@ -839,7 +869,23 @@ const renderShoppingList = () => {
     return;
   }
   const groups = groupByCategory(items);
-  shoppingList.innerHTML = groups.map((group) => `
+  const unchecked = items.filter((i) => !checkedItems.has(`${i.name}-${i.unit}`));
+  const storeName = STORES[state.selectedStore].label;
+
+  shoppingList.innerHTML = `
+    <div class="store-picker">
+      ${Object.values(STORES).map((s) => `
+        <button class="store-tab ${s.id === state.selectedStore ? "store-tab--active" : ""}"
+                data-action="select-store" data-store="${s.id}" type="button">
+          ${s.label}
+        </button>`).join("")}
+    </div>
+    ${unchecked.length > 0 ? `
+    <button class="open-all-btn" id="open-all-btn" type="button">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 7h11M7 1.5l5.5 5.5L7 12.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Открыть всё в ${storeName} (${unchecked.length})
+    </button>` : ""}
+  ` + groups.map((group) => `
     <div class="shopping-category">
       <p class="shopping-category__label">${group.label}</p>
       ${group.items.map(renderShoppingItem).join("")}
@@ -857,6 +903,7 @@ const renderShoppingList = () => {
 
   document.getElementById("export-categories-btn")?.addEventListener("click", exportByCategories);
   document.getElementById("export-telegram-btn")?.addEventListener("click", exportToTelegram);
+  document.getElementById("open-all-btn")?.addEventListener("click", openAllInStore);
 };
 
 const renderRecipeViewer = () => {
@@ -931,6 +978,15 @@ const exportToTelegram = () => {
 
 const copyShoppingList = exportByCategories;
 
+const openAllInStore = () => {
+  const items = buildShoppingItems();
+  const unchecked = items.filter((i) => !checkedItems.has(`${i.name}-${i.unit}`));
+  if (!unchecked.length) return;
+  unchecked.forEach((item) => {
+    window.open(getStoreSearchUrl(item.name), "_blank", "noreferrer");
+  });
+};
+
 // ---------- События ----------
 
 document.querySelector("#increase-servings").addEventListener("click", () => {
@@ -970,6 +1026,16 @@ weeklyPlan.addEventListener("click", (e) => {
 });
 
 shoppingList.addEventListener("click", (e) => {
+  // Не перехватываем клики по ссылкам "Найти"
+  if (e.target.closest("[data-action=\"find-in-store\"]")) return;
+
+  const storeBtn = e.target.closest("[data-action=\"select-store\"]");
+  if (storeBtn) {
+    state.selectedStore = storeBtn.dataset.store;
+    renderShoppingList();
+    return;
+  }
+
   const item = e.target.closest("[data-action=\"toggle-check\"]");
   if (!item) return;
   const key = item.dataset.key;
