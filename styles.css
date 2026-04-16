@@ -1155,3 +1155,59 @@ select {
     height: 180px;
   }
 }
+
+/* ---------- Чек-лист покупок ---------- */
+
+.shopping-item--checkable {
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.shopping-item--checkable:hover {
+  background: #fdf6ee;
+}
+
+.shopping-item__check {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
+.check-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  flex-shrink: 0;
+}
+
+.shopping-item--checkable:hover .check-circle {
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+
+.check-circle--done {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.shopping-item--checked {
+  opacity: 0.5;
+}
+
+.shopping-item--checked .shopping-item__name {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.shopping-item--checked .shopping-item__actions strong {
+  text-decoration: line-through;
+  color: var(--muted);
+}

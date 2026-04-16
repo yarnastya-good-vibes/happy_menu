@@ -773,6 +773,9 @@ const buildShoppingItems = () => {
   return Array.from(basket.values()).sort((a, b) => a.name.localeCompare(b.name, "ru"));
 };
 
+// Хранилище отмеченных позиций (ключ = название-единица)
+const checkedItems = new Set();
+
 const renderShoppingList = () => {
   const items = buildShoppingItems();
   cartCount.textContent = String(items.length);
@@ -780,18 +783,26 @@ const renderShoppingList = () => {
     shoppingList.innerHTML = `<div class="empty-state">Список появится после выбора рецептов. Базовые ингредиенты — соль, перец, масло — не включаем.</div>`;
     return;
   }
-  shoppingList.innerHTML = items.map((item) => `
-    <div class="shopping-item">
-      <div class="shopping-item__meta">
-        <div>
-          <strong>${item.name}</strong>
-          <span>На ${state.servings} ${state.servings === 1 ? "персону" : "персоны"}</span>
+  shoppingList.innerHTML = items.map((item) => {
+    const key = `${item.name}-${item.unit}`;
+    const checked = checkedItems.has(key);
+    return `
+    <div class="shopping-item shopping-item--checkable ${checked ? "shopping-item--checked" : ""}"
+         data-action="toggle-check" data-key="${key}">
+      <div class="shopping-item__check">
+        <div class="check-circle ${checked ? "check-circle--done" : ""}">
+          ${checked ? `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ""}
         </div>
+      </div>
+      <div class="shopping-item__meta">
+        <strong class="shopping-item__name">${item.name}</strong>
+        <span>На ${state.servings} ${state.servings === 1 ? "персону" : "персоны"}</span>
       </div>
       <div class="shopping-item__actions">
         <strong>${formatAmount(item.amount)} ${item.unit}</strong>
       </div>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 };
 
 const renderRecipeViewer = () => {
@@ -885,6 +896,18 @@ weeklyPlan.addEventListener("click", (e) => {
   if (!button || button.dataset.action !== "remove-plan") return;
   state.plannedRecipeIds = state.plannedRecipeIds.filter((id) => id !== Number(button.dataset.recipeId));
   render();
+});
+
+shoppingList.addEventListener("click", (e) => {
+  const item = e.target.closest("[data-action=\"toggle-check\"]");
+  if (!item) return;
+  const key = item.dataset.key;
+  if (checkedItems.has(key)) {
+    checkedItems.delete(key);
+  } else {
+    checkedItems.add(key);
+  }
+  renderShoppingList();
 });
 
 if (recipeViewer) {
