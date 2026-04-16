@@ -907,14 +907,14 @@ const exportByCategories = () => {
   const groups = groupByCategory(items);
   const text = `Список покупок на ${state.servings} персон:\n\n` +
     groups.map((g) =>
-      `${g.label}:\n` + g.items.map((i) => `• ${i.name} — ${formatAmount(i.amount)} ${i.unit}`).join("\n")
+      `${g.label}:\n` + g.items.map((i) => `[ ] ${i.name} — ${formatAmount(i.amount)} ${i.unit}`).join("\n")
     ).join("\n\n");
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById("export-categories-btn");
     if (!btn) return;
-    const orig = btn.textContent;
+    const orig = btn.innerHTML;
     btn.textContent = "Скопировано!";
-    setTimeout(() => { btn.textContent = orig; }, 2000);
+    setTimeout(() => { btn.innerHTML = orig; }, 2000);
   });
 };
 
