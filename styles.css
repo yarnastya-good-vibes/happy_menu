@@ -1211,3 +1211,55 @@ select {
   text-decoration: line-through;
   color: var(--muted);
 }
+
+/* ---------- Категории в списке покупок ---------- */
+
+.shopping-category { margin-bottom: 8px; }
+
+.shopping-category__label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-dark);
+  padding: 10px 4px 6px;
+  margin: 0;
+}
+
+/* ---------- Кнопки экспорта ---------- */
+
+.shopping-export {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.shopping-export__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--paper-strong);
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.shopping-export__btn:hover {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  transform: translateY(-1px);
+}
+
+.shopping-export__btn:active {
+  transform: translateY(0);
+}

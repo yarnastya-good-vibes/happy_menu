@@ -756,6 +756,26 @@ const renderWeeklyPlan = () => {
   }).join("");
 };
 
+// ---------- Категории ингредиентов ----------
+
+const CATEGORIES = [
+  { id: "meat",    label: "Мясо и рыба",      keys: ["говяд", "свинин", "курин", "индейк", "фарш", "стейк", "лосос", "треск", "креветк", "морепродукт", "тунец", "сёмга", "рыб"] },
+  { id: "dairy",   label: "Молочное и яйца",   keys: ["яйц", "сливк", "молок", "сыр", "фет", "рикотт", "моцарелл", "пармезан", "йогурт", "халум", "творог"] },
+  { id: "veggie",  label: "Овощи и зелень",    keys: ["лук", "чеснок", "морков", "томат", "черри", "перец", "брокколи", "шпинат", "цукин", "капуст", "батат", "картофел", "баклажан", "авокадо", "огурец", "петрушк", "укроп", "базилик", "зелён", "салат", "тыкв"] },
+  { id: "fruit",   label: "Фрукты и ягоды",    keys: ["лимон", "лайм", "яблок", "апельсин", "банан", "ягод"] },
+  { id: "grain",   label: "Крупы и паста",     keys: ["рис", "паста", "спагетт", "пенне", "орзо", "булгур", "киноа", "гречк", "перловк", "соба", "удон", "лапш", "рамен", "тортильи", "хлеб", "кускус", "листы лазань"] },
+  { id: "canned",  label: "Консервы и соусы",  keys: ["томат в", "томатн", "кокосов", "соевый", "терияк", "карри", "бульон", "вяленые", "красная фасол", "нут", "чечевиц", "фасол", "кукуруз"] },
+  { id: "other",   label: "Остальное",         keys: [] }
+];
+
+const getCategory = (name) => {
+  const n = name.toLowerCase();
+  for (const cat of CATEGORIES) {
+    if (cat.keys.some((k) => n.includes(k))) return cat.id;
+  }
+  return "other";
+};
+
 const buildShoppingItems = () => {
   const multiplier = state.servings / 2;
   const basket = new Map();
@@ -765,7 +785,12 @@ const buildShoppingItems = () => {
     recipe.ingredients.forEach((ingredient) => {
       if (isPantryStaple(ingredient.name)) return;
       const key = `${ingredient.name}-${ingredient.unit}`;
-      const prev = basket.get(key) || { name: ingredient.name, unit: ingredient.unit, amount: 0 };
+      const prev = basket.get(key) || {
+        name: ingredient.name,
+        unit: ingredient.unit,
+        amount: 0,
+        category: getCategory(ingredient.name)
+      };
       prev.amount += ingredient.amount * multiplier;
       basket.set(key, prev);
     });
@@ -773,20 +798,22 @@ const buildShoppingItems = () => {
   return Array.from(basket.values()).sort((a, b) => a.name.localeCompare(b.name, "ru"));
 };
 
+const groupByCategory = (items) => {
+  const groups = [];
+  for (const cat of CATEGORIES) {
+    const catItems = items.filter((i) => i.category === cat.id);
+    if (catItems.length) groups.push({ ...cat, items: catItems });
+  }
+  return groups;
+};
+
 // Хранилище отмеченных позиций (ключ = название-единица)
 const checkedItems = new Set();
 
-const renderShoppingList = () => {
-  const items = buildShoppingItems();
-  cartCount.textContent = String(items.length);
-  if (!items.length) {
-    shoppingList.innerHTML = `<div class="empty-state">Список появится после выбора рецептов. Базовые ингредиенты — соль, перец, масло — не включаем.</div>`;
-    return;
-  }
-  shoppingList.innerHTML = items.map((item) => {
-    const key = `${item.name}-${item.unit}`;
-    const checked = checkedItems.has(key);
-    return `
+const renderShoppingItem = (item) => {
+  const key = `${item.name}-${item.unit}`;
+  const checked = checkedItems.has(key);
+  return `
     <div class="shopping-item shopping-item--checkable ${checked ? "shopping-item--checked" : ""}"
          data-action="toggle-check" data-key="${key}">
       <div class="shopping-item__check">
@@ -802,7 +829,34 @@ const renderShoppingList = () => {
         <strong>${formatAmount(item.amount)} ${item.unit}</strong>
       </div>
     </div>`;
-  }).join("");
+};
+
+const renderShoppingList = () => {
+  const items = buildShoppingItems();
+  cartCount.textContent = String(items.length);
+  if (!items.length) {
+    shoppingList.innerHTML = `<div class="empty-state">Список появится после выбора рецептов. Базовые ингредиенты — соль, перец, масло — не включаем.</div>`;
+    return;
+  }
+  const groups = groupByCategory(items);
+  shoppingList.innerHTML = groups.map((group) => `
+    <div class="shopping-category">
+      <p class="shopping-category__label">${group.label}</p>
+      ${group.items.map(renderShoppingItem).join("")}
+    </div>`).join("") + `
+    <div class="shopping-export">
+      <button class="shopping-export__btn" id="export-categories-btn" type="button">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4.5h12M2 8h8M2 11.5h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Скопировать по категориям
+      </button>
+      <button class="shopping-export__btn" id="export-telegram-btn" type="button">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l11-5-3.5 11-2.5-3.5L4 9l-2-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        Отправить в Telegram
+      </button>
+    </div>`;
+
+  document.getElementById("export-categories-btn")?.addEventListener("click", exportByCategories);
+  document.getElementById("export-telegram-btn")?.addEventListener("click", exportToTelegram);
 };
 
 const renderRecipeViewer = () => {
@@ -845,20 +899,37 @@ const render = () => {
   renderRecipeViewer();
 };
 
-// ---------- Копирование списка ----------
+// ---------- Экспорт списка ----------
 
-const copyShoppingList = () => {
+const exportByCategories = () => {
   const items = buildShoppingItems();
   if (!items.length) return;
+  const groups = groupByCategory(items);
   const text = `Список покупок на ${state.servings} персон:\n\n` +
-    items.map((i) => `• ${i.name} — ${formatAmount(i.amount)} ${i.unit}`).join("\n");
+    groups.map((g) =>
+      `${g.label}:\n` + g.items.map((i) => `• ${i.name} — ${formatAmount(i.amount)} ${i.unit}`).join("\n")
+    ).join("\n\n");
   navigator.clipboard.writeText(text).then(() => {
-    if (!copyListBtn) return;
-    const original = copyListBtn.textContent;
-    copyListBtn.textContent = "Скопировано!";
-    setTimeout(() => { copyListBtn.textContent = original; }, 2000);
+    const btn = document.getElementById("export-categories-btn");
+    if (!btn) return;
+    const orig = btn.textContent;
+    btn.textContent = "Скопировано!";
+    setTimeout(() => { btn.textContent = orig; }, 2000);
   });
 };
+
+const exportToTelegram = () => {
+  const items = buildShoppingItems();
+  if (!items.length) return;
+  const groups = groupByCategory(items);
+  const text = `Список покупок на ${state.servings} персон:\n\n` +
+    groups.map((g) =>
+      `*${g.label}*\n` + g.items.map((i) => `• ${i.name} — ${formatAmount(i.amount)} ${i.unit}`).join("\n")
+    ).join("\n\n");
+  window.open("https://t.me/share/url?url=%20&text=" + encodeURIComponent(text), "_blank");
+};
+
+const copyShoppingList = exportByCategories;
 
 // ---------- События ----------
 
