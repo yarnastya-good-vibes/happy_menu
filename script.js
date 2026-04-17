@@ -815,7 +815,7 @@ const STORES = {
   perekrestok: {
     id: "perekrestok",
     label: "Перекрёсток",
-    searchUrl: (q) => `https://www.perekrestok.ru/cat?search=${encodeURIComponent(q)}`
+    searchUrl: (q) => `https://www.perekrestok.ru/cat/search?search=${encodeURIComponent(q)}`
   },
   lavka: {
     id: "lavka",
