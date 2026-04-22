@@ -80,6 +80,7 @@ const servingsNote = document.querySelector("#servings-note");
 const selectedCount = document.querySelector("#selected-count");
 const cartCount = document.querySelector("#cart-count");
 const catalogRefreshNote = document.querySelector("#catalog-refresh-note");
+const catalogCount = document.querySelector("#catalog-count");
 const ingredientFilter = document.querySelector("#ingredient-filter");
 const excludeIngredientFilter = document.querySelector("#exclude-ingredient-filter");
 const difficultyFilter = document.querySelector("#difficulty-filter");
@@ -196,8 +197,39 @@ const closeRecipeViewer = () => { state.activeRecipeId = null; renderRecipeViewe
 
 // ---------- Рендер ----------
 
+const hasActiveCatalogFilters = () => {
+  const f = state.filters;
+  return Boolean(
+    (f.ingredient && f.ingredient.trim()) ||
+    (f.excludeIngredient && f.excludeIngredient.trim()) ||
+    (f.difficulty && f.difficulty !== "all") ||
+    (f.time && f.time !== "all") ||
+    (f.meat && f.meat !== "all")
+  );
+};
+
+const renderCatalogCount = (visibleCount, availableCount) => {
+  if (!catalogCount) return;
+  const pluralize = (n, one, few, many) => {
+    const mod100 = n % 100;
+    const mod10 = n % 10;
+    if (mod100 >= 11 && mod100 <= 14) return many;
+    if (mod10 === 1) return one;
+    if (mod10 >= 2 && mod10 <= 4) return few;
+    return many;
+  };
+  const word = (n) => pluralize(n, "рецепт", "рецепта", "рецептов");
+  if (hasActiveCatalogFilters()) {
+    catalogCount.innerHTML = `Найдено <span class="catalog-count__filtered">${visibleCount}</span> ${word(visibleCount)} из ${availableCount}`;
+  } else {
+    catalogCount.textContent = `В каталоге ${availableCount} ${word(availableCount)}`;
+  }
+};
+
 const renderRecipes = () => {
   const list = sortedRecipes.filter(matchesFilters);
+  const available = sortedRecipes.filter((r) => !state.plannedRecipeIds.includes(r.id)).length;
+  renderCatalogCount(list.length, available);
   if (!list.length) {
     recipesGrid.innerHTML = `<div class="empty-state">По текущим фильтрам ничего не найдено. Попробуйте изменить условия или убрать рецепт из плана.</div>`;
     return;
