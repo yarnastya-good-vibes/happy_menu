@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-22T11:12:38.423Z",
+  "generatedAt": "2026-04-22T11:44:31.724Z",
   "weekTag": "2026-04-22",
   "source": "eda.rambler.ru",
   "counts": {
@@ -13,313 +13,6 @@
     }
   },
   "recipes": [
-    {
-      "id": 191624,
-      "sourceId": "191624",
-      "title": "Крем-суп из спаржи",
-      "image": "https://s1.eda.ru/StaticContent/Photos/e/24/e243445b0cb542c0832ecac3c012fd86.jpg",
-      "time": 40,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "soup",
-      "category": {
-        "slug": "supy",
-        "name": "Супы"
-      },
-      "cuisine": {
-        "slug": "evropeyskaya-kuhnya",
-        "name": "Европейская кухня"
-      },
-      "portions": 6,
-      "ingredients": [
-        {
-          "name": "Зеленая спаржа",
-          "amount": 700,
-          "unit": "г"
-        },
-        {
-          "name": "Куриный бульон",
-          "amount": 1,
-          "unit": "л"
-        },
-        {
-          "name": "Картофель",
-          "amount": 250,
-          "unit": "г"
-        },
-        {
-          "name": "Репчатый лук",
-          "amount": 1,
-          "unit": "головка"
-        },
-        {
-          "name": "Стебель сельдерея",
-          "amount": 2,
-          "unit": "штука"
-        },
-        {
-          "name": "Сливки 33%-ные",
-          "amount": 120,
-          "unit": "мл"
-        },
-        {
-          "name": "Оливковое масло",
-          "amount": 15,
-          "unit": "мл"
-        },
-        {
-          "name": "Сливочное масло",
-          "amount": 15,
-          "unit": "г"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 3,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Лимон",
-          "amount": 0.5,
-          "unit": "штука"
-        },
-        {
-          "name": "Смесь итальянских трав",
-          "amount": 0.5,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Подготовить все ингредиенты для крем-супа из спаржи.",
-          "timeMin": null
-        },
-        {
-          "text": "У спаржи срезать или отломать жесткие концы (примерно 2–3 см с каждого стебля). Оставшиеся стебли нарезать кусочками по 2–3 см. Лук и сельдерей нарезать. Чеснок измельчить. Картофель очистить и нарезать небольшим кубиком.",
-          "timeMin": null
-        },
-        {
-          "text": "В кастрюле с толстым дном разогреть оливковое и сливочное масло. Добавить лук и сельдерей, обжаривать на среднем огне 7–10 минут до мягкости и легкого золотистого цвета.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить измельченный чеснок, готовить еще 30 секунд, помешивая, до появления аромата.",
-          "timeMin": null
-        },
-        {
-          "text": "Влить в кастрюлю бульон. Добавить итальянские травы, нарезанную спаржу и картофель (несколько красивых кончиков спаржи можно отложить для подачи). Увеличить огонь до максимума и довести до кипения.",
-          "timeMin": null
-        },
-        {
-          "text": "Уменьшить огонь до слабого кипения, накрыть кастрюлю крышкой, оставив небольшую щель. Варить 15 минут, пока картофель и спаржа не станут полностью мягкими.",
-          "timeMin": null
-        },
-        {
-          "text": "Снять кастрюлю с огня. Измельчить суп погружным блендером до однородной кремообразной консистенции. (Если используется стационарный блендер, дать супу слегка остыть перед измельчением и работать порциями.)",
-          "timeMin": null
-        },
-        {
-          "text": "Влить сливки и лимонный сок. Тщательно перемешать.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить соль и перец по вкусу. Суп из спаржи требует достаточно щедрого количества соли для раскрытия вкуса.",
-          "timeMin": null
-        },
-        {
-          "text": "Подавать суп сразу после приготовления горячим, украсив бланшированными кончиками спаржи.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 8,
-        "fat": 12,
-        "carbs": 17,
-        "kcal": 208
-      },
-      "tags": [
-        {
-          "slug": "supy",
-          "name": "Супы"
-        },
-        {
-          "slug": "evropeyskaya-kuhnya",
-          "name": "Европейская кухня"
-        },
-        {
-          "slug": "vegetarianskaya-eda",
-          "name": "Вегетарианская еда"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "krem-sup",
-          "name": "Крем-суп"
-        },
-        {
-          "slug": "sup-pjure",
-          "name": "Суп-пюре"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/supy/krem-sup-iz-sparzhi-191624",
-      "fetchedAt": "2026-04-22T11:12:52.125Z"
-    },
-    {
-      "id": 151380,
-      "sourceId": "151380",
-      "title": "Тыквенный суп-пюре",
-      "image": "https://s1.eda.ru/StaticContent/Photos/d/211202164618/p_O.jpg",
-      "time": 40,
-      "difficulty": "Средне",
-      "diet": "vegetarian",
-      "meatCategory": "vegetarian",
-      "mealType": "soup",
-      "category": {
-        "slug": "supy",
-        "name": "Супы"
-      },
-      "cuisine": {
-        "slug": "evropeyskaya-kuhnya",
-        "name": "Европейская кухня"
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Тыква",
-          "amount": 1.2,
-          "unit": "кг"
-        },
-        {
-          "name": "Репчатый лук",
-          "amount": 1,
-          "unit": "головка"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 2,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Бульон",
-          "amount": 1,
-          "unit": "л"
-        },
-        {
-          "name": "Сливки 30%-ные",
-          "amount": 200,
-          "unit": "мл"
-        },
-        {
-          "name": "Петрушка",
-          "amount": 10,
-          "unit": "г"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый имбирь",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый кардамон",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Тыкву очистить от кожуры и семян, нарезать крупными кубиками со стороной 3–4 см.",
-          "timeMin": null
-        },
-        {
-          "text": "Лук нарезать полукольцами.",
-          "timeMin": null
-        },
-        {
-          "text": "Поместить тыкву, лук и целые зубчики чеснока в кастрюлю, залить куриным или овощным бульоном.",
-          "timeMin": null
-        },
-        {
-          "text": "Довести до кипения и варить на среднем огне до готовности тыквы — около 10 минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Выключить огонь и пробить суп погружным блендером до однородной консистенции.",
-          "timeMin": null
-        },
-        {
-          "text": "Приправить суп солью, перцем и специями. Вмешать сливки, оставив немного для подачи.",
-          "timeMin": null
-        },
-        {
-          "text": "Петрушку мелко порубить.",
-          "timeMin": null
-        },
-        {
-          "text": "Разлить суп по тарелкам, украсить сливками и петрушкой.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 11,
-        "fat": 19,
-        "carbs": 30,
-        "kcal": 302
-      },
-      "tags": [
-        {
-          "slug": "supy",
-          "name": "Супы"
-        },
-        {
-          "slug": "evropeyskaya-kuhnya",
-          "name": "Европейская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "tikvennij-sup",
-          "name": "Тыквенный суп"
-        },
-        {
-          "slug": "sup-pjure",
-          "name": "Суп-пюре"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/supy/tykvennyy-sup-pyure-151380",
-      "fetchedAt": "2026-04-22T11:12:52.286Z"
-    },
     {
       "id": 126247,
       "sourceId": "126247",
@@ -483,7 +176,7 @@
         }
       ],
       "sourceUrl": "https://eda.rambler.ru/recepty/supy/gribnoy-krem-sup-126247",
-      "fetchedAt": "2026-04-22T11:12:52.443Z"
+      "fetchedAt": "2026-04-22T11:44:52.373Z"
     },
     {
       "id": 25515,
@@ -607,141 +300,21 @@
         }
       ],
       "sourceUrl": "https://eda.rambler.ru/recepty/supy/sup-pjure-iz-baklazhanov-25515",
-      "fetchedAt": "2026-04-22T11:12:52.604Z"
+      "fetchedAt": "2026-04-22T11:44:53.016Z"
     },
     {
-      "id": 22160,
-      "sourceId": "22160",
-      "title": "Крем-суп из брокколи",
-      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/120213185949/120213190302/p_O.jpg",
+      "id": 151380,
+      "sourceId": "151380",
+      "title": "Тыквенный суп-пюре",
+      "image": "https://s1.eda.ru/StaticContent/Photos/d/211202164618/p_O.jpg",
       "time": 40,
       "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
+      "diet": "vegetarian",
+      "meatCategory": "vegetarian",
       "mealType": "soup",
       "category": {
         "slug": "supy",
         "name": "Супы"
-      },
-      "cuisine": {
-        "slug": "russkaya-kuhnya",
-        "name": "Русская кухня"
-      },
-      "portions": 6,
-      "ingredients": [
-        {
-          "name": "Капуста брокколи",
-          "amount": 1000,
-          "unit": "г"
-        },
-        {
-          "name": "Репчатый лук",
-          "amount": 1,
-          "unit": "головка"
-        },
-        {
-          "name": "Куриный бульон",
-          "amount": 1,
-          "unit": "л"
-        },
-        {
-          "name": "Сливки 25%-ные",
-          "amount": 100,
-          "unit": "мл"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 5,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Морская соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 1,
-          "unit": "столовая ложка"
-        }
-      ],
-      "steps": [
-        {
-          "text": "В кастрюле с толстым дном обжарить лук (чтобы был мягким, но не до углей) и чеснок.",
-          "timeMin": null
-        },
-        {
-          "text": "Брокколи порезать (можно этого и не делать) и добавить в кастрюлю.",
-          "timeMin": null
-        },
-        {
-          "text": "Посолить, поперчить.",
-          "timeMin": null
-        },
-        {
-          "text": "На медленном огне тушить брокколи с луком.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить в кастрюлю горячий куриный бульон (из кубика), 1 литр-1,5.",
-          "timeMin": null
-        },
-        {
-          "text": "На маленьком огне довести смесь до кипения.",
-          "timeMin": null
-        },
-        {
-          "text": "Снять с огня и перемешать смесь блендером до однородной массы и снова поставить на огонь.",
-          "timeMin": null
-        },
-        {
-          "text": "Разогреть на сковороде сливки и влить в суп, перемешать",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 10,
-        "fat": 9,
-        "carbs": 14,
-        "kcal": 160
-      },
-      "tags": [
-        {
-          "slug": "supy",
-          "name": "Супы"
-        },
-        {
-          "slug": "russkaya-kuhnya",
-          "name": "Русская кухня"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "krem-sup",
-          "name": "Крем-суп"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/supy/krem-sup-iz-brokkoli-22160",
-      "fetchedAt": "2026-04-22T11:12:52.753Z"
-    },
-    {
-      "id": 57609,
-      "sourceId": "57609",
-      "title": "Вегетарианское блюдо чили за 15 минут",
-      "image": "https://s1.eda.ru/StaticContent/OpenGraphImages/57609.jpg",
-      "time": 15,
-      "difficulty": "Легко",
-      "diet": "vegetarian",
-      "meatCategory": "vegetarian",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
       },
       "cuisine": {
         "slug": "evropeyskaya-kuhnya",
@@ -750,221 +323,140 @@
       "portions": 4,
       "ingredients": [
         {
-          "name": "Консервированная фасоль",
-          "amount": 420,
-          "unit": "г"
+          "name": "Тыква",
+          "amount": 1.2,
+          "unit": "кг"
         },
         {
-          "name": "Черная консервированная  фасоль",
-          "amount": 420,
-          "unit": "г"
-        },
-        {
-          "name": "Консервированные помидоры",
-          "amount": 270,
-          "unit": "г"
-        },
-        {
-          "name": "Овощной бульон",
+          "name": "Репчатый лук",
           "amount": 1,
-          "unit": "стакан"
+          "unit": "головка"
         },
         {
-          "name": "Зеленый консервированный перец чили",
-          "amount": 150,
+          "name": "Чеснок",
+          "amount": 2,
+          "unit": "зубчик"
+        },
+        {
+          "name": "Бульон",
+          "amount": 1,
+          "unit": "л"
+        },
+        {
+          "name": "Сливки 30%-ные",
+          "amount": 200,
+          "unit": "мл"
+        },
+        {
+          "name": "Петрушка",
+          "amount": 10,
           "unit": "г"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый имбирь",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый кардамон",
+          "amount": 0,
+          "unit": "по вкусу"
         }
       ],
       "steps": [
         {
-          "text": "Смешайте все ингредиенты в кастрюле.",
+          "text": "Тыкву очистить от кожуры и семян, нарезать крупными кубиками со стороной 3–4 см.",
           "timeMin": null
         },
         {
-          "text": "Накройте крышкой и тушите на среднем огне в течение 10 минут.",
+          "text": "Лук нарезать полукольцами.",
           "timeMin": null
         },
         {
-          "text": "Подавайте с сыром, острым соусом, и/или тортильей.",
+          "text": "Поместить тыкву, лук и целые зубчики чеснока в кастрюлю, залить куриным или овощным бульоном.",
+          "timeMin": null
+        },
+        {
+          "text": "Довести до кипения и варить на среднем огне до готовности тыквы — около 10 минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Выключить огонь и пробить суп погружным блендером до однородной консистенции.",
+          "timeMin": null
+        },
+        {
+          "text": "Приправить суп солью, перцем и специями. Вмешать сливки, оставив немного для подачи.",
+          "timeMin": null
+        },
+        {
+          "text": "Петрушку мелко порубить.",
+          "timeMin": null
+        },
+        {
+          "text": "Разлить суп по тарелкам, украсить сливками и петрушкой.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 16,
-        "fat": 1,
-        "carbs": 43,
-        "kcal": 239
+        "protein": 11,
+        "fat": 19,
+        "carbs": 30,
+        "kcal": 302
       },
       "tags": [
         {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
+          "slug": "supy",
+          "name": "Супы"
         },
         {
           "slug": "evropeyskaya-kuhnya",
           "name": "Европейская кухня"
         },
         {
-          "slug": "veganskaya-eda",
-          "name": "Веганская еда"
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
         }
       ],
       "recipeGroups": [
         {
-          "slug": "gorjachie-zakuski",
-          "name": "Горячие закуски"
+          "slug": "tikvennij-sup",
+          "name": "Тыквенный суп"
         },
         {
-          "slug": "prostye-v-duhovke",
-          "name": "Простые в духовке"
+          "slug": "sup-pjure",
+          "name": "Суп-пюре"
         }
       ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/vegetarianskoe-blyudo-chili-za-15-minut-57609",
-      "fetchedAt": "2026-04-22T11:12:52.911Z"
+      "sourceUrl": "https://eda.rambler.ru/recepty/supy/tykvennyy-sup-pyure-151380",
+      "fetchedAt": "2026-04-22T11:44:53.723Z"
     },
     {
-      "id": 40984,
-      "sourceId": "40984",
-      "title": "Мексиканское блюдо из фасоли и говяжьего фарша",
-      "image": "https://s1.eda.ru/StaticContent/OpenGraphImages/40984.jpg",
-      "time": 20,
-      "difficulty": "Легко",
-      "diet": "meat",
-      "meatCategory": "red-meat",
-      "mealType": "main",
+      "id": 30588,
+      "sourceId": "30588",
+      "title": "Суп-пюре из чечевицы",
+      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/120131083019/150811211609/p_O.jpg",
+      "time": 30,
+      "difficulty": "Средне",
+      "diet": "vegetarian",
+      "meatCategory": "vegetarian",
+      "mealType": "soup",
       "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "meksikanskaya-kuhnya",
-        "name": "Мексиканская кухня"
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Репчатый лук",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Говяжий фарш",
-          "amount": 350,
-          "unit": "г"
-        },
-        {
-          "name": "Красная консервированная фасоль",
-          "amount": 1,
-          "unit": "банка"
-        },
-        {
-          "name": "Зеленая стручковая фасоль (замороженная)",
-          "amount": 150,
-          "unit": "г"
-        },
-        {
-          "name": "Замороженный зеленый горошек ",
-          "amount": 100,
-          "unit": "г"
-        },
-        {
-          "name": "Томатная паста ",
-          "amount": 3,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Аджика",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Сыр",
-          "amount": 100,
-          "unit": "г"
-        },
-        {
-          "name": "Сливочное масло",
-          "amount": 30,
-          "unit": "г"
-        },
-        {
-          "name": "Консервированная кукуруза",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "В глубокой сковородке обжарить лук до прозрачности на сливочном или растительном масле.",
-          "timeMin": null
-        },
-        {
-          "text": "К луку добавить фарш, обжарить до готовности, разбивая комочки лопаточкой (если фарш был заморожен — предварительно его нужно разморозить).",
-          "timeMin": null
-        },
-        {
-          "text": "В фарш добавить томатную пасту и аджику, хорошо перемешать (особенно, если аджику все-таки кладете абхазскую, т.е. сильно острую, и больше. чем полчайной ложки). Я не добавляю соль, т.к. томатная паста чаще всего соленая, и перец, так как аджику кладу острую и много.",
-          "timeMin": null
-        },
-        {
-          "text": "В готовый фарш добавить красную консервированную фасоль (мне нравиться без томата), предварительно слив из банки жидкость. Если фарша положили чуть больше — можно добавить еще маленькую баночку или половину обычной банки белой фасоли без томата. Если любите кукурузу, можете положить маленькую баночку. Я кукурузу не люблю, поэтому делаю без нее. Перемешать.",
-          "timeMin": null
-        },
-        {
-          "text": "Туда же сразу отправляется замороженная зеленая фасоль и горошек (если горошка нет, не страшно, но с ним красивее). Перемешать, накрыть крышкой и минут 5–7 готовить до готовности горошка.",
-          "timeMin": null
-        },
-        {
-          "text": "При подаче посыпать тертым сыром. Чем больше сыра и чем лучше он расплавится (особенно, если положили слишком много аджики), тем вкуснее.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 32,
-        "fat": 32,
-        "carbs": 29,
-        "kcal": 526
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "meksikanskaya-kuhnya",
-          "name": "Мексиканская кухня"
-        },
-        {
-          "slug": "recepty-s-istoriey",
-          "name": "Рецепты с историей"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "gorjachie-zakuski",
-          "name": "Горячие закуски"
-        },
-        {
-          "slug": "blyuda-s-farshem",
-          "name": "Блюда с фаршем"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/meksikanskoe-bljudo-iz-fasoli-i-govjazhego-farsha-40984",
-      "fetchedAt": "2026-04-22T11:12:53.076Z"
-    },
-    {
-      "id": 17591,
-      "sourceId": "17591",
-      "title": "Треска с помидорами",
-      "image": "https://s1.eda.ru/StaticContent/Photos/130829212936/130904175410/p_O.jpg",
-      "time": 15,
-      "difficulty": "Легко",
-      "diet": "pescatarian",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
+        "slug": "supy",
+        "name": "Супы"
       },
       "cuisine": {
         "slug": "sredizemnomorskaya-kuhnya",
@@ -973,61 +465,89 @@
       "portions": 6,
       "ingredients": [
         {
-          "name": "Филе трески",
-          "amount": 1.2,
-          "unit": "кг"
+          "name": "Красная чечевица",
+          "amount": 300,
+          "unit": "г"
         },
         {
-          "name": "Оливковое масло",
-          "amount": 6,
-          "unit": "столовая ложка"
+          "name": "Репчатый лук",
+          "amount": 1,
+          "unit": "головка"
         },
         {
-          "name": "Лимон",
+          "name": "Помидоры",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Морковь",
           "amount": 2,
           "unit": "штука"
         },
         {
-          "name": "Петрушка",
-          "amount": 120,
+          "name": "Чеснок",
+          "amount": 2,
+          "unit": "зубчик"
+        },
+        {
+          "name": "Белый хлеб",
+          "amount": 3,
+          "unit": "кусок"
+        },
+        {
+          "name": "Корень имбиря",
+          "amount": 10,
           "unit": "г"
-        },
-        {
-          "name": "Помидоры черри",
-          "amount": 24,
-          "unit": "штука"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
         }
       ],
       "steps": [
         {
-          "text": "В шесть жаропрочных пакетов для жарки в духовке разложить по куску трески, по столовой ­лож­ке рубленой петрушки, по четыре помидора, разрезанных пополам, по соку четверти лимона и сто­ловой ложке масла.",
+          "text": "Чечевицу отварить.",
           "timeMin": null
         },
         {
-          "text": "Завязать герметично пакет, ­по­солив, поперчив содержимое, и положить на пятнадцать минут в духовку, разогретую до 180 гра­дусов.",
+          "text": "Лук и помидоры крупно нарезать.",
+          "timeMin": null
+        },
+        {
+          "text": "Морковь крупно натереть на терке. Имбирь — мелко.",
+          "timeMin": null
+        },
+        {
+          "text": "Мелко нарубить чеснок.",
+          "timeMin": null
+        },
+        {
+          "text": "Все овощи поджарить на сковородке.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить в кастрюлю к чечевице.",
+          "timeMin": null
+        },
+        {
+          "text": "Варить на медленном огне 10–15 минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Все измельчить блендером.",
+          "timeMin": null
+        },
+        {
+          "text": "Хлеб нарезать мелкими кубиками и поджарить без масла на сковороде на медленном огне 10 минут, постоянно перемешивая.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 37,
-        "fat": 22,
-        "carbs": 5,
-        "kcal": 363
+        "protein": 12,
+        "fat": 1,
+        "carbs": 34,
+        "kcal": 203
       },
       "tags": [
         {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
+          "slug": "supy",
+          "name": "Супы"
         },
         {
           "slug": "sredizemnomorskaya-kuhnya",
@@ -1036,482 +556,66 @@
         {
           "slug": "nizkokaloriynaya-eda",
           "name": "Низкокалорийная еда"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
         }
       ],
       "recipeGroups": [
         {
-          "slug": "oven-fish",
-          "name": "Рыба в духовке"
-        },
-        {
-          "slug": "prostye",
-          "name": "Простые ужины и обеды"
-        },
-        {
-          "slug": "prostye-v-duhovke",
-          "name": "Простые в духовке"
+          "slug": "sup-pjure",
+          "name": "Суп-пюре"
         }
       ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/treska-s-pomidorami-17591",
-      "fetchedAt": "2026-04-22T11:12:53.237Z"
+      "sourceUrl": "https://eda.rambler.ru/recepty/supy/sup-pjure-iz-chechevici-30588",
+      "fetchedAt": "2026-04-22T11:44:54.380Z"
     },
     {
-      "id": 36638,
-      "sourceId": "36638",
-      "title": "Говядина с устричным соусом",
-      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/150615095301/150617122439/p_O.jpg",
-      "time": 15,
-      "difficulty": "Легко",
+      "id": 37200,
+      "sourceId": "37200",
+      "title": "Крем-суп грибной",
+      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/150428090447/150504064311/p_O.jpg",
+      "time": 40,
+      "difficulty": "Средне",
       "diet": "meat",
       "meatCategory": "red-meat",
-      "mealType": "main",
+      "mealType": "soup",
       "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
+        "slug": "supy",
+        "name": "Супы"
       },
       "cuisine": {
-        "slug": "kitayskaya-kuhnya",
-        "name": "Китайская кухня"
+        "slug": "francuzskaya-kuhnya",
+        "name": "Французская кухня"
       },
       "portions": 4,
       "ingredients": [
         {
-          "name": "Свежая кинза (кориандр)",
-          "amount": 10,
-          "unit": "г"
-        },
-        {
-          "name": "Репчатый лук",
-          "amount": 0.5,
-          "unit": "головка"
-        },
-        {
-          "name": "Говяжье филе",
+          "name": "Свежие грибы",
           "amount": 500,
           "unit": "г"
         },
         {
-          "name": "Капуста брокколи",
-          "amount": 400,
-          "unit": "г"
-        },
-        {
-          "name": "Корень имбиря",
-          "amount": 10,
-          "unit": "г"
-        },
-        {
-          "name": "Лимон",
-          "amount": 0.5,
-          "unit": "штука"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 50,
-          "unit": "мл"
-        },
-        {
-          "name": "Устричный соус",
-          "amount": 50,
-          "unit": "мл"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Говяжье филе нарезать тонкими ломтиками. Имбирь мелко нарубить, а лук нарезать тонкими полукольцами. Брокколи разобрать на соцветия и отварить в течение трех минут в кипящей воде. Охладить, чтобы соцветия не потеряли зеленый цвет.",
-          "timeMin": null
-        },
-        {
-          "text": "Раскалить сковородку вок с растительным маслом и быстро обжарить в ней нарезанное ломтиками мясо до бронзовой корочки.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить в сковороду лук и имбирь, а через минуту — устричный соус и брокколи. Жарить еще минуту-две, постоянно помешивая. Снять с огня и заправить соком лимона и мелко нарубленной кинзой.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 27,
-        "fat": 33,
-        "carbs": 10,
-        "kcal": 439
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "kitayskaya-kuhnya",
-          "name": "Китайская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "gorjachie-zakuski",
-          "name": "Горячие закуски"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/govjadina-s-ustrichnim-sousom-36638",
-      "fetchedAt": "2026-04-22T11:12:53.416Z"
-    },
-    {
-      "id": 30677,
-      "sourceId": "30677",
-      "title": "Курица с соусом из йогурта, кунжутных семечек, лимона и чеснока",
-      "image": "https://s1.eda.ru/StaticContent/Photos/120131083923/160415151012/p_O.jpg",
-      "time": 20,
-      "difficulty": "Легко",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "avtorskaya-kuhnya",
-        "name": "Авторская кухня"
-      },
-      "portions": 6,
-      "ingredients": [
-        {
-          "name": "Картофель",
-          "amount": 600,
-          "unit": "г"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 2,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Куриная голень",
-          "amount": 18,
-          "unit": "штука"
-        },
-        {
-          "name": "Лимон",
+          "name": "Говяжий бульон",
           "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Сахар",
-          "amount": 1,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Соевый соус",
-          "amount": 50,
-          "unit": "мл"
-        },
-        {
-          "name": "Йогурт",
-          "amount": 300,
-          "unit": "мл"
-        },
-        {
-          "name": "Белый винный уксус",
-          "amount": 20,
-          "unit": "мл"
-        },
-        {
-          "name": "Мед",
-          "amount": 1,
-          "unit": "столовая ложка"
+          "unit": "л"
         },
         {
           "name": "Сливочное масло",
           "amount": 50,
           "unit": "г"
-        },
-        {
-          "name": "Оливковое масло",
-          "amount": 100,
-          "unit": "мл"
-        },
-        {
-          "name": "Кунжутное масло",
-          "amount": 50,
-          "unit": "мл"
-        },
-        {
-          "name": "Кунжутные семечки",
-          "amount": 50,
-          "unit": "г"
-        },
-        {
-          "name": "Тимьян",
-          "amount": 10,
-          "unit": "стебель"
-        },
-        {
-          "name": "Петрушка",
-          "amount": 20,
-          "unit": "г"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "С куриных голеней снять лишний жир, если он имеется.",
-          "timeMin": null
-        },
-        {
-          "text": "Курицу замариновать на полчаса в смеси соевого соуса, меда, оливкового масла, тимьяна, сахара, уксуса, соли и перца.",
-          "timeMin": null
-        },
-        {
-          "text": "Затем отправить на двадцать пять минут в разогретую до 180 градусов духовку.",
-          "timeMin": null
-        },
-        {
-          "text": "Картошку отварить и обжарить на сливочном масле.",
-          "timeMin": null
-        },
-        {
-          "text": "В блендер поместить кунжутные семечки, йогурт, петрушку, сок одного лимона, два зубчика чеснока и кунжутное масло, приправить солью и перцем и превратить в зеленый соус. Подавать курицу и картошку с соусом.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 38,
-        "fat": 57,
-        "carbs": 30,
-        "kcal": 777
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "avtorskaya-kuhnya",
-          "name": "Авторская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "oven-chicken",
-          "name": "Курица в духовке"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/kurica-s-sousom-iz-jogurta-kunzhutnih-semechek-limona-chesnoka-30677",
-      "fetchedAt": "2026-04-22T11:12:53.634Z"
-    },
-    {
-      "id": 92617,
-      "sourceId": "92617",
-      "title": "Цыпленок табака",
-      "image": "https://s1.eda.ru/StaticContent/Photos/120131082327/170426151534/p_O.jpg",
-      "time": 20,
-      "difficulty": "Легко",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "gruzinskaya-kuhnya",
-        "name": "Грузинская кухня"
-      },
-      "portions": 3,
-      "ingredients": [
-        {
-          "name": "Цыпленок",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый красный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 80,
-          "unit": "мл"
-        },
-        {
-          "name": "Сливочное масло",
-          "amount": 100,
-          "unit": "г"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Подготовить необходимые ингредиенты.",
-          "timeMin": null
-        },
-        {
-          "text": "Разрезать грудку цыпленка посередине и раскрыть.",
-          "timeMin": null
-        },
-        {
-          "text": "Зачистить от вероятно оставшихся внутренних органов, отрезать гузку и срезать лишнюю кожу и жир.",
-          "timeMin": null
-        },
-        {
-          "text": "Развернуть тушку так, чтобы она стала плоской. Сломать сухожилия и отбить.",
-          "timeMin": null
-        },
-        {
-          "text": "Посыпать солью, перцами, смазать растительным маслом и оставить мариноваться на 30 минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Разогреть сковороду-гриль, влить растительное масло.",
-          "timeMin": null
-        },
-        {
-          "text": "Уложить тушку сначала внутренней стороной вниз, поставить гнет (подойдет кастрюля с водой) и жарить 6-8 минут на сильном огне, в зависимости от размера цыпленка.",
-          "timeMin": null
-        },
-        {
-          "text": "Затем снять гнет, перевернуть тушку и жарить еще 5-6 минут под гнетом, на среднем огне, до образования золотистой корочки.",
-          "timeMin": null
-        },
-        {
-          "text": "Снова убрать гнет, перевернуть цыпленка, добавить сливочное масло.",
-          "timeMin": null
-        },
-        {
-          "text": "Обжарить цыпленка еще по паре минут с каждой стороны уже без гнета. Подать.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 25,
-        "fat": 76,
-        "carbs": 1,
-        "kcal": 782
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "gruzinskaya-kuhnya",
-          "name": "Грузинская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "ciplenok-tabaka",
-          "name": "Цыпленок табака"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/cyplenok-tabaka-92617",
-      "fetchedAt": "2026-04-22T11:12:53.793Z"
-    },
-    {
-      "id": 57702,
-      "sourceId": "57702",
-      "title": "Венский шницель на растительном масле",
-      "image": "https://s1.eda.ru/StaticContent/Photos/2/5c/25c76fdfb45d426d92f6e8990cb4f9cf.jpg",
-      "time": 20,
-      "difficulty": "Легко",
-      "diet": "meat",
-      "meatCategory": "red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "avstriyskaya-kuhnya",
-        "name": "Австрийская кухня"
-      },
-      "portions": 6,
-      "ingredients": [
-        {
-          "name": "Куриное яйцо",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Молоко",
-          "amount": 1,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Оливковое масло",
-          "amount": 1,
-          "unit": "столовая ложка"
         },
         {
           "name": "Пшеничная мука",
-          "amount": 200,
-          "unit": "г"
+          "amount": 2,
+          "unit": "столовая ложка"
         },
         {
-          "name": "Панировочные сухари",
-          "amount": 200,
-          "unit": "г"
+          "name": "Сливки 10%-ные",
+          "amount": 250,
+          "unit": "мл"
         },
         {
-          "name": "Эскалоп из телятины",
-          "amount": 4,
-          "unit": "штука"
-        },
-        {
-          "name": "Лимон",
+          "name": "Чеснок",
           "amount": 1,
-          "unit": "штука"
+          "unit": "зубчик"
         },
         {
           "name": "Соль",
@@ -1526,58 +630,54 @@
       ],
       "steps": [
         {
-          "text": "Смешать в тарелке яйцо с молоком и растительным маслом. Посолить и поперчить. В другую тарелку насыпать немного муки. Наконец, в третью тарелку насыпать панировочные сухари.",
+          "text": "Приготовить мясной бульон.",
           "timeMin": null
         },
         {
-          "text": "С помощью скалки отбить эскалопы, чтобы они стали мягче.",
+          "text": "Грибы нарезать не очень тонкими пластинками, переложить в сковороду и жарить на подсолнечном масле под крышкой на среднем огне около 15 минут, периодически помешивая, посолив и поперчив.",
           "timeMin": null
         },
         {
-          "text": "Затем последовательно обвалять их в муке, в яичной смеси и в сухарях.",
+          "text": "Затем аккуратно переложить грибы вместе с образовавшейся жидкостью в кастрюлю с кипящим бульоном. Варить 10–15 минут.",
           "timeMin": null
         },
         {
-          "text": "Обжарить на горячей сковороде в небольшом количестве растительного масла. Когда они будут наполовину готовы, перевернуть на другую сторону.",
+          "text": "В ковшике или сотейнике растопить масло и поджарить на нем мелко рубленный чеснок до появления характерного запаха. Всыпать муку по ложке, тщательно перемешивая загустевающую массу, затем медленно влить сливки. Перемешивая венчиком, не давая образоваться комочкам, варить на медленном огне до образования густого соуса. Если соус получился очень густым, можно добавить несколько ложек бульона.",
           "timeMin": null
         },
         {
-          "text": "Подать к эскалопам по четвертинке лимона.",
+          "text": "Перелить бульон с грибами и белый соус в блендер, взбить до образования однородной массы.",
+          "timeMin": null
+        },
+        {
+          "text": "Вернуть суп в кастрюлю и довести до кипения, добавив соль, перец и специи по вкусу.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 40,
-        "fat": 77,
-        "carbs": 63,
-        "kcal": 1092
+        "protein": 9,
+        "fat": 19,
+        "carbs": 11,
+        "kcal": 250
       },
       "tags": [
         {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
+          "slug": "supy",
+          "name": "Супы"
         },
         {
-          "slug": "avstriyskaya-kuhnya",
-          "name": "Австрийская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
+          "slug": "francuzskaya-kuhnya",
+          "name": "Французская кухня"
         }
       ],
       "recipeGroups": [
         {
-          "slug": "shnicelj",
-          "name": "Шницель"
+          "slug": "krem-sup",
+          "name": "Крем-суп"
         }
       ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/venskiy-shnicel-57702",
-      "fetchedAt": "2026-04-22T11:12:53.987Z"
+      "sourceUrl": "https://eda.rambler.ru/recepty/supy/krem-sup-gribnoj-37200",
+      "fetchedAt": "2026-04-22T11:44:55.039Z"
     },
     {
       "id": 49597,
@@ -1703,16 +803,16 @@
         }
       ],
       "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/saltimbokka-49597",
-      "fetchedAt": "2026-04-22T11:12:54.145Z"
+      "fetchedAt": "2026-04-22T11:44:55.330Z"
     },
     {
-      "id": 49064,
-      "sourceId": "49064",
-      "title": "Оладьи из куриной печени",
-      "image": "https://s1.eda.ru/StaticContent/Photos/170224233526/210628224432/p_O.jpg",
-      "time": 20,
+      "id": 17591,
+      "sourceId": "17591",
+      "title": "Треска с помидорами",
+      "image": "https://s1.eda.ru/StaticContent/Photos/130829212936/130904175410/p_O.jpg",
+      "time": 15,
       "difficulty": "Легко",
-      "diet": "meat",
+      "diet": "pescatarian",
       "meatCategory": "no-red-meat",
       "mealType": "main",
       "category": {
@@ -1720,35 +820,35 @@
         "name": "Основные блюда"
       },
       "cuisine": {
-        "slug": "evropeyskaya-kuhnya",
-        "name": "Европейская кухня"
+        "slug": "sredizemnomorskaya-kuhnya",
+        "name": "Средиземноморская кухня"
       },
-      "portions": 4,
+      "portions": 6,
       "ingredients": [
         {
-          "name": "Куриная печень",
-          "amount": 500,
-          "unit": "г"
+          "name": "Филе трески",
+          "amount": 1.2,
+          "unit": "кг"
         },
         {
-          "name": "Репчатый лук",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Куриное яйцо",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Пшеничная мука",
-          "amount": 2,
+          "name": "Оливковое масло",
+          "amount": 6,
           "unit": "столовая ложка"
         },
         {
-          "name": "Растительное масло",
-          "amount": 0,
-          "unit": "по вкусу"
+          "name": "Лимон",
+          "amount": 2,
+          "unit": "штука"
+        },
+        {
+          "name": "Петрушка",
+          "amount": 120,
+          "unit": "г"
+        },
+        {
+          "name": "Помидоры черри",
+          "amount": 24,
+          "unit": "штука"
         },
         {
           "name": "Соль",
@@ -1763,35 +863,19 @@
       ],
       "steps": [
         {
-          "text": "С печени срезать прожилки.",
+          "text": "В шесть жаропрочных пакетов для жарки в духовке разложить по куску трески, по столовой ­лож­ке рубленой петрушки, по четыре помидора, разрезанных пополам, по соку четверти лимона и сто­ловой ложке масла.",
           "timeMin": null
         },
         {
-          "text": "Лук очистить и крупно нарезать.",
-          "timeMin": null
-        },
-        {
-          "text": "Перемешать печень, лук, яйцо и муку в блендере.",
-          "timeMin": null
-        },
-        {
-          "text": "Сковородку средней толщины разогреть и протереть маслом. Можно протирать смазанной маслом салфеткой или нанизанной на вилку половиной очищенной сырой картофелины — также смазанной маслом. Масла нужно немного, чтобы оладьи получались нежными.",
-          "timeMin": null
-        },
-        {
-          "text": "Обжаривать с двух сторон около 1 минуты — тогда они получаются супернежными.",
-          "timeMin": null
-        },
-        {
-          "text": "Подавать со сметаной или с натуральным йогуртом.",
+          "text": "Завязать герметично пакет, ­по­солив, поперчив содержимое, и положить на пятнадцать минут в духовку, разогретую до 180 гра­дусов.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 27,
-        "fat": 10,
-        "carbs": 10,
-        "kcal": 233
+        "protein": 37,
+        "fat": 22,
+        "carbs": 5,
+        "kcal": 363
       },
       "tags": [
         {
@@ -1799,8 +883,12 @@
           "name": "Основные блюда"
         },
         {
-          "slug": "evropeyskaya-kuhnya",
-          "name": "Европейская кухня"
+          "slug": "sredizemnomorskaya-kuhnya",
+          "name": "Средиземноморская кухня"
+        },
+        {
+          "slug": "nizkokaloriynaya-eda",
+          "name": "Низкокалорийная еда"
         },
         {
           "slug": "videorecepty",
@@ -1813,81 +901,101 @@
       ],
       "recipeGroups": [
         {
-          "slug": "oladji",
-          "name": "Оладьи"
+          "slug": "oven-fish",
+          "name": "Рыба в духовке"
         },
         {
-          "slug": "pechenochie-oladji",
-          "name": "Печеночные оладьи"
+          "slug": "prostye",
+          "name": "Простые ужины и обеды"
         },
         {
-          "slug": "blyuda-s-pechenyu",
-          "name": "Блюда с печенью"
+          "slug": "prostye-v-duhovke",
+          "name": "Простые в духовке"
         }
       ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/oladi-iz-kurinoy-pecheni-49064",
-      "fetchedAt": "2026-04-22T11:12:54.305Z"
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/treska-s-pomidorami-17591",
+      "fetchedAt": "2026-04-22T11:44:55.571Z"
     },
     {
-      "id": 91462,
-      "sourceId": "91462",
-      "title": "Макароны с сыром",
-      "image": "https://s1.eda.ru/StaticContent/Photos/161125164152/161208203008/p_O.jpg",
+      "id": 36638,
+      "sourceId": "36638",
+      "title": "Говядина с устричным соусом",
+      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/150615095301/150617122439/p_O.jpg",
       "time": 15,
       "difficulty": "Легко",
-      "diet": "vegetarian",
-      "meatCategory": "vegetarian",
+      "diet": "meat",
+      "meatCategory": "red-meat",
       "mealType": "main",
       "category": {
         "slug": "osnovnye-blyuda",
         "name": "Основные блюда"
       },
       "cuisine": {
-        "slug": "russkaya-kuhnya",
-        "name": "Русская кухня"
+        "slug": "kitayskaya-kuhnya",
+        "name": "Китайская кухня"
       },
       "portions": 4,
       "ingredients": [
         {
-          "name": "Макароны",
-          "amount": 320,
+          "name": "Свежая кинза (кориандр)",
+          "amount": 10,
           "unit": "г"
         },
         {
-          "name": "Сыр",
-          "amount": 100,
+          "name": "Репчатый лук",
+          "amount": 0.5,
+          "unit": "головка"
+        },
+        {
+          "name": "Говяжье филе",
+          "amount": 500,
           "unit": "г"
         },
         {
-          "name": "Сливочное масло",
+          "name": "Капуста брокколи",
+          "amount": 400,
+          "unit": "г"
+        },
+        {
+          "name": "Корень имбиря",
+          "amount": 10,
+          "unit": "г"
+        },
+        {
+          "name": "Лимон",
+          "amount": 0.5,
+          "unit": "штука"
+        },
+        {
+          "name": "Растительное масло",
           "amount": 50,
-          "unit": "г"
+          "unit": "мл"
         },
         {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
+          "name": "Устричный соус",
+          "amount": 50,
+          "unit": "мл"
         }
       ],
       "steps": [
         {
-          "text": "В посуду с кипящей подсоленной водой (5–6 л на 1 кг макаронных изделий и 50 г соли) засыпать подготовленные изделия и варить до размягчения в бурно кипящей воде, периодически помешивая деревянной веселкой, чтобы не допускать прилипания их к дну посуды. Соотношение 5–6 л воды на 1 кг изделий необходимо потому, что после закладки макаронных изделий вода охлаждается и, пока она нагревается, макаронные изделия разрыхляются, а их внешний вид и консистенция после готовности ухудшаются. Поэтому чем больше соотношение воды и макарон, тем быстрее закипит вода после закладки макаронных изделий, тем выше будет качество готового блюда. Продолжительность варки зависит от вида\r\nмакаронных изделий. Макароны варят 20–30 мин, вермишель – 10–15, лапшу – 20– 25 мин.",
+          "text": "Говяжье филе нарезать тонкими ломтиками. Имбирь мелко нарубить, а лук нарезать тонкими полукольцами. Брокколи разобрать на соцветия и отварить в течение трех минут в кипящей воде. Охладить, чтобы соцветия не потеряли зеленый цвет.",
           "timeMin": null
         },
         {
-          "text": "Сваренные макаронные изделия откинуть на сито (дуршлаг), дать стечь отвару, переложить изделия в посуду с растопленным маслом и перемешать деревянной веселкой, чтобы они не склеивались и не образовали комков. При варке макаронные изделия увеличиваются в массе в 2,5–3 раза за счет поглощения воды клейстеризующимся крахмалом.",
+          "text": "Раскалить сковородку вок с растительным маслом и быстро обжарить в ней нарезанное ломтиками мясо до бронзовой корочки.",
           "timeMin": null
         },
         {
-          "text": "Сыр или брынзу натереть на терке. Макароны заправить сливочным маслом или маргарином, при отпуске\r\nпосыпать тертым сыром. Можно подать тертый сыр отдельно на розетке.",
+          "text": "Добавить в сковороду лук и имбирь, а через минуту — устричный соус и брокколи. Жарить еще минуту-две, постоянно помешивая. Снять с огня и заправить соком лимона и мелко нарубленной кинзой.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 14,
-        "fat": 19,
-        "carbs": 56,
-        "kcal": 454
+        "protein": 27,
+        "fat": 33,
+        "carbs": 10,
+        "kcal": 439
       },
       "tags": [
         {
@@ -1895,8 +1003,8 @@
           "name": "Основные блюда"
         },
         {
-          "slug": "russkaya-kuhnya",
-          "name": "Русская кухня"
+          "slug": "kitayskaya-kuhnya",
+          "name": "Китайская кухня"
         },
         {
           "slug": "videorecepty",
@@ -1909,16 +1017,12 @@
       ],
       "recipeGroups": [
         {
-          "slug": "makaroni",
-          "name": "Макароны"
-        },
-        {
-          "slug": "garnir",
-          "name": "Гарнир"
+          "slug": "gorjachie-zakuski",
+          "name": "Горячие закуски"
         }
       ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/makarony-s-syrom-91462",
-      "fetchedAt": "2026-04-22T11:12:54.579Z"
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/govjadina-s-ustrichnim-sousom-36638",
+      "fetchedAt": "2026-04-22T11:44:57.152Z"
     },
     {
       "id": 28035,
@@ -2079,7 +1183,435 @@
         }
       ],
       "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/spagetti-alla-puttaneska-28035",
-      "fetchedAt": "2026-04-22T11:12:54.728Z"
+      "fetchedAt": "2026-04-22T11:44:58.097Z"
+    },
+    {
+      "id": 125397,
+      "sourceId": "125397",
+      "title": "Тайская жареная курица пад-капао",
+      "image": "https://s1.eda.ru/StaticContent/Photos/120214125404/180820210734/p_O.jpg",
+      "time": 20,
+      "difficulty": "Легко",
+      "diet": "meat",
+      "meatCategory": "no-red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "tayskaya-kuhnya",
+        "name": "Тайская кухня"
+      },
+      "portions": 2,
+      "ingredients": [
+        {
+          "name": "Филе куриного бедра",
+          "amount": 500,
+          "unit": "г"
+        },
+        {
+          "name": "Устричный соус",
+          "amount": 2,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Соевый соус",
+          "amount": 1,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Тростниковый сахар",
+          "amount": 1,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Растительное масло",
+          "amount": 60,
+          "unit": "мл"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 2,
+          "unit": "зубчик"
+        },
+        {
+          "name": "Тайский острый перец птичий глаз",
+          "amount": 4,
+          "unit": "штука"
+        },
+        {
+          "name": "Куриное яйцо",
+          "amount": 2,
+          "unit": "штука"
+        },
+        {
+          "name": "Базилик",
+          "amount": 20,
+          "unit": "г"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Подготовить необходимые ингредиенты.",
+          "timeMin": null
+        },
+        {
+          "text": "Смешать соевый соус с сахаром.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить устричный соус, перемешать до растворения сахара",
+          "timeMin": null
+        },
+        {
+          "text": "На плоской сковороде с растительным маслом поджарить глазунью.",
+          "timeMin": null
+        },
+        {
+          "text": "В воке разогреть растительное масло.",
+          "timeMin": null
+        },
+        {
+          "text": "Обжарить измельченный чеснок и чили в течение 30 секунд.",
+          "timeMin": null
+        },
+        {
+          "text": "Затем добавить мелко нарезанное мясо и жарить, помешивая, до готовности.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить к курице подготовленный соус и помешивать, пока все кусочки не покроются им равномерно.",
+          "timeMin": null
+        },
+        {
+          "text": "Снять вок с огня, добавить к курице листья базилика.",
+          "timeMin": null
+        },
+        {
+          "text": "Перемешать и сразу же подавать с яичницей.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 52,
+        "fat": 62,
+        "carbs": 16,
+        "kcal": 837
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "tayskaya-kuhnya",
+          "name": "Тайская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "gorjachie-zakuski",
+          "name": "Горячие закуски"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/pad-kapao-125397",
+      "fetchedAt": "2026-04-22T11:44:58.741Z"
+    },
+    {
+      "id": 30677,
+      "sourceId": "30677",
+      "title": "Курица с соусом из йогурта, кунжутных семечек, лимона и чеснока",
+      "image": "https://s1.eda.ru/StaticContent/Photos/120131083923/160415151012/p_O.jpg",
+      "time": 20,
+      "difficulty": "Легко",
+      "diet": "meat",
+      "meatCategory": "no-red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "avtorskaya-kuhnya",
+        "name": "Авторская кухня"
+      },
+      "portions": 6,
+      "ingredients": [
+        {
+          "name": "Картофель",
+          "amount": 600,
+          "unit": "г"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 2,
+          "unit": "зубчик"
+        },
+        {
+          "name": "Куриная голень",
+          "amount": 18,
+          "unit": "штука"
+        },
+        {
+          "name": "Лимон",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Сахар",
+          "amount": 1,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Соевый соус",
+          "amount": 50,
+          "unit": "мл"
+        },
+        {
+          "name": "Йогурт",
+          "amount": 300,
+          "unit": "мл"
+        },
+        {
+          "name": "Белый винный уксус",
+          "amount": 20,
+          "unit": "мл"
+        },
+        {
+          "name": "Мед",
+          "amount": 1,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Сливочное масло",
+          "amount": 50,
+          "unit": "г"
+        },
+        {
+          "name": "Оливковое масло",
+          "amount": 100,
+          "unit": "мл"
+        },
+        {
+          "name": "Кунжутное масло",
+          "amount": 50,
+          "unit": "мл"
+        },
+        {
+          "name": "Кунжутные семечки",
+          "amount": 50,
+          "unit": "г"
+        },
+        {
+          "name": "Тимьян",
+          "amount": 10,
+          "unit": "стебель"
+        },
+        {
+          "name": "Петрушка",
+          "amount": 20,
+          "unit": "г"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "С куриных голеней снять лишний жир, если он имеется.",
+          "timeMin": null
+        },
+        {
+          "text": "Курицу замариновать на полчаса в смеси соевого соуса, меда, оливкового масла, тимьяна, сахара, уксуса, соли и перца.",
+          "timeMin": null
+        },
+        {
+          "text": "Затем отправить на двадцать пять минут в разогретую до 180 градусов духовку.",
+          "timeMin": null
+        },
+        {
+          "text": "Картошку отварить и обжарить на сливочном масле.",
+          "timeMin": null
+        },
+        {
+          "text": "В блендер поместить кунжутные семечки, йогурт, петрушку, сок одного лимона, два зубчика чеснока и кунжутное масло, приправить солью и перцем и превратить в зеленый соус. Подавать курицу и картошку с соусом.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 38,
+        "fat": 57,
+        "carbs": 30,
+        "kcal": 777
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "avtorskaya-kuhnya",
+          "name": "Авторская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "oven-chicken",
+          "name": "Курица в духовке"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/kurica-s-sousom-iz-jogurta-kunzhutnih-semechek-limona-chesnoka-30677",
+      "fetchedAt": "2026-04-22T11:44:58.985Z"
+    },
+    {
+      "id": 92617,
+      "sourceId": "92617",
+      "title": "Цыпленок табака",
+      "image": "https://s1.eda.ru/StaticContent/Photos/120131082327/170426151534/p_O.jpg",
+      "time": 20,
+      "difficulty": "Легко",
+      "diet": "meat",
+      "meatCategory": "no-red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "gruzinskaya-kuhnya",
+        "name": "Грузинская кухня"
+      },
+      "portions": 3,
+      "ingredients": [
+        {
+          "name": "Цыпленок",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый красный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Растительное масло",
+          "amount": 80,
+          "unit": "мл"
+        },
+        {
+          "name": "Сливочное масло",
+          "amount": 100,
+          "unit": "г"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Подготовить необходимые ингредиенты.",
+          "timeMin": null
+        },
+        {
+          "text": "Разрезать грудку цыпленка посередине и раскрыть.",
+          "timeMin": null
+        },
+        {
+          "text": "Зачистить от вероятно оставшихся внутренних органов, отрезать гузку и срезать лишнюю кожу и жир.",
+          "timeMin": null
+        },
+        {
+          "text": "Развернуть тушку так, чтобы она стала плоской. Сломать сухожилия и отбить.",
+          "timeMin": null
+        },
+        {
+          "text": "Посыпать солью, перцами, смазать растительным маслом и оставить мариноваться на 30 минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Разогреть сковороду-гриль, влить растительное масло.",
+          "timeMin": null
+        },
+        {
+          "text": "Уложить тушку сначала внутренней стороной вниз, поставить гнет (подойдет кастрюля с водой) и жарить 6-8 минут на сильном огне, в зависимости от размера цыпленка.",
+          "timeMin": null
+        },
+        {
+          "text": "Затем снять гнет, перевернуть тушку и жарить еще 5-6 минут под гнетом, на среднем огне, до образования золотистой корочки.",
+          "timeMin": null
+        },
+        {
+          "text": "Снова убрать гнет, перевернуть цыпленка, добавить сливочное масло.",
+          "timeMin": null
+        },
+        {
+          "text": "Обжарить цыпленка еще по паре минут с каждой стороны уже без гнета. Подать.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 25,
+        "fat": 76,
+        "carbs": 1,
+        "kcal": 782
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "gruzinskaya-kuhnya",
+          "name": "Грузинская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "ciplenok-tabaka",
+          "name": "Цыпленок табака"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/cyplenok-tabaka-92617",
+      "fetchedAt": "2026-04-22T11:44:59.506Z"
     },
     {
       "id": 136871,
@@ -2228,7 +1760,708 @@
         }
       ],
       "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/steyk-s-perechnym-sousom-136871",
-      "fetchedAt": "2026-04-22T11:12:55.483Z"
+      "fetchedAt": "2026-04-22T11:45:00.205Z"
+    },
+    {
+      "id": 33381,
+      "sourceId": "33381",
+      "title": "Рубленый бифштекс с яйцом",
+      "image": "https://s1.eda.ru/StaticContent/Photos/130128172303/190506233045/p_O.jpg",
+      "time": 20,
+      "difficulty": "Легко",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "amerikanskaya-kuhnya",
+        "name": "Американская кухня"
+      },
+      "portions": 6,
+      "ingredients": [
+        {
+          "name": "Огузок говяжий",
+          "amount": 1.2,
+          "unit": "кг"
+        },
+        {
+          "name": "Говяжий жир",
+          "amount": 100,
+          "unit": "г"
+        },
+        {
+          "name": "Латук",
+          "amount": 2,
+          "unit": "штука"
+        },
+        {
+          "name": "Помидоры",
+          "amount": 3,
+          "unit": "штука"
+        },
+        {
+          "name": "Соленые огурцы",
+          "amount": 3,
+          "unit": "штука"
+        },
+        {
+          "name": "Сливочное масло",
+          "amount": 50,
+          "unit": "г"
+        },
+        {
+          "name": "Куриное яйцо",
+          "amount": 6,
+          "unit": "штука"
+        },
+        {
+          "name": "Соевый соус",
+          "amount": 1,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Растительное масло",
+          "amount": 50,
+          "unit": "мл"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Подготовить необходимые ингредиенты.",
+          "timeMin": null
+        },
+        {
+          "text": "Говядину нарезать небольшими кубиками.",
+          "timeMin": null
+        },
+        {
+          "text": "Посолить, залить соевым соусом, поперчить и отправить на два часа в холодильник. Соль и соус впитаются в мясо — это поможет связать белок, и котлета не будет рассыпаться.",
+          "timeMin": null
+        },
+        {
+          "text": "Провернуть мясо и жир в мясорубке.",
+          "timeMin": null
+        },
+        {
+          "text": "Завернуть фарш в пленку так, чтобы его нити не переплелись, сформировать толстую колбасу и поставить в холо­дильник еще на три часа.",
+          "timeMin": null
+        },
+        {
+          "text": "Фарш нарезать на котлеты ­толщиной 1,5–2 см.",
+          "timeMin": null
+        },
+        {
+          "text": "Обжарить на растительном масле до коричневой корочки с обеих сторон и поставить на пять минут в разогретую до 180 градусов духовку.",
+          "timeMin": null
+        },
+        {
+          "text": "Пожарить шесть глазуний на сливочном масле.",
+          "timeMin": null
+        },
+        {
+          "text": "Нарубить латук соломкой, выложить на тарелки.",
+          "timeMin": null
+        },
+        {
+          "text": "Сверху салата выложить котлету, несколько ломтиков помидора и огурца, накрыть яичницей и приправить солью и перцем.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 47,
+        "fat": 63,
+        "carbs": 4,
+        "kcal": 773
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "amerikanskaya-kuhnya",
+          "name": "Американская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "bifshteks",
+          "name": "Бифштекс"
+        },
+        {
+          "slug": "blyuda-iz-myasa",
+          "name": "Блюда из мяса"
+        },
+        {
+          "slug": "blyuda-iz-govyadiny",
+          "name": "Блюда из говядины"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/rublenyy-bifshteks-s-yaycom-33381",
+      "fetchedAt": "2026-04-22T11:45:00.840Z"
+    },
+    {
+      "id": 53038,
+      "sourceId": "53038",
+      "title": "Жареная камбала со сливочным маслом",
+      "image": "https://s1.eda.ru/StaticContent/Photos/130128172303/190506224326/p_O.jpg",
+      "time": 20,
+      "difficulty": "Легко",
+      "diet": "meat",
+      "meatCategory": "no-red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "francuzskaya-kuhnya",
+        "name": "Французская кухня"
+      },
+      "portions": 2,
+      "ingredients": [
+        {
+          "name": "Камбала",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Растительное масло",
+          "amount": 50,
+          "unit": "мл"
+        },
+        {
+          "name": "Пшеничная мука",
+          "amount": 100,
+          "unit": "г"
+        },
+        {
+          "name": "Куриное яйцо",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Сливочное масло",
+          "amount": 20,
+          "unit": "г"
+        },
+        {
+          "name": "Лимон",
+          "amount": 0.5,
+          "unit": "штука"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Подготовить необходимые ингредиенты",
+          "timeMin": null
+        },
+        {
+          "text": "Яйцо взбить вилкой, смешать с солью и перцем.",
+          "timeMin": null
+        },
+        {
+          "text": "Камбалу очистить, отрезать голову, плавники, выпотрошить. Хвост можно оставить. Лучше брать небольшую, порционную камбалу — так, чтобы она целиком влезла на сковороду. Обвалять камбалу в муке.",
+          "timeMin": null
+        },
+        {
+          "text": "Потом в яйце.",
+          "timeMin": null
+        },
+        {
+          "text": "Затем сново в муке.",
+          "timeMin": null
+        },
+        {
+          "text": "Разогреть на сковороде растительное масло.",
+          "timeMin": null
+        },
+        {
+          "text": "Обжарить рыбу с двух сторон на раскаленной сковороде на растительном масле (примерно по 5 минут с каждой стороны).",
+          "timeMin": null
+        },
+        {
+          "text": "В самом конце жарки добавить немного сливочного масла, чтобы придать сливочный вкус.",
+          "timeMin": null
+        },
+        {
+          "text": "Вынуть камбалу из сковороды.",
+          "timeMin": null
+        },
+        {
+          "text": "Сбрызнуть лимонным соком, подать.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 50,
+        "fat": 42,
+        "carbs": 39,
+        "kcal": 730
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "francuzskaya-kuhnya",
+          "name": "Французская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "k-ribe",
+          "name": "Соусы к рыбе"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/zharenaja-kambala-so-slivochnim-maslom-53038",
+      "fetchedAt": "2026-04-22T11:45:01.337Z"
+    },
+    {
+      "id": 30393,
+      "sourceId": "30393",
+      "title": "Гамбургер «Скандинавия»",
+      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/150601195902/150610151102/p_O.jpg",
+      "time": 15,
+      "difficulty": "Легко",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "amerikanskaya-kuhnya",
+        "name": "Американская кухня"
+      },
+      "portions": 1,
+      "ingredients": [
+        {
+          "name": "Бекон",
+          "amount": 2,
+          "unit": "кусок"
+        },
+        {
+          "name": "Говяжья вырезка",
+          "amount": 250,
+          "unit": "г"
+        },
+        {
+          "name": "Сыр чеддер",
+          "amount": 40,
+          "unit": "г"
+        },
+        {
+          "name": "Маринованные огурцы",
+          "amount": 2,
+          "unit": "штука"
+        },
+        {
+          "name": "Салат айсберг",
+          "amount": 3,
+          "unit": "пучок"
+        },
+        {
+          "name": "Помидоры",
+          "amount": 0.5,
+          "unit": "штука"
+        },
+        {
+          "name": "Красный лук",
+          "amount": 0.5,
+          "unit": "головка"
+        },
+        {
+          "name": "Булочка с кунжутом",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Белый лук",
+          "amount": 0.3333,
+          "unit": "головка"
+        },
+        {
+          "name": "Оливковое масло",
+          "amount": 1,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Кетчуп",
+          "amount": 1.5,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Коричневый соус HP",
+          "amount": 1,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Майонез",
+          "amount": 2,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "TABASCO®",
+          "amount": 1,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Вустерширский соус",
+          "amount": 0.5,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Коньяк",
+          "amount": 1.5,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Говядину пропустить через мясорубку, добавить масло, столовую ложку кетчупа, посолить и поперчить. Перемешать руками (если пользоваться комбайном, мясо будет волокнистым) до однородности. Сформировать котлету: заполнить фаршем кулинарное кольцо и утрамбовать.",
+          "timeMin": null
+        },
+        {
+          "text": "Очень мелко нарезать мари­но­ванный огурец, измельчить белый лук. Смешать огурец и лук с майонезом, половиной столовой ложки кетчупа, соу­сом HP, табаско и вустерширским соусом. Добавить главный ингредиент — коньяк.",
+          "timeMin": null
+        },
+        {
+          "text": "Половину помидора и красный лук нарезать тонкими кольцами. Листья салата «Айсберг» аккуратно, стараясь не повредить, сложить в виде лодочки. Выложить на салат слайсы помидора и красного лука, слегка примять руками.",
+          "timeMin": null
+        },
+        {
+          "text": "Мясо, булочку и бекон поджарить на гриле (подойдет и ско­ворода гриль). Булочке достаточно тридцати секунд, чтобы подрумяниться, бекону — полминуты с каждой стороны, а средняя степень прожарки мяса потребует минут четырех-пяти. За минуту до готовности положить на котлету сыр и дать ему расплавиться.",
+          "timeMin": null
+        },
+        {
+          "text": "На половине поджаренной булочки разместить лодочку из ­салата с ломтиками помидора и лука, полить двумя-тремя столовыми ложками соуса, сверху выложить котлету с сыром чеддер и бекон, накрыть второй ­половиной булочки. Гарниром к гам­бургеру будет маринованный огурец, разрезанный на четыре части.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 83,
+        "fat": 97,
+        "carbs": 107,
+        "kcal": 1667
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "amerikanskaya-kuhnya",
+          "name": "Американская кухня"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "gamburger",
+          "name": "Гамбургер"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/gamburger-skandinavija-30393",
+      "fetchedAt": "2026-04-22T11:45:02.158Z"
+    },
+    {
+      "id": 49064,
+      "sourceId": "49064",
+      "title": "Оладьи из куриной печени",
+      "image": "https://s1.eda.ru/StaticContent/Photos/170224233526/210628224432/p_O.jpg",
+      "time": 20,
+      "difficulty": "Легко",
+      "diet": "meat",
+      "meatCategory": "no-red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "evropeyskaya-kuhnya",
+        "name": "Европейская кухня"
+      },
+      "portions": 4,
+      "ingredients": [
+        {
+          "name": "Куриная печень",
+          "amount": 500,
+          "unit": "г"
+        },
+        {
+          "name": "Репчатый лук",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Куриное яйцо",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Пшеничная мука",
+          "amount": 2,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Растительное масло",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "С печени срезать прожилки.",
+          "timeMin": null
+        },
+        {
+          "text": "Лук очистить и крупно нарезать.",
+          "timeMin": null
+        },
+        {
+          "text": "Перемешать печень, лук, яйцо и муку в блендере.",
+          "timeMin": null
+        },
+        {
+          "text": "Сковородку средней толщины разогреть и протереть маслом. Можно протирать смазанной маслом салфеткой или нанизанной на вилку половиной очищенной сырой картофелины — также смазанной маслом. Масла нужно немного, чтобы оладьи получались нежными.",
+          "timeMin": null
+        },
+        {
+          "text": "Обжаривать с двух сторон около 1 минуты — тогда они получаются супернежными.",
+          "timeMin": null
+        },
+        {
+          "text": "Подавать со сметаной или с натуральным йогуртом.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 27,
+        "fat": 10,
+        "carbs": 10,
+        "kcal": 233
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "evropeyskaya-kuhnya",
+          "name": "Европейская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "oladji",
+          "name": "Оладьи"
+        },
+        {
+          "slug": "pechenochie-oladji",
+          "name": "Печеночные оладьи"
+        },
+        {
+          "slug": "blyuda-s-pechenyu",
+          "name": "Блюда с печенью"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/oladi-iz-kurinoy-pecheni-49064",
+      "fetchedAt": "2026-04-22T11:45:02.572Z"
+    },
+    {
+      "id": 57702,
+      "sourceId": "57702",
+      "title": "Венский шницель на растительном масле",
+      "image": "https://s1.eda.ru/StaticContent/Photos/2/5c/25c76fdfb45d426d92f6e8990cb4f9cf.jpg",
+      "time": 20,
+      "difficulty": "Легко",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "avstriyskaya-kuhnya",
+        "name": "Австрийская кухня"
+      },
+      "portions": 6,
+      "ingredients": [
+        {
+          "name": "Куриное яйцо",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Молоко",
+          "amount": 1,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Оливковое масло",
+          "amount": 1,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Пшеничная мука",
+          "amount": 200,
+          "unit": "г"
+        },
+        {
+          "name": "Панировочные сухари",
+          "amount": 200,
+          "unit": "г"
+        },
+        {
+          "name": "Эскалоп из телятины",
+          "amount": 4,
+          "unit": "штука"
+        },
+        {
+          "name": "Лимон",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Смешать в тарелке яйцо с молоком и растительным маслом. Посолить и поперчить. В другую тарелку насыпать немного муки. Наконец, в третью тарелку насыпать панировочные сухари.",
+          "timeMin": null
+        },
+        {
+          "text": "С помощью скалки отбить эскалопы, чтобы они стали мягче.",
+          "timeMin": null
+        },
+        {
+          "text": "Затем последовательно обвалять их в муке, в яичной смеси и в сухарях.",
+          "timeMin": null
+        },
+        {
+          "text": "Обжарить на горячей сковороде в небольшом количестве растительного масла. Когда они будут наполовину готовы, перевернуть на другую сторону.",
+          "timeMin": null
+        },
+        {
+          "text": "Подать к эскалопам по четвертинке лимона.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 40,
+        "fat": 77,
+        "carbs": 63,
+        "kcal": 1092
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "avstriyskaya-kuhnya",
+          "name": "Австрийская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "shnicelj",
+          "name": "Шницель"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/venskiy-shnicel-57702",
+      "fetchedAt": "2026-04-22T11:45:03.324Z"
     },
     {
       "id": 33930,
@@ -2357,15 +2590,107 @@
         }
       ],
       "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/myasnye-kotlety-s-syrom-33930",
-      "fetchedAt": "2026-04-22T11:12:56.160Z"
+      "fetchedAt": "2026-04-22T11:45:03.956Z"
     },
     {
-      "id": 125397,
-      "sourceId": "125397",
-      "title": "Тайская жареная курица пад-капао",
-      "image": "https://s1.eda.ru/StaticContent/Photos/120214125404/180820210734/p_O.jpg",
-      "time": 20,
+      "id": 91462,
+      "sourceId": "91462",
+      "title": "Макароны с сыром",
+      "image": "https://s1.eda.ru/StaticContent/Photos/161125164152/161208203008/p_O.jpg",
+      "time": 15,
       "difficulty": "Легко",
+      "diet": "vegetarian",
+      "meatCategory": "vegetarian",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "russkaya-kuhnya",
+        "name": "Русская кухня"
+      },
+      "portions": 4,
+      "ingredients": [
+        {
+          "name": "Макароны",
+          "amount": 320,
+          "unit": "г"
+        },
+        {
+          "name": "Сыр",
+          "amount": 100,
+          "unit": "г"
+        },
+        {
+          "name": "Сливочное масло",
+          "amount": 50,
+          "unit": "г"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "В посуду с кипящей подсоленной водой (5–6 л на 1 кг макаронных изделий и 50 г соли) засыпать подготовленные изделия и варить до размягчения в бурно кипящей воде, периодически помешивая деревянной веселкой, чтобы не допускать прилипания их к дну посуды. Соотношение 5–6 л воды на 1 кг изделий необходимо потому, что после закладки макаронных изделий вода охлаждается и, пока она нагревается, макаронные изделия разрыхляются, а их внешний вид и консистенция после готовности ухудшаются. Поэтому чем больше соотношение воды и макарон, тем быстрее закипит вода после закладки макаронных изделий, тем выше будет качество готового блюда. Продолжительность варки зависит от вида\r\nмакаронных изделий. Макароны варят 20–30 мин, вермишель – 10–15, лапшу – 20– 25 мин.",
+          "timeMin": null
+        },
+        {
+          "text": "Сваренные макаронные изделия откинуть на сито (дуршлаг), дать стечь отвару, переложить изделия в посуду с растопленным маслом и перемешать деревянной веселкой, чтобы они не склеивались и не образовали комков. При варке макаронные изделия увеличиваются в массе в 2,5–3 раза за счет поглощения воды клейстеризующимся крахмалом.",
+          "timeMin": null
+        },
+        {
+          "text": "Сыр или брынзу натереть на терке. Макароны заправить сливочным маслом или маргарином, при отпуске\r\nпосыпать тертым сыром. Можно подать тертый сыр отдельно на розетке.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 14,
+        "fat": 19,
+        "carbs": 56,
+        "kcal": 454
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "russkaya-kuhnya",
+          "name": "Русская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "makaroni",
+          "name": "Макароны"
+        },
+        {
+          "slug": "garnir",
+          "name": "Гарнир"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/makarony-s-syrom-91462",
+      "fetchedAt": "2026-04-22T11:45:04.228Z"
+    },
+    {
+      "id": 31593,
+      "sourceId": "31593",
+      "title": "Куриная печень в сметане",
+      "image": "https://s1.eda.ru/StaticContent/Photos/130907154434/190823113920/p_O.jpg",
+      "time": 30,
+      "difficulty": "Средне",
       "diet": "meat",
       "meatCategory": "no-red-meat",
       "mealType": "main",
@@ -2374,55 +2699,40 @@
         "name": "Основные блюда"
       },
       "cuisine": {
-        "slug": "tayskaya-kuhnya",
-        "name": "Тайская кухня"
+        "slug": "russkaya-kuhnya",
+        "name": "Русская кухня"
       },
-      "portions": 2,
+      "portions": 4,
       "ingredients": [
         {
-          "name": "Филе куриного бедра",
+          "name": "Куриная печень",
+          "amount": 600,
+          "unit": "г"
+        },
+        {
+          "name": "Сметана 20%-ная",
           "amount": 500,
           "unit": "г"
         },
         {
-          "name": "Устричный соус",
-          "amount": 2,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Соевый соус",
+          "name": "Репчатый лук",
           "amount": 1,
-          "unit": "столовая ложка"
+          "unit": "головка"
         },
         {
-          "name": "Тростниковый сахар",
-          "amount": 1,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 60,
-          "unit": "мл"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 2,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Тайский острый перец птичий глаз",
-          "amount": 4,
-          "unit": "штука"
-        },
-        {
-          "name": "Куриное яйцо",
-          "amount": 2,
-          "unit": "штука"
-        },
-        {
-          "name": "Базилик",
+          "name": "Сливочное масло",
           "amount": 20,
           "unit": "г"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
         }
       ],
       "steps": [
@@ -2431,47 +2741,47 @@
           "timeMin": null
         },
         {
-          "text": "Смешать соевый соус с сахаром.",
+          "text": "Печень промыть. Если есть время вымочить в молоке минут 20, будет еще нежнее. Если времени нет, то можно и не вымачивать. Обрезать прожилки.",
           "timeMin": null
         },
         {
-          "text": "Добавить устричный соус, перемешать до растворения сахара",
+          "text": "Порезать на небольшие кусочки.",
           "timeMin": null
         },
         {
-          "text": "На плоской сковороде с растительным маслом поджарить глазунью.",
+          "text": "Нарезать слайсами лук.",
           "timeMin": null
         },
         {
-          "text": "В воке разогреть растительное масло.",
+          "text": "Растопить масло на сковороде.",
           "timeMin": null
         },
         {
-          "text": "Обжарить измельченный чеснок и чили в течение 30 секунд.",
+          "text": "Обжарить лук до золотистого цвета на сливочном масле.",
           "timeMin": null
         },
         {
-          "text": "Затем добавить мелко нарезанное мясо и жарить, помешивая, до готовности.",
+          "text": "Добавить печень. Обжаривать минут 5–7, пока не пропадет красный цвет.",
           "timeMin": null
         },
         {
-          "text": "Добавить к курице подготовленный соус и помешивать, пока все кусочки не покроются им равномерно.",
+          "text": "Посолить, поперчить.",
           "timeMin": null
         },
         {
-          "text": "Снять вок с огня, добавить к курице листья базилика.",
+          "text": "Залить сметаной.",
           "timeMin": null
         },
         {
-          "text": "Перемешать и сразу же подавать с яичницей.",
+          "text": "Тушить на среднем огне минут 10.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 52,
-        "fat": 62,
-        "carbs": 16,
-        "kcal": 837
+        "protein": 33,
+        "fat": 39,
+        "carbs": 8,
+        "kcal": 511
       },
       "tags": [
         {
@@ -2479,8 +2789,428 @@
           "name": "Основные блюда"
         },
         {
-          "slug": "tayskaya-kuhnya",
-          "name": "Тайская кухня"
+          "slug": "russkaya-kuhnya",
+          "name": "Русская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "blyuda-iz-ptitzy",
+          "name": "Блюда из птицы"
+        },
+        {
+          "slug": "blyuda-iz-kuricy",
+          "name": "Блюда из курицы"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/kurinaya-pechen-v-smetane-31593",
+      "fetchedAt": "2026-04-22T11:45:04.486Z"
+    },
+    {
+      "id": 29886,
+      "sourceId": "29886",
+      "title": "Пельмени с говядиной",
+      "image": "https://s1.eda.ru/StaticContent/Photos/120131084114/150615155925/p_O.jpg",
+      "time": 30,
+      "difficulty": "Средне",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "russkaya-kuhnya",
+        "name": "Русская кухня"
+      },
+      "portions": 10,
+      "ingredients": [
+        {
+          "name": "Тесто для пельменей",
+          "amount": 800,
+          "unit": "г"
+        },
+        {
+          "name": "Говяжья грудинка",
+          "amount": 800,
+          "unit": "г"
+        },
+        {
+          "name": "Репчатый лук",
+          "amount": 150,
+          "unit": "г"
+        },
+        {
+          "name": "Петрушка",
+          "amount": 20,
+          "unit": "г"
+        },
+        {
+          "name": "Сливочное масло",
+          "amount": 70,
+          "unit": "г"
+        },
+        {
+          "name": "Укроп",
+          "amount": 3,
+          "unit": "стебель"
+        },
+        {
+          "name": "Лавровый лист",
+          "amount": 3,
+          "unit": "штука"
+        },
+        {
+          "name": "Черный перец горошком",
+          "amount": 4,
+          "unit": "г"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Сметана",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Для фарша не очень жирную грудинку прокрутить вместе со сливочным маслом через мясорубку.",
+          "timeMin": null
+        },
+        {
+          "text": "Нарезать мелко лук и петрушку.",
+          "timeMin": null
+        },
+        {
+          "text": "Лук пропассеровать на подсолнечном масле.",
+          "timeMin": null
+        },
+        {
+          "text": "Фарш посолить и поперчить по вкусу,",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить в фарш измельченную петрушку и пассерованный лук.",
+          "timeMin": null
+        },
+        {
+          "text": "Все хорошо перемешать и убрать в холодильник ровно на час, чтобы фарш окреп и стал эластичным.",
+          "timeMin": null
+        },
+        {
+          "text": "Тесто раскатать скалкой до толщины 1 мм и вырезать из него кружки диаметром 4,5 см.",
+          "timeMin": null
+        },
+        {
+          "text": "Выложить на каждый по 5 грамм начинки, свернуть пополам, защипнуть края и соединить уголки.",
+          "timeMin": null
+        },
+        {
+          "text": "Подготовить бульон: налить в кастрюлю 5 литров воды, посолить, положить лавровый лист, черный перец горошком и веточки укропа целиком. В кипящую воду бросить пельмени и варить 5–6 минут до готов­ности.",
+          "timeMin": null
+        },
+        {
+          "text": "Подать со сметаной.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 22,
+        "fat": 20,
+        "carbs": 43,
+        "kcal": 424
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "russkaya-kuhnya",
+          "name": "Русская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "peljmeni",
+          "name": "Пельмени"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/pelmeni-s-govjadinoj-29886",
+      "fetchedAt": "2026-04-22T11:45:04.743Z"
+    },
+    {
+      "id": 21751,
+      "sourceId": "21751",
+      "title": "Азу по-татарски",
+      "image": "https://s1.eda.ru/StaticContent/Photos/140802212008/160519080709/p_O.jpg",
+      "time": 30,
+      "difficulty": "Средне",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "tatarskaya-kuhnya",
+        "name": "Татарская кухня"
+      },
+      "portions": 4,
+      "ingredients": [
+        {
+          "name": "Говядина",
+          "amount": 500,
+          "unit": "г"
+        },
+        {
+          "name": "Репчатый лук",
+          "amount": 5,
+          "unit": "головка"
+        },
+        {
+          "name": "Соленые огурцы",
+          "amount": 3,
+          "unit": "штука"
+        },
+        {
+          "name": "Томатная паста ",
+          "amount": 2,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Картофель",
+          "amount": 1,
+          "unit": "кг"
+        },
+        {
+          "name": "Мясной бульон",
+          "amount": 1,
+          "unit": "стакан"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 3,
+          "unit": "зубчик"
+        },
+        {
+          "name": "Растительное масло",
+          "amount": 50,
+          "unit": "мл"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Мясо промыть, нарезать соломкой и слегка обжарить в казане в разогретом растительном масле.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить порезанный тонкими полукольцами лук и обжаривать мясо с луком до мягкости лука.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить томатную пасту, мелко нарезанные или тертые на крупной терке огурцы. Залить водой или бульоном и тушить под крышкой до полной готовности мяса.",
+          "timeMin": null
+        },
+        {
+          "text": "В отдельной сковороде обжарить нарезанный соломкой картофель.",
+          "timeMin": null
+        },
+        {
+          "text": "Когда картофель будет почти готов, переложить его в казан с тушеным мясом, добавить, соль, перец, лавровый лист и пропущенный через чеснокодавилку или мелко порезанный чеснок.",
+          "timeMin": null
+        },
+        {
+          "text": "Осторожно перемешать и тушить картофель с мясом до готовности примерно 5-7 минут.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 33,
+        "fat": 29,
+        "carbs": 66,
+        "kcal": 637
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "tatarskaya-kuhnya",
+          "name": "Татарская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "azu",
+          "name": "Азу"
+        },
+        {
+          "slug": "prostye-v-duhovke",
+          "name": "Простые в духовке"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/azu-po-tatarski-21751",
+      "fetchedAt": "2026-04-22T11:45:05.080Z"
+    },
+    {
+      "id": 91879,
+      "sourceId": "91879",
+      "title": "Кордон-блю",
+      "image": "https://s1.eda.ru/StaticContent/Photos/120131082141/170407154955/p_O.jpg",
+      "time": 40,
+      "difficulty": "Средне",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "francuzskaya-kuhnya",
+        "name": "Французская кухня"
+      },
+      "portions": 4,
+      "ingredients": [
+        {
+          "name": "Куриное филе",
+          "amount": 2,
+          "unit": "штука"
+        },
+        {
+          "name": "Ветчина",
+          "amount": 70,
+          "unit": "г"
+        },
+        {
+          "name": "Швейцарский сыр",
+          "amount": 70,
+          "unit": "г"
+        },
+        {
+          "name": "Растительное масло",
+          "amount": 500,
+          "unit": "мл"
+        },
+        {
+          "name": "Куриное яйцо",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Пшеничная мука",
+          "amount": 100,
+          "unit": "г"
+        },
+        {
+          "name": "Панировочные сухари",
+          "amount": 100,
+          "unit": "г"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Подготовить необходимые ингредиенты.",
+          "timeMin": null
+        },
+        {
+          "text": "Куриное филе надрезать вдоль и раскрыть как книгу.",
+          "timeMin": null
+        },
+        {
+          "text": "Накрыть пищевой пленкой и отбить.",
+          "timeMin": null
+        },
+        {
+          "text": "На филе выложить тонкие ломтики ветчины и сыра.",
+          "timeMin": null
+        },
+        {
+          "text": "Закрыть филе так, чтобы сыр не вытек. Плотно завернуть курицу в пищевую пленку и убрать в холодильник на 1 час.",
+          "timeMin": null
+        },
+        {
+          "text": "Спустя 1 час обвалять рулетики в муке. Затем окунуть во взбитое яйцо.",
+          "timeMin": null
+        },
+        {
+          "text": "Покрыть панировочными сухарями.",
+          "timeMin": null
+        },
+        {
+          "text": "Обжарить курицу с двух сторон в растительном масле так, чтобы рулетики наполовину были погружены в него.",
+          "timeMin": null
+        },
+        {
+          "text": "Затем выложить на бумажные полотенца, чтобы избавиться от лишнего жира.",
+          "timeMin": null
+        },
+        {
+          "text": "В разогретой до 180 градусов духовке довести филе до готовности в течение 10–20 минут, в зависимости от размера филе.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 37,
+        "fat": 138,
+        "carbs": 38,
+        "kcal": 1546
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "francuzskaya-kuhnya",
+          "name": "Французская кухня"
         },
         {
           "slug": "videorecepty",
@@ -2497,16 +3227,16 @@
           "name": "Горячие закуски"
         }
       ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/pad-kapao-125397",
-      "fetchedAt": "2026-04-22T11:12:57.097Z"
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/kordon-ble-91879",
+      "fetchedAt": "2026-04-22T11:45:05.299Z"
     },
     {
-      "id": 57092,
-      "sourceId": "57092",
-      "title": "Острое блюдо из нута, томатов и шпината",
-      "image": "https://s1.eda.ru/StaticContent/OpenGraphImages/57092.jpg",
-      "time": 40,
-      "difficulty": "Средне",
+      "id": 17587,
+      "sourceId": "17587",
+      "title": "Гратен дофинуа",
+      "image": "https://s1.eda.ru/StaticContent/Photos/151002075307/151009125656/p_O.jpg",
+      "time": 65,
+      "difficulty": "Посложнее",
       "diet": "vegetarian",
       "meatCategory": "vegetarian",
       "mealType": "main",
@@ -2515,137 +3245,99 @@
         "name": "Основные блюда"
       },
       "cuisine": {
-        "slug": "evropeyskaya-kuhnya",
-        "name": "Европейская кухня"
+        "slug": "francuzskaya-kuhnya",
+        "name": "Французская кухня"
       },
-      "portions": 6,
+      "portions": 4,
       "ingredients": [
         {
-          "name": "Репчатый лук",
-          "amount": 1,
-          "unit": "головка"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 2,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Тертый имбирь",
-          "amount": 1,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Помидоры",
-          "amount": 6,
-          "unit": "штука"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 0.5,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Молотый тмин",
-          "amount": 1,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Молотый кориандр ",
-          "amount": 2,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Куркума",
-          "amount": 1,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Перец чили хлопьями",
-          "amount": 0,
-          "unit": "щепотка"
-        },
-        {
-          "name": "Сухие дрожжи",
-          "amount": 1,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Красная чечевица",
-          "amount": 4,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Кокосовый крем",
-          "amount": 200,
-          "unit": "мл"
-        },
-        {
-          "name": "Капуста брокколи",
-          "amount": 1,
-          "unit": "головка"
-        },
-        {
-          "name": "Консервированный нут",
-          "amount": 400,
+          "name": "Картофель",
+          "amount": 600,
           "unit": "г"
         },
         {
-          "name": "Шпинат",
+          "name": "Молоко",
+          "amount": 300,
+          "unit": "мл"
+        },
+        {
+          "name": "Сливки 33%-ные",
+          "amount": 100,
+          "unit": "мл"
+        },
+        {
+          "name": "Мускатный орех",
+          "amount": 0.5,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Сыр грюйер",
           "amount": 100,
           "unit": "г"
         },
         {
-          "name": "Лимон",
-          "amount": 1,
-          "unit": "штука"
+          "name": "Чеснок",
+          "amount": 4,
+          "unit": "зубчик"
         },
         {
-          "name": "Жареный кунжут",
-          "amount": 1,
-          "unit": "столовая ложка"
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
         },
         {
-          "name": "Кешью",
-          "amount": 1,
-          "unit": "столовая ложка"
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
         }
       ],
       "steps": [
         {
-          "text": "Смешайте лук, чеснок, имбирь и томаты в блендере и измельчите до состояния пюре.",
+          "text": "Очистить картошку и нарезать ее тонкими дольками (2–3 мм) — ножом, на терке, удобнее всего на мандолине. Тонко настрогав картошку, не мойте ее, чтобы с водой не выплеснуть крахмал, который понадобится для сгущения сливок.",
           "timeMin": null
         },
         {
-          "text": "Нагрейте масло в большой сковороде.",
+          "text": "В кастрюле на среднем огне довести до кипения молоко и сливки.",
           "timeMin": null
         },
         {
-          "text": "Добавьте приправы, жарьте несколько секунд и добавьте пюре и дрожжи.",
+          "text": "В смесь добавить тертый сыр.",
           "timeMin": null
         },
         {
-          "text": "Варите в течение 2 минут, затем добавьте чечевицу и кокосовый крем.",
+          "text": "Приправить мускатным орехом, солью и перцем.",
           "timeMin": null
         },
         {
-          "text": "Готовьте, пока чечевица не размякнет, затем добавьте брокколи и варите 4 минуты.",
+          "text": "Добавить картошку и перемешать, чтобы картофель покрылся слоем сливок.",
           "timeMin": null
         },
         {
-          "text": "Добавьте нут и шпинат. Выдавите лимонный сок.",
+          "text": "Убавить огонь и варить восемь-десять минут, помешивая, чтобы смесь не прилипла ко дну кастрюли. После того как картошка будет готова, что легко проверить на вкус, вмешать в альянс молока, картофеля и сливок тертый сыр и затем снять кастрюлю с огня.",
           "timeMin": null
         },
         {
-          "text": "Добавьте семена кунжута и кешью. Перемешайте. Подавайте с коричневым рисом по желанию.",
+          "text": "Добавить раздавленный чеснок и смешать его с картофелем и всем прочим.",
+          "timeMin": null
+        },
+        {
+          "text": "Смесь перелить в глубокую форму и поставить запекаться в духовку, разогретую до 120 градусов на двадцать пять минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Гратен готов, когда кончик острого ножа легко пронзает его (при этом нож не должен входить как в масло, какое-то невесомое сопротивление вы все-таки должны ощущать). Чтобы запеканка подрумянилась, нужно постаивть ее на самую верхнюю полку в духовке и включить максимальный огонь примерно на минуту.",
+          "timeMin": null
+        },
+        {
+          "text": "Перед подачей дать картофелю чуть-чуть остыть, чтобы сырно-сливочный соус слегка загустел.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 16,
-        "fat": 13,
-        "carbs": 37,
-        "kcal": 317
+        "protein": 13,
+        "fat": 20,
+        "carbs": 34,
+        "kcal": 362
       },
       "tags": [
         {
@@ -2653,12 +3345,492 @@
           "name": "Основные блюда"
         },
         {
-          "slug": "evropeyskaya-kuhnya",
-          "name": "Европейская кухня"
+          "slug": "francuzskaya-kuhnya",
+          "name": "Французская кухня"
         },
         {
-          "slug": "veganskaya-eda",
-          "name": "Веганская еда"
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "graten",
+          "name": "Гратен"
+        },
+        {
+          "slug": "prostye-v-duhovke",
+          "name": "Простые в духовке"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/graten-dofinua-17587",
+      "fetchedAt": "2026-04-22T11:45:05.533Z"
+    },
+    {
+      "id": 27690,
+      "sourceId": "27690",
+      "title": "Ферганский плов",
+      "image": "https://s1.eda.ru/StaticContent/Photos/170305005240/201103115506/p_O.jpg",
+      "time": 90,
+      "difficulty": "Посложнее",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "uzbekskaya-kuhnya",
+        "name": "Узбекская кухня"
+      },
+      "portions": 10,
+      "ingredients": [
+        {
+          "name": "Рис девзира",
+          "amount": 1,
+          "unit": "кг"
+        },
+        {
+          "name": "Баранина на кости",
+          "amount": 1,
+          "unit": "кг"
+        },
+        {
+          "name": "Курдючное сало",
+          "amount": 400,
+          "unit": "г"
+        },
+        {
+          "name": "Крупная соль",
+          "amount": 2,
+          "unit": "столовая ложка"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 2,
+          "unit": "головка"
+        },
+        {
+          "name": "Желтая морковь",
+          "amount": 1,
+          "unit": "кг"
+        },
+        {
+          "name": "Репчатый лук",
+          "amount": 100,
+          "unit": "г"
+        },
+        {
+          "name": "Молотый кумин (зира) ",
+          "amount": 1,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Перец чили",
+          "amount": 2,
+          "unit": "штука"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Подготовить необходимые продукты.",
+          "timeMin": null
+        },
+        {
+          "text": "Девзиру тщательно перебрать, чтобы не осталось мелких камней и щепок. Сложить рис в миску, добавить две столовые ложки каменной соли и залить двумя литрами холодной воды. В таком виде рис должен простоять хотя бы полчаса. Как только вы зальете рис водой, он станет почти прозрачным, и определить, достаточно ли замочился рис, можно по внешнему виду: когда он станет матовым, можно промывать, иначе зерна могут раскрошиться.",
+          "timeMin": null
+        },
+        {
+          "text": "Баранину очистить от прожилок, пленок и жира — если невнимательно к этому отнестись, у мяса может быть неприятный дух. Снять мясо с кости. Кости нарубить удобными для манипуляций кусками, мясо — кубиками со стороной примерно три сантиметра.",
+          "timeMin": null
+        },
+        {
+          "text": "Нарезать морковь толстой соломкой, во всю длину клубня и толщиной три-четыре миллиметра. Лук нарезать не слишком тонкими полукольцами или чуть мельче.",
+          "timeMin": null
+        },
+        {
+          "text": "Нарезать курдючный жир — кубиками примерно того же размера, что мясо. Сложить его в горячий казан — курдюк станет пузыриться и плавиться, надо, не помешивая, дождаться, когда пузыри исчезнут, и тогда перевернуть слипшийся комок. Жир надо вытапливать на среднем огне, чтобы он получился прозрачным. Когда в казане останется только вытопленный жир и шкварки, вытащить их.",
+          "timeMin": null
+        },
+        {
+          "text": "Прибавить огня и разогреть жир до сизого дымка. Обжарить в нем кости до коричневой корочки, затем лук — до золотистости. Затем опустить по стенкам мясо. Пока оно полежит на стенках, успеет нагреться и уже не так снизит температуру кипящего жира. Минут через пять перемешать мясо с жиром на дне казана, добавить зиру и жарить, помешивая, до золотистой корочки. Следующий шаг — морковь, жарить и ее до мягкости. Тогда залить казан холодной водой, чтобы жидкость целиком покрыла его содержимое, довести до кипения и снизить огонь до среднего.",
+          "timeMin": null
+        },
+        {
+          "text": "Положить в зирвак (так называется жидкая среда, которая образуется в казане) очищенные от верхней шелухи целые головки молодого чеснока и перцы чили. Томить все вместе тридцать минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Промыть замоченный рис. Делать это надо осторожно: поставить миску под струю холодной воды и слегка наклонить, чтобы вода потихоньку стекала с одной стороны. Тереть рис нельзя, иначе он будет ломаться, лучше слегка подбрасывать в миске",
+          "timeMin": null
+        },
+        {
+          "text": "Вытащить из казана кости — если не убрать их до того, как засыпать рис, они замедлят варку и рядом с каждой образуется ­комок недоваренного риса, который по зернышку будет попадаться в каждой ложке.",
+          "timeMin": null
+        },
+        {
+          "text": "Тогда довести зирвак до сильного кипения и разложить равномерно поверх мяса рис. Долить кипятка так, чтобы он покрывал рис на сантиметр, и следить, чтобы кипение происходило не только в центре казана, но и по краям. Для этого можно перекладывать рис из зоны тихого кипения туда, где хорошо бурлит.",
+          "timeMin": null
+        },
+        {
+          "text": "Варить рис до почти полной готовности — что-то вроде 90%-ной готовности, это то состояние, когда пробуешь и думаешь: почти, еще совсем чуть-чуть. Если рис еще совсем сырой, а вода успела испариться, можно долить немного кипятка. Один раз в самом конце надо увеличить огонь, накрыть казан крышкой и дать зирваку активно закипеть, чтобы жир поднялся наверх и впитался в рис. В конце понизить огонь до минимального и дать настояться двадцать минут.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 26,
+        "fat": 54,
+        "carbs": 84,
+        "kcal": 914
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "uzbekskaya-kuhnya",
+          "name": "Узбекская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "plov",
+          "name": "Плов"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/ferganskiy-plov-27690",
+      "fetchedAt": "2026-04-22T11:45:05.864Z"
+    },
+    {
+      "id": 26016,
+      "sourceId": "26016",
+      "title": "Хинкали",
+      "image": "https://s1.eda.ru/StaticContent/Photos/170224135654/191007120255/p_O.jpg",
+      "time": 45,
+      "difficulty": "Средне",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "gruzinskaya-kuhnya",
+        "name": "Грузинская кухня"
+      },
+      "portions": 5,
+      "ingredients": [
+        {
+          "name": "Пшеничная мука",
+          "amount": 500,
+          "unit": "г"
+        },
+        {
+          "name": "Вода",
+          "amount": 400,
+          "unit": "мл"
+        },
+        {
+          "name": "Соль",
+          "amount": 1.5,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Телятина",
+          "amount": 250,
+          "unit": "г"
+        },
+        {
+          "name": "Говядина",
+          "amount": 250,
+          "unit": "г"
+        },
+        {
+          "name": "Сало",
+          "amount": 100,
+          "unit": "г"
+        },
+        {
+          "name": "Репчатый лук",
+          "amount": 100,
+          "unit": "г"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 2,
+          "unit": "зубчик"
+        },
+        {
+          "name": "Молотый кумин (зира) ",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Красный перец чили",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Кинза",
+          "amount": 0,
+          "unit": "по вкусу"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Подготовить необходимые ингредиенты.",
+          "timeMin": null
+        },
+        {
+          "text": "В фарш провернуть очищенное от жил мясо — грудинка или задок молодой особи. Затем добавить сало, мелко нарубленные лук и чеснок.",
+          "timeMin": null
+        },
+        {
+          "text": "В конце вмешать воду — столько, сколько фарш сможет впитать, не разделяясь на мясную и водную фракции. На полкило мяса — примерно 150 мл. По вкусу можно добавить соль, зиру, ­острый перец (можно приготовить самостоятельно) и кинзу.",
+          "timeMin": null
+        },
+        {
+          "text": "Замесить тесто из муки, соли и 250 мл воды (лучше начать с 200 мл, и добавить еще 50, если тесто не замесится) — достаточно плотное и тугое. Замешивать и раскатывать его вручную будет трудно — поэтому если у вас есть тестомес и особенно тестораскаточная машинка, они очень облегчат процесс. Тесто может храниться в прохладном месте не более часа, потом начинает стремительно терять благородные качества.",
+          "timeMin": null
+        },
+        {
+          "text": "Успех будущих хинкали зависит от количества слоев в тесте: в идеале их должно быть около двадцати. Для этого надо раскатать тесто скалкой в сантиметровый слой. Далее нужно раскатывать и складывать, через раз посыпая мукой, снова и снова — хотя бы 10 раз. Результатом должен стать слоеный лист 3 мм толщиной.",
+          "timeMin": null
+        },
+        {
+          "text": "Фарш готовится заранее, поскольку как только листы теста будут готовы, заворачивать в них мясо нужно немедленно, чтобы тесто не сохло. В середину каждого листа положить по маленькому половнику фарша, примерно 40 грамм. Если на фарше успела проступить вмешанная вода, перед тем как выкладывать на тесто, его нужно еще раз хорошенько перемешать до однородности.",
+          "timeMin": null
+        },
+        {
+          "text": "Края листа сложить гармошкой как можно плотнее. В идеальном хинкали девятнадцать складок.Скрепленный мешочек взять в одну руку, а другой закрутить в ту же сторону, что делались складки, и оторвать излишек теста — у хинкали сверху получится плотный пенек. Поставить хинкали на доску, чтобы у него образовалось плоское дно, которое потом удобно будет надкусывать.",
+          "timeMin": null
+        },
+        {
+          "text": "Лопаткой раскрутить бурно кипящую воду в просторной кастрюле, посолить, забросить десяток хинкали и снова сделать в кастрюле водоворот. Смысл в том, чтобы хинкали не жались и не прилипали друг к другу или ко дну. Варить, пока хинкали не всплывут вверх брюхом. Плюс еще две-три минуты, — всего ­около десяти минут. Вынимать бережно — шумовкой.",
+          "timeMin": null
+        },
+        {
+          "text": "Улов выкладывается на блюдо. Как правило, варят количество, кратное десяти, каждую следующую порцию готовят заново. Финальный жест перед началом трапезы — посыпание еще влажных, дымящихся хинкали свежемолотым черным перцем, что сразу высвобождает из них правильный дух. К еде приступают немедленно.",
+          "timeMin": null
+        },
+        {
+          "text": "Хинкали едят руками: вилка проколет тесто — и бульон, ­самый сок хинкали, выльется на тарелку. Рукой надо взять хвост, второй — придерживать ребра; надкусить бок сверху и высосать бульон. Затем есть, кусая тесто и мясо в равных долях, так чтобы кусочек мяса постоянно покоился в лодочке теста. По хвостикам будут считать в конце число съеденных штук.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 30,
+        "fat": 26,
+        "carbs": 78,
+        "kcal": 660
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "gruzinskaya-kuhnya",
+          "name": "Грузинская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
+        }
+      ],
+      "recipeGroups": [
+        {
+          "slug": "hinkali",
+          "name": "Хинкали"
+        }
+      ],
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/hinkali-26016",
+      "fetchedAt": "2026-04-22T11:45:06.098Z"
+    },
+    {
+      "id": 81227,
+      "sourceId": "81227",
+      "title": "Традиционный чили кон карне",
+      "image": "https://s1.eda.ru/StaticContent/Photos/161229143423/170118163559/p_O.jpg",
+      "time": 70,
+      "difficulty": "Посложнее",
+      "diet": "meat",
+      "meatCategory": "red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "osnovnye-blyuda",
+        "name": "Основные блюда"
+      },
+      "cuisine": {
+        "slug": "meksikanskaya-kuhnya",
+        "name": "Мексиканская кухня"
+      },
+      "portions": 4,
+      "ingredients": [
+        {
+          "name": "Говяжий фарш",
+          "amount": 500,
+          "unit": "г"
+        },
+        {
+          "name": "Репчатый лук",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Красный сладкий перец",
+          "amount": 2,
+          "unit": "штука"
+        },
+        {
+          "name": "Перец чили",
+          "amount": 1,
+          "unit": "штука"
+        },
+        {
+          "name": "Говяжий бульон",
+          "amount": 300,
+          "unit": "мл"
+        },
+        {
+          "name": "Измельченные помидоры в собственном соку ",
+          "amount": 400,
+          "unit": "г"
+        },
+        {
+          "name": "Красная консервированная фасоль",
+          "amount": 400,
+          "unit": "г"
+        },
+        {
+          "name": "Кумин (зира)",
+          "amount": 1,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Молотый перец чили",
+          "amount": 1,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Паприка",
+          "amount": 1,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Майоран",
+          "amount": 0.5,
+          "unit": "чайная ложка"
+        },
+        {
+          "name": "Сахар",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 2,
+          "unit": "зубчик"
+        },
+        {
+          "name": "Молотый черный перец",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Соль",
+          "amount": 0,
+          "unit": "по вкусу"
+        },
+        {
+          "name": "Томатная паста ",
+          "amount": 50,
+          "unit": "г"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Нарезать сладкий перец кубиком.",
+          "timeMin": null
+        },
+        {
+          "text": "Также нарезать лук.",
+          "timeMin": null
+        },
+        {
+          "text": "Чеснок и острый перец измельчить.",
+          "timeMin": null
+        },
+        {
+          "text": "В глубокой сковороде разогреть масло и обжарить на среднем огне лук до прозрачности и мягкости.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить перец, чеснок, молотый чили, паприку и кумин, хорошо перемешать и готовить в течение 5 минут, помешивая время от времени.",
+          "timeMin": null
+        },
+        {
+          "text": "Увеличить огонь и добавить фарш, обжаривать его до коричневого цвета, постоянно помешивать.",
+          "timeMin": null
+        },
+        {
+          "text": "Когда фарш полностью прожарится, добавить бульон.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить помидоры, томатную пасту, майоран, сахар, соль и перец. Хорошо перемешать. Довести до кипения, понизить огонь, накрыть крышкой и варить 20 минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить промытую фасоль.",
+          "timeMin": null
+        },
+        {
+          "text": "Накрыть крышкой и оставить на медленном огне еще на 10 минут. Подать.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 33,
+        "fat": 26,
+        "carbs": 34,
+        "kcal": 505
+      },
+      "tags": [
+        {
+          "slug": "osnovnye-blyuda",
+          "name": "Основные блюда"
+        },
+        {
+          "slug": "meksikanskaya-kuhnya",
+          "name": "Мексиканская кухня"
+        },
+        {
+          "slug": "videorecepty",
+          "name": "Видеорецепты"
+        },
+        {
+          "slug": "poshagovye-recepty",
+          "name": "Пошаговые рецепты"
         }
       ],
       "recipeGroups": [
@@ -2667,8 +3839,8 @@
           "name": "Горячие закуски"
         }
       ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/ostroe-blyudo-iz-nuta-tomatov-i-shpinata-57092",
-      "fetchedAt": "2026-04-22T11:12:57.307Z"
+      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/tradicionnyy-chili-kon-karne-81227",
+      "fetchedAt": "2026-04-22T11:45:06.339Z"
     },
     {
       "id": 49883,
@@ -2803,244 +3975,7 @@
         }
       ],
       "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/pibimpap-koreyskoe-blyudo-49883",
-      "fetchedAt": "2026-04-22T11:12:57.480Z"
-    },
-    {
-      "id": 27049,
-      "sourceId": "27049",
-      "title": "Хек в зеленом чесночном соусе",
-      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/120131084342/171003154022/p_O.jpg",
-      "time": 30,
-      "difficulty": "Средне",
-      "diet": "pescatarian",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "ispanskaya-kuhnya",
-        "name": "Испанская кухня"
-      },
-      "portions": 2,
-      "ingredients": [
-        {
-          "name": "Хек",
-          "amount": 4,
-          "unit": "кусок"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 3,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Рубленая петрушка",
-          "amount": 3,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Свежий лавровый лист",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Оливковое масло extra virgin",
-          "amount": 4,
-          "unit": "столовая ложка"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Зубчики чеснока очистить и мелко порубить. Листья петрушки тщательно измельчить — из половины не слишком большого пучка должны получиться три полные столовые ложки зелени.",
-          "timeMin": null
-        },
-        {
-          "text": "Разогреть на сковороде на среднем огне четыре столовые ложки оливкового масла. Как только масло нагреется, добавить чеснок, а через пару минут — всю петрушку.",
-          "timeMin": null
-        },
-        {
-          "text": "Стейки из хека обсушить бумажными полотенцами, слегка посолить и выложить на сковороду так, чтобы они не касались друг друга. Добавить в сковороду лавровый лист.",
-          "timeMin": null
-        },
-        {
-          "text": "Поджарить рыбу в течение десяти-двенадцати минут, затем аккуратно перевернуть с помощью плоской и тонкой лопатки, придерживая рыбу руками, и жарить с другой стороны еще столько же.",
-          "timeMin": null
-        },
-        {
-          "text": "Готовые стейки выложить на тарелки, полить сверху зеленым чесночным соусом и сразу подавать — лучше всего вместе с молодым вареным картофелем.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 34,
-        "fat": 40,
-        "carbs": 5,
-        "kcal": 514
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "ispanskaya-kuhnya",
-          "name": "Испанская кухня"
-        },
-        {
-          "slug": "nizkokaloriynaya-eda",
-          "name": "Низкокалорийная еда"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "chesnochnij-sous",
-          "name": "Чесночный соус"
-        },
-        {
-          "slug": "byuda-iz-ryby",
-          "name": "Блюда из рыбы"
-        },
-        {
-          "slug": "ryba-na-skovorode",
-          "name": "Рыба на сковороде"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/hek-v-zelenom-chesnochnom-souse-27049",
-      "fetchedAt": "2026-04-22T11:12:57.785Z"
-    },
-    {
-      "id": 21751,
-      "sourceId": "21751",
-      "title": "Азу по-татарски",
-      "image": "https://s1.eda.ru/StaticContent/Photos/140802212008/160519080709/p_O.jpg",
-      "time": 30,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "tatarskaya-kuhnya",
-        "name": "Татарская кухня"
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Говядина",
-          "amount": 500,
-          "unit": "г"
-        },
-        {
-          "name": "Репчатый лук",
-          "amount": 5,
-          "unit": "головка"
-        },
-        {
-          "name": "Соленые огурцы",
-          "amount": 3,
-          "unit": "штука"
-        },
-        {
-          "name": "Томатная паста ",
-          "amount": 2,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Картофель",
-          "amount": 1,
-          "unit": "кг"
-        },
-        {
-          "name": "Мясной бульон",
-          "amount": 1,
-          "unit": "стакан"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 3,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 50,
-          "unit": "мл"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Мясо промыть, нарезать соломкой и слегка обжарить в казане в разогретом растительном масле.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить порезанный тонкими полукольцами лук и обжаривать мясо с луком до мягкости лука.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить томатную пасту, мелко нарезанные или тертые на крупной терке огурцы. Залить водой или бульоном и тушить под крышкой до полной готовности мяса.",
-          "timeMin": null
-        },
-        {
-          "text": "В отдельной сковороде обжарить нарезанный соломкой картофель.",
-          "timeMin": null
-        },
-        {
-          "text": "Когда картофель будет почти готов, переложить его в казан с тушеным мясом, добавить, соль, перец, лавровый лист и пропущенный через чеснокодавилку или мелко порезанный чеснок.",
-          "timeMin": null
-        },
-        {
-          "text": "Осторожно перемешать и тушить картофель с мясом до готовности примерно 5-7 минут.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 33,
-        "fat": 29,
-        "carbs": 66,
-        "kcal": 637
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "tatarskaya-kuhnya",
-          "name": "Татарская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "azu",
-          "name": "Азу"
-        },
-        {
-          "slug": "prostye-v-duhovke",
-          "name": "Простые в духовке"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/azu-po-tatarski-21751",
-      "fetchedAt": "2026-04-22T11:12:57.949Z"
+      "fetchedAt": "2026-04-22T11:45:06.658Z"
     },
     {
       "id": 94134,
@@ -3196,806 +4131,7 @@
         }
       ],
       "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/labskaus-94134",
-      "fetchedAt": "2026-04-22T11:12:58.107Z"
-    },
-    {
-      "id": 42067,
-      "sourceId": "42067",
-      "title": "Буузы (Традиционное бурятское блюдо)",
-      "image": "https://s1.eda.ru/StaticContent/Photos/140124100744/140131144235/p_O.jpg",
-      "time": 120,
-      "difficulty": "Посложнее",
-      "diet": "meat",
-      "meatCategory": "red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "buryat-cuisine",
-        "name": "Бурятская кухня"
-      },
-      "portions": 6,
-      "ingredients": [
-        {
-          "name": "Пшеничная мука",
-          "amount": 500,
-          "unit": "г"
-        },
-        {
-          "name": "Говяжий фарш",
-          "amount": 500,
-          "unit": "г"
-        },
-        {
-          "name": "Лук",
-          "amount": 1,
-          "unit": "головка"
-        },
-        {
-          "name": "Вода",
-          "amount": 300,
-          "unit": "мл"
-        },
-        {
-          "name": "Куриное яйцо",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Соль",
-          "amount": 2,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "щепотка"
-        },
-        {
-          "name": "Свинина",
-          "amount": 200,
-          "unit": "г"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Для начала нужно приготовить фарш. Традиционно, фарш приготовляется из говядины и свинины (свинина должна быть с салом), поскольку свинина придает сочность блюду. Пропустите через мясорубку говядину, свинину, лук, добавьте соль (примерно 2 чайных ложки, пробуйте на вкус), перец (2–3 щепотки, но не слишком много) и немного воды, примерно 1–2 столовых ложки. Перемешайте все и оставьте до тех пор, пока не приготовите тесто.",
-          "timeMin": null
-        },
-        {
-          "text": "Затем нужно приготовить тесто, но оно не должно быть слишком твердым, т.к. при лепке может пострадать форма изделия. Высыпьте муку на стол (или в большую тарелку), сделайте отверстие и влейте туда 1 яйцо. Можно добавить чуточку соли, а затем стакан или чуть меньше стакана воды. Затем нужно месить тесто руками до тех пор, пока оно не станет мягким, но в то же время упругим (примерно 15 минут).",
-          "timeMin": null
-        },
-        {
-          "text": "Далее из теста нужно сформировать колбаску и делить ее на небольшие куски. Из этих кусочков сформировать шарики и их раскатать (диаметром примерно 8–9 сантиметров).",
-          "timeMin": null
-        },
-        {
-          "text": "В раскатанные куски теста нужно положить примерно по 1 столовой ложке фарша и начать защипывать по кругу. В идеальной буузе должно быть 33 защипа.",
-          "timeMin": null
-        },
-        {
-          "text": "Поместить буузы в пароварку, предварительно смазав маслом нижнюю часть, и поставить вариться на 15–20 минут. Через 20 минут можете уже наслаждаться этим блюдом.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 30,
-        "fat": 21,
-        "carbs": 65,
-        "kcal": 568
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "buryat-cuisine",
-          "name": "Бурятская кухня"
-        },
-        {
-          "slug": "recepty-s-istoriey",
-          "name": "Рецепты с историей"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "gorjachie-zakuski",
-          "name": "Горячие закуски"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/buuzi-tradicionnoe-burjatskoe-bljudo-42067",
-      "fetchedAt": "2026-04-22T11:12:58.270Z"
-    },
-    {
-      "id": 25902,
-      "sourceId": "25902",
-      "title": "Курица «Пикассо»",
-      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/120214133254/120214133453/p_O.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "ispanskaya-kuhnya",
-        "name": "Испанская кухня"
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Куриная грудка",
-          "amount": 4,
-          "unit": "штука"
-        },
-        {
-          "name": "Лук",
-          "amount": 2,
-          "unit": "штука"
-        },
-        {
-          "name": "Сладкий перец",
-          "amount": 3,
-          "unit": "штука"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 3,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Помидоры",
-          "amount": 4,
-          "unit": "штука"
-        },
-        {
-          "name": "Овощной бульонный кубик ",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Сыр",
-          "amount": 100,
-          "unit": "г"
-        },
-        {
-          "name": "Смесь итальянских трав",
-          "amount": 1,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Вода",
-          "amount": 0.5,
-          "unit": "стакан"
-        },
-        {
-          "name": "Сливки",
-          "amount": 0.5,
-          "unit": "стакан"
-        },
-        {
-          "name": "Оливковое масло",
-          "amount": 2,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Мускатный орех",
-          "amount": 0,
-          "unit": "щепотка"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Сливочное масло",
-          "amount": 1,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Нарежьте болгарский перец кольцами (лучше выбрать трех разных цветов — это выглядит красочнее), предварительно удалив семена. Лук нарезать полукольцами, чеснок натереть на мелкой терке.",
-          "timeMin": null
-        },
-        {
-          "text": "Куриные грудки посолить, поперчить. В комбинации 2 столовые ложки оливкового и 1 столовая ложка сливочного масла, обжарить грудки до золотистой корочки. Переложить в форму для духовки.",
-          "timeMin": null
-        },
-        {
-          "text": "В этой же сковороде обжарить лук до золотистого цвета, переложить в форму к курице.",
-          "timeMin": null
-        },
-        {
-          "text": "Время для болгарского перца — слегка обжарить кольца, пока они не станут мягкими — и к курице.",
-          "timeMin": null
-        },
-        {
-          "text": "Тертый чеснок поместить в сковороду, пассеровать 30 секунд, затем залить водой, добавив нарезанные помидоры (кожицу можно предварительно удалить), хорошо перемешать. Добавить итальянских трав, овощной бульонный кубик, соль, перец, щепотку мускатного ореха. Влить полстакана сливок, перемешать.",
-          "timeMin": null
-        },
-        {
-          "text": "Варить соус 5 минут на медленном огне. Залить им курицу с овощами. Закрыть фольгой, отправить в духовку при температуре 200 градусов на 30 минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Достать, посыпать натертым на терке сыром, поместить курицу обратно в духовку, но уже без фольги, еще на 15 минут, пока сыр не расплавится.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 70,
-        "fat": 31,
-        "carbs": 21,
-        "kcal": 637
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "ispanskaya-kuhnya",
-          "name": "Испанская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/kurica-pikasso-25902",
-      "fetchedAt": "2026-04-22T11:12:58.500Z"
-    },
-    {
-      "id": 17587,
-      "sourceId": "17587",
-      "title": "Гратен дофинуа",
-      "image": "https://s1.eda.ru/StaticContent/Photos/151002075307/151009125656/p_O.jpg",
-      "time": 65,
-      "difficulty": "Посложнее",
-      "diet": "vegetarian",
-      "meatCategory": "vegetarian",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "francuzskaya-kuhnya",
-        "name": "Французская кухня"
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Картофель",
-          "amount": 600,
-          "unit": "г"
-        },
-        {
-          "name": "Молоко",
-          "amount": 300,
-          "unit": "мл"
-        },
-        {
-          "name": "Сливки 33%-ные",
-          "amount": 100,
-          "unit": "мл"
-        },
-        {
-          "name": "Мускатный орех",
-          "amount": 0.5,
-          "unit": "чайная ложка"
-        },
-        {
-          "name": "Сыр грюйер",
-          "amount": 100,
-          "unit": "г"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 4,
-          "unit": "зубчик"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Очистить картошку и нарезать ее тонкими дольками (2–3 мм) — ножом, на терке, удобнее всего на мандолине. Тонко настрогав картошку, не мойте ее, чтобы с водой не выплеснуть крахмал, который понадобится для сгущения сливок.",
-          "timeMin": null
-        },
-        {
-          "text": "В кастрюле на среднем огне довести до кипения молоко и сливки.",
-          "timeMin": null
-        },
-        {
-          "text": "В смесь добавить тертый сыр.",
-          "timeMin": null
-        },
-        {
-          "text": "Приправить мускатным орехом, солью и перцем.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить картошку и перемешать, чтобы картофель покрылся слоем сливок.",
-          "timeMin": null
-        },
-        {
-          "text": "Убавить огонь и варить восемь-десять минут, помешивая, чтобы смесь не прилипла ко дну кастрюли. После того как картошка будет готова, что легко проверить на вкус, вмешать в альянс молока, картофеля и сливок тертый сыр и затем снять кастрюлю с огня.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить раздавленный чеснок и смешать его с картофелем и всем прочим.",
-          "timeMin": null
-        },
-        {
-          "text": "Смесь перелить в глубокую форму и поставить запекаться в духовку, разогретую до 120 градусов на двадцать пять минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Гратен готов, когда кончик острого ножа легко пронзает его (при этом нож не должен входить как в масло, какое-то невесомое сопротивление вы все-таки должны ощущать). Чтобы запеканка подрумянилась, нужно постаивть ее на самую верхнюю полку в духовке и включить максимальный огонь примерно на минуту.",
-          "timeMin": null
-        },
-        {
-          "text": "Перед подачей дать картофелю чуть-чуть остыть, чтобы сырно-сливочный соус слегка загустел.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 13,
-        "fat": 20,
-        "carbs": 34,
-        "kcal": 362
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "francuzskaya-kuhnya",
-          "name": "Французская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "graten",
-          "name": "Гратен"
-        },
-        {
-          "slug": "prostye-v-duhovke",
-          "name": "Простые в духовке"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/graten-dofinua-17587",
-      "fetchedAt": "2026-04-22T11:12:58.700Z"
-    },
-    {
-      "id": 137350,
-      "sourceId": "137350",
-      "title": "Греческие котлеты из кабачков и феты",
-      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/170219214134/190906143253/p_O.png",
-      "time": 20,
-      "difficulty": "Легко",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "grecheskaya-kuhnya",
-        "name": "Греческая кухня"
-      },
-      "portions": 6,
-      "ingredients": [
-        {
-          "name": "Цукини",
-          "amount": 1,
-          "unit": "кг"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Репчатый лук",
-          "amount": 300,
-          "unit": "г"
-        },
-        {
-          "name": "Зеленый лук",
-          "amount": 60,
-          "unit": "г"
-        },
-        {
-          "name": "Свежая мята",
-          "amount": 20,
-          "unit": "г"
-        },
-        {
-          "name": "Укроп",
-          "amount": 60,
-          "unit": "г"
-        },
-        {
-          "name": "Петрушка",
-          "amount": 50,
-          "unit": "г"
-        },
-        {
-          "name": "Сыр фета",
-          "amount": 200,
-          "unit": "г"
-        },
-        {
-          "name": "Оливковое масло",
-          "amount": 70,
-          "unit": "мл"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 0.5,
-          "unit": "л"
-        },
-        {
-          "name": "Куриное яйцо",
-          "amount": 2,
-          "unit": "штука"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Натереть на терке кабачки.",
-          "timeMin": null
-        },
-        {
-          "text": "Нарезать репчатый лук, зелень, добавить в натертые кабачки. Посолить, поперчить по вкусу.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить в массу оливковое масло, яйца и фету. Перемешать, если нужно, добавить еще соли и перца.",
-          "timeMin": null
-        },
-        {
-          "text": "Налить в сковороду растительное масло и нагреть его. Формировать круглые котлеты мокрыми руками, жарить в кипящем растительном масле.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 12,
-        "fat": 106,
-        "carbs": 12,
-        "kcal": 1040
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "grecheskaya-kuhnya",
-          "name": "Греческая кухня"
-        },
-        {
-          "slug": "vegetarianskaya-eda",
-          "name": "Вегетарианская еда"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "kotlety",
-          "name": "Котлеты"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/grecheskie-kotlety-iz-kabachkov-i-fety-137350",
-      "fetchedAt": "2026-04-22T11:12:59.034Z"
-    },
-    {
-      "id": 33435,
-      "sourceId": "33435",
-      "title": "Бефстроганов",
-      "image": "https://s1.eda.ru/StaticContent/Photos/150615095301/150618143203/p_O.jpg",
-      "time": 30,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "russkaya-kuhnya",
-        "name": "Русская кухня"
-      },
-      "portions": 6,
-      "ingredients": [
-        {
-          "name": "Белые грибы",
-          "amount": 500,
-          "unit": "г"
-        },
-        {
-          "name": "Сметана 30%-ная",
-          "amount": 150,
-          "unit": "г"
-        },
-        {
-          "name": "Сливки 35%-ные",
-          "amount": 100,
-          "unit": "мл"
-        },
-        {
-          "name": "Говяжья вырезка",
-          "amount": 1,
-          "unit": "кг"
-        },
-        {
-          "name": "Говяжий бульон",
-          "amount": 500,
-          "unit": "мл"
-        },
-        {
-          "name": "Белое сухое вино",
-          "amount": 100,
-          "unit": "мл"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 100,
-          "unit": "мл"
-        },
-        {
-          "name": "Дижонская горчица",
-          "amount": 1,
-          "unit": "столовая ложка"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Говяжью вырезку очистить от пленок, нарезать тонкими ломтиками — по 3–5 мм.",
-          "timeMin": null
-        },
-        {
-          "text": "Разогреть сковороду и обжарить на ней ломтики мяса, предва­рительно их посолив, на части растительного масла. Готовить только до появления коричневой корочки, после чего убрать в теплое место. Мясо нужно ­жарить не все сразу, а частями, чтобы кусочки нормально обжаривались, а не тушились вместе.",
-          "timeMin": null
-        },
-        {
-          "text": "В сотейник налить белое вино и выпарить его на три четверти на быстром огне. Добавить бульон — его нужно уварить примерно наполовину.",
-          "timeMin": null
-        },
-        {
-          "text": "На сковороде, плеснув туда растительного масла, обжарить до коричневой корочки нарезанные ломтиками белые грибы и снять с огня.",
-          "timeMin": null
-        },
-        {
-          "text": "В сотейник с бульоном добавить сливки и сметану и томить на среднем огне, не давая соусу убежать через край сотейника. Когда соус загустеет, приправить его солью и перцем.",
-          "timeMin": null
-        },
-        {
-          "text": "Выложить в сковороду с гри­бами обжаренное мясо, залить соусом, довести его до слабого кипения и потомить мясо еще три минуты.",
-          "timeMin": null
-        },
-        {
-          "text": "Заправить бефстроганов дижонской горчицей, перемешать и подавать со спагетти или лапшой.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 36,
-        "fat": 59,
-        "carbs": 3,
-        "kcal": 690
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "russkaya-kuhnya",
-          "name": "Русская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "befstroganov",
-          "name": "Бефстроганов"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/befstroganov-33435",
-      "fetchedAt": "2026-04-22T11:12:59.275Z"
-    },
-    {
-      "id": 46969,
-      "sourceId": "46969",
-      "title": "Котлеты «Фифти-фифти»",
-      "image": "https://s1.eda.ru/StaticContent/Photos/141020235636/141030152551/p_O.jpg",
-      "time": 50,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "osnovnye-blyuda",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "odesskaya-kuhnya",
-        "name": "Одесская кухня"
-      },
-      "portions": 12,
-      "ingredients": [
-        {
-          "name": "Куриное филе",
-          "amount": 1,
-          "unit": "кг"
-        },
-        {
-          "name": "Репчатый лук",
-          "amount": 1,
-          "unit": "головка"
-        },
-        {
-          "name": "Батон",
-          "amount": 0.5,
-          "unit": "штука"
-        },
-        {
-          "name": "Молоко",
-          "amount": 500,
-          "unit": "мл"
-        },
-        {
-          "name": "Зеленый лук-резанец ",
-          "amount": 1,
-          "unit": "пучок"
-        },
-        {
-          "name": "Укроп",
-          "amount": 1,
-          "unit": "пучок"
-        },
-        {
-          "name": "Петрушка",
-          "amount": 1,
-          "unit": "пучок"
-        },
-        {
-          "name": "Кинза",
-          "amount": 1,
-          "unit": "пучок"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Замочить хлеб в молоке и отстать от него на время.",
-          "timeMin": null
-        },
-        {
-          "text": "Мясо (филе бедра или голени) превратить мясорубкой в фарш. Следом прокрутить хлеб. Репчатый лук нарезать мелкими кубиками и отправить к мясу и хлебу. Зелень избавить от толстых стеблей и мелко нарубить ножом. Добавить в фарш, посолить, поперчить и вымесить все руками — потратить минут десять. А потом еще отбить его как следует, бросая на поверхность, чтобы мясо «задышало». Чем дольше бросать, тем пышнее будут котлеты.",
-          "timeMin": null
-        },
-        {
-          "text": "Слепить котлеты и обжарить с двух сторон на среднем огне на растительном масле. Затем поставить в духовку минут на десять при 180 градусах.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 23,
-        "fat": 3,
-        "carbs": 15,
-        "kcal": 183
-      },
-      "tags": [
-        {
-          "slug": "osnovnye-blyuda",
-          "name": "Основные блюда"
-        },
-        {
-          "slug": "odesskaya-kuhnya",
-          "name": "Одесская кухня"
-        },
-        {
-          "slug": "videorecepty",
-          "name": "Видеорецепты"
-        },
-        {
-          "slug": "poshagovye-recepty",
-          "name": "Пошаговые рецепты"
-        }
-      ],
-      "recipeGroups": [
-        {
-          "slug": "kotlety",
-          "name": "Котлеты"
-        }
-      ],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/kotleti-fifti-fifti-46969",
-      "fetchedAt": "2026-04-22T11:12:59.497Z"
+      "fetchedAt": "2026-04-22T11:45:06.914Z"
     }
   ]
 }

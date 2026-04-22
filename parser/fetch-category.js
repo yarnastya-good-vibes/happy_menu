@@ -48,6 +48,8 @@ const extractNextData = (html) => {
 
 // Извлекает базовую инфу о рецептах из Apollo-state (до фактического fetch каждой страницы).
 // Каждый элемент Apollo-state с ключом "RecipeModel:ID" и непустым relativeUrl — кандидат.
+// Также тянем сигналы качества: editor choice, gold1000, likes, inCookbookCount, рейтинг,
+// videoFileId, specialProject — они все уже есть в листинге, детальный фетч не нужен для фильтра.
 const extractRecipesFromListing = (nextData) => {
   const apollo = nextData?.props?.pageProps?.__APOLLO_STATE__ || {};
   const recipes = [];
@@ -60,7 +62,16 @@ const extractRecipesFromListing = (nextData) => {
       name: r.name,
       relativeUrl: r.relativeUrl,
       cookingTime: r.cookingTime || 0,
-      preparationTime: r.preparationTime || 0
+      preparationTime: r.preparationTime || 0,
+      // Сигналы качества
+      isEditorChoice: Boolean(r.isEditorChoice),
+      isGold1000: Boolean(r.isGold1000),
+      isSpecialProject: Boolean(r.isSpecialProject),
+      hasVideo: Boolean(r.videoFileId),
+      likes: Number(r.likes) || 0,
+      dislikes: Number(r.dislikes) || 0,
+      inCookbookCount: Number(r.inCookbookCount) || 0,
+      ratingValue: Number(r.aggregateRating?.ratingValue) || 0
     });
   }
   // Apollo возвращает в непредсказуемом порядке — сортируем по id desc

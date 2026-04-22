@@ -36,6 +36,56 @@ const SOUP_LISTING_PAGES = 2;  //  2 × 14 ≈ 28
 // а «Макароны с сыром» 14g или «Спагетти путтанеска» 24g пройдут.
 const MIN_MAIN_PROTEIN = 12;
 
+// --- Ранжирование по качеству ---
+// Все сигналы берём из листинга (ApolloState), детальный фетч не нужен.
+//   • isEditorChoice — редакция eda.ru вручную отметила рецепт
+//   • isGold1000     — курированный пул «золотая 1000»
+//   • inCookbookCount — пользователи добавили в свою кулинарную книгу
+//   • likes − dislikes — популярность
+//   • hasVideo       — есть видеоролик (мягкий бонус, не обязателен)
+//   • isSpecialProject — рекламный/спонсорский → жёсткое исключение
+
+const cookbookBonus = (c) => {
+  if (c >= 10000) return 40;
+  if (c >= 5000) return 30;
+  if (c >= 2000) return 22;
+  if (c >= 500) return 14;
+  if (c >= 100) return 6;
+  return 0;
+};
+
+const likeBonus = (likes, dislikes) => {
+  const total = likes + dislikes;
+  if (total < 5) return 0;
+  const ratio = likes / total;
+  const net = Math.min(likes - dislikes, 60);
+  return Math.round(net * 0.4 + (ratio >= 0.85 ? 6 : 0));
+};
+
+const scoreCandidate = (c) => {
+  let s = 0;
+  if (c.isEditorChoice) s += 50;
+  if (c.isGold1000) s += 30;
+  if (c.hasVideo) s += 10;
+  s += cookbookBonus(c.inCookbookCount);
+  s += likeBonus(c.likes, c.dislikes);
+  // Рейтинг без reviewCount ненадёжен (в листинге нет reviewCount).
+  // Даём лёгкий бонус, только если рейтинг высокий И есть достаточная активность.
+  if (c.ratingValue >= 4.5 && c.inCookbookCount >= 200) s += 8;
+  else if (c.ratingValue >= 4.0 && c.inCookbookCount >= 100) s += 4;
+  return s;
+};
+
+// Жёсткий фильтр — выкидываем заведомо плохих кандидатов до планирования.
+const passesQualityGate = (c) => {
+  if (c.isSpecialProject) return false;
+  // Рецепты без какой-либо активности и не отмеченные редакцией — мимо
+  if (!c.isEditorChoice && !c.isGold1000 && c.inCookbookCount < 50 && c.likes < 5) {
+    return false;
+  }
+  return true;
+};
+
 // Имена-шаблоны, которые почти всегда означают просто гарнир: «Картофель», «Картофельное пюре»,
 // «Тушёная капуста». Сработает ТОЛЬКО если в названии нет дополняющих слов (с/из/под/и т.п.)
 // и слово всего одно-два.
@@ -95,15 +145,25 @@ const isMainSideDish = (recipe) => {
 // Раскладывает кандидатов по бакетам type+bucket, потом оптимально выбирает.
 
 const planSelection = (mainPool, soupPool, logger) => {
+  // Навешиваем score и сортируем пулы по убыванию качества — в каждом бакете
+  // сначала берутся самые качественные кандидаты.
+  const prepareWithScore = (pool) =>
+    pool
+      .map((c) => ({ ...c, __score: scoreCandidate(c) }))
+      .sort((a, b) => b.__score - a.__score);
+
+  const scoredMains = prepareWithScore(mainPool);
+  const scoredSoups = prepareWithScore(soupPool);
+
   const bucketed = {
     main: { quick: [], medium: [], long: [], noTime: [] },
     soup: { quick: [], medium: [], long: [], noTime: [] }
   };
-  for (const c of mainPool) {
+  for (const c of scoredMains) {
     const b = bucketOf(c.cookingTime + c.preparationTime) || 'noTime';
     bucketed.main[b].push(c);
   }
-  for (const c of soupPool) {
+  for (const c of scoredSoups) {
     const b = bucketOf(c.cookingTime + c.preparationTime) || 'noTime';
     bucketed.soup[b].push(c);
   }
@@ -281,19 +341,35 @@ const buildWeekly = async ({ logger = console } = {}) => {
     pageCount: MAIN_LISTING_PAGES,
     logger
   });
-  const mainPool = dedupe(mainsRaw).filter(isRealDish);
-  logger.log(`[build] main listing pool: ${mainPool.length}`);
+  const mainPoolRaw = dedupe(mainsRaw).filter(isRealDish);
+  const mainPool = mainPoolRaw.filter(passesQualityGate);
+  logger.log(
+    `[build] main listing: ${mainPoolRaw.length} candidates → ${mainPool.length} after quality gate`
+  );
 
   logger.log('[build] === collecting soups listings ===');
   const soupsRaw = await fetchCategoryRecipes('supy', {
     pageCount: SOUP_LISTING_PAGES,
     logger
   });
-  const soupPool = dedupe(soupsRaw).filter(isRealDish);
-  logger.log(`[build] soup listing pool: ${soupPool.length}`);
+  const soupPoolRaw = dedupe(soupsRaw).filter(isRealDish);
+  const soupPool = soupPoolRaw.filter(passesQualityGate);
+  logger.log(
+    `[build] soup listing: ${soupPoolRaw.length} candidates → ${soupPool.length} after quality gate`
+  );
 
   const picks = planSelection(mainPool, soupPool, logger);
   logger.log(`[build] planned ${picks.length} candidates for full fetch`);
+  logger.log('[build] top-5 planned by score:');
+  picks
+    .slice()
+    .sort((a, b) => (b.__score || 0) - (a.__score || 0))
+    .slice(0, 5)
+    .forEach((p) =>
+      logger.log(
+        `   [${p.__score}] ${p.name} — editorChoice=${p.isEditorChoice}, cookbook=${p.inCookbookCount}, video=${p.hasVideo}`
+      )
+    );
 
   let fetched = await fetchAndFilter(picks, { logger });
   logger.log(`[build] after filter: ${fetched.length} / ${TOTAL_TARGET}`);
