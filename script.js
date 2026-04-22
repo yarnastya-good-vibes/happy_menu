@@ -433,6 +433,14 @@ const WEIGHT_UNITS_TO_G = {
   "килограммов": 1000
 };
 
+// Единицы-эквиваленты: «1 головка лука» = «1 штука лука» и т.п.
+// Нормализуем к канонической форме, чтобы мерджились в одну строку.
+const COUNT_UNIT_ALIASES = {
+  "головка": "штука",
+  "шт": "штука",
+  "шт.": "штука"
+};
+
 // Разбирает единицу → { family, factor } для дальнейшей конвертации в канонические.
 const classifyUnit = (unit) => {
   const u = (unit || "").toLowerCase().trim();
@@ -442,8 +450,10 @@ const classifyUnit = (unit) => {
   if (Object.prototype.hasOwnProperty.call(WEIGHT_UNITS_TO_G, u)) {
     return { family: "weight", factor: WEIGHT_UNITS_TO_G[u], originalUnit: u };
   }
-  // "штука", "головка", "зубчик", "пучок", "по вкусу", ... — не конвертируем, мерджим по точной единице.
-  return { family: "count", factor: 1, originalUnit: u };
+  // "штука", "зубчик", "пучок", "по вкусу", ... — не конвертируем, мерджим по точной единице.
+  // Но если у единицы есть alias (например, «головка» = «штука»), нормализуем.
+  const normalizedUnit = COUNT_UNIT_ALIASES[u] || u;
+  return { family: "count", factor: 1, originalUnit: normalizedUnit };
 };
 
 // Подбирает красивую единицу для отображения после слияния.
@@ -496,18 +506,50 @@ const buildShoppingItems = () => {
     });
   });
 
-  return Array.from(basket.values())
-    .map((it) => {
-      const { amount, unit } = formatMergedAmount(it.family, it.amountBase, it.originalUnit);
-      return {
-        key: it.key,
-        name: it.name,
-        amount,
-        unit,
-        category: it.category
-      };
-    })
-    .sort((a, b) => a.name.localeCompare(b.name, "ru"));
+  let items = Array.from(basket.values()).map((it) => {
+    const { amount, unit } = formatMergedAmount(it.family, it.amountBase, it.originalUnit);
+    return {
+      key: it.key,
+      name: it.name,
+      amount,
+      unit,
+      category: it.category,
+      family: it.family
+    };
+  });
+
+  // Второй проход: мерджим «по вкусу / щепотка / amount=0» в основную запись того же
+  // ингредиента. Такие записи не имеют измеримого количества — просто знак «добавить».
+  // Пример: «Мускатный орех 2.5 мл» + «Мускатный орех 0 щепотка» → одна строка 2.5 мл.
+  const isTrace = (it) =>
+    it.amount === 0 || /^(по\s*вкусу|щепотк|несколько|горстк)/i.test(it.unit);
+
+  const byCanonical = new Map();
+  for (const it of items) {
+    const k = canonicalIngredientKey(it.name);
+    if (!byCanonical.has(k)) byCanonical.set(k, []);
+    byCanonical.get(k).push(it);
+  }
+
+  const merged = [];
+  for (const group of byCanonical.values()) {
+    if (group.length === 1) {
+      merged.push(group[0]);
+      continue;
+    }
+    const traceItems = group.filter(isTrace);
+    const realItems = group.filter((it) => !isTrace(it));
+    if (realItems.length === 0) {
+      // Все записи этого ингредиента — «по вкусу». Оставляем одну.
+      merged.push(group[0]);
+    } else {
+      // Добавляем все «реальные» записи (могут быть разных семейств и не сливаются),
+      // а все trace-записи игнорируем.
+      for (const r of realItems) merged.push(r);
+    }
+  }
+
+  return merged.sort((a, b) => a.name.localeCompare(b.name, "ru"));
 };
 
 const groupByCategory = (items) => {
