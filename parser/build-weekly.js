@@ -36,6 +36,9 @@ const SOUP_LISTING_PAGES = 2;  //  2 × 14 ≈ 28
 // а «Макароны с сыром» 14g или «Спагетти путтанеска» 24g пройдут.
 const MIN_MAIN_PROTEIN = 12;
 
+// Максимум ингредиентов — рецепты с длиннее списка обычно сложные/ресторанные.
+const MAX_INGREDIENTS = 15;
+
 // --- Ранжирование по качеству ---
 // Все сигналы берём из листинга (ApolloState), детальный фетч не нужен.
 //   • isEditorChoice — редакция eda.ru вручную отметила рецепт
@@ -79,6 +82,8 @@ const scoreCandidate = (c) => {
 // Жёсткий фильтр — выкидываем заведомо плохих кандидатов до планирования.
 const passesQualityGate = (c) => {
   if (c.isSpecialProject) return false;
+  // Слишком много ингредиентов — сложный ресторанный рецепт, мимо
+  if (c.ingredientsCount && c.ingredientsCount > MAX_INGREDIENTS) return false;
   // Рецепты без какой-либо активности и не отмеченные редакцией — мимо
   if (!c.isEditorChoice && !c.isGold1000 && c.inCookbookCount < 50 && c.likes < 5) {
     return false;
@@ -116,8 +121,31 @@ const bucketOf = (minutes) => {
   return 'long';
 };
 
-const normalizeTitle = (s) =>
-  s.toLowerCase().replace(/[«»"'.,\-]/g, ' ').replace(/\s+/g, ' ').trim();
+// Стоп-слова русского языка, которые не влияют на смысл блюда.
+const STOPWORDS = new Set([
+  'из', 'с', 'со', 'в', 'во', 'на', 'по', 'под', 'над', 'при',
+  'для', 'и', 'или', 'к', 'ко', 'от', 'у', 'о', 'об',
+  'традиционное', 'традиционный', 'традиционная', 'блюдо', 'блюда',
+  'рецепт', 'рецепта'
+]);
+
+// Вычисляет «отпечаток» названия, устойчивый к порядку слов, пунктуации и окончаниям-косметике.
+// «Грибной крем-суп» → «грибной крем-суп»
+// «Крем-суп грибной» → «грибной крем-суп»     ← совпадает
+// «Пибимпап (корейское блюдо)» → «пибимпап»  (parenthetical и stop-words отбрасываются)
+const normalizeTitle = (s) => {
+  if (!s) return '';
+  return s
+    .toLowerCase()
+    .replace(/ё/g, 'е') // нормализуем ё/е
+    .replace(/\([^)]*\)/g, ' ') // выкидываем скобки с содержимым
+    .replace(/[«»"'.,:;!?]/g, ' ') // пунктуация прочь (дефисы оставляем — они часть слова)
+    .split(/\s+/)
+    .map((w) => w.trim())
+    .filter((w) => w.length > 1 && !STOPWORDS.has(w)) // выкидываем пустые и стоп-слова
+    .sort() // порядок слов теперь не важен
+    .join(' ');
+};
 
 const dedupe = (items) => {
   const seenId = new Set(), seenTitle = new Set(), out = [];
@@ -240,6 +268,12 @@ const fetchAndFilter = async (picks, { logger = console } = {}) => {
       const recipe = await fetchRecipe(url, { logger });
       if (!recipe.ingredients?.length || !recipe.steps?.length) {
         droppedEmpty.push(recipe.title);
+        continue;
+      }
+      if (recipe.ingredients.length > MAX_INGREDIENTS) {
+        logger.log(
+          `[build] drop too-many-ingredients: ${recipe.title} (${recipe.ingredients.length})`
+        );
         continue;
       }
       if (isMainSideDish(recipe)) {

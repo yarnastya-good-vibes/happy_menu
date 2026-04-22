@@ -71,7 +71,8 @@ const extractRecipesFromListing = (nextData) => {
       likes: Number(r.likes) || 0,
       dislikes: Number(r.dislikes) || 0,
       inCookbookCount: Number(r.inCookbookCount) || 0,
-      ratingValue: Number(r.aggregateRating?.ratingValue) || 0
+      ratingValue: Number(r.aggregateRating?.ratingValue) || 0,
+      ingredientsCount: Array.isArray(r.composition) ? r.composition.length : 0
     });
   }
   // Apollo возвращает в непредсказуемом порядке — сортируем по id desc
