@@ -290,14 +290,97 @@ const renderWeeklyPlan = () => {
 
 // ---------- Категории ингредиентов ----------
 
+// Порядок важен — ищется первое совпадение по substring. Specific раньше general.
+// "Куриный бульон" должен матчнуться canned раньше, чем meat "курин".
+// "Стручковая фасоль" — veggie раньше, чем canned "фасоль консерв".
 const CATEGORIES = [
-  { id: "meat",    label: "Мясо и рыба",      keys: ["говяд", "свинин", "курин", "индейк", "фарш", "стейк", "лосос", "треск", "креветк", "морепродукт", "тунец", "сёмга", "рыб"] },
-  { id: "dairy",   label: "Молочное и яйца",   keys: ["яйц", "сливк", "молок", "сыр", "фет", "рикотт", "моцарелл", "пармезан", "йогурт", "халум", "творог"] },
-  { id: "veggie",  label: "Овощи и зелень",    keys: ["лук", "чеснок", "морков", "томат", "черри", "перец", "брокколи", "шпинат", "цукин", "капуст", "батат", "картофел", "баклажан", "авокадо", "огурец", "петрушк", "укроп", "базилик", "зелён", "салат", "тыкв"] },
-  { id: "fruit",   label: "Фрукты и ягоды",    keys: ["лимон", "лайм", "яблок", "апельсин", "банан", "ягод"] },
-  { id: "grain",   label: "Крупы и паста",     keys: ["рис", "паста", "спагетт", "пенне", "орзо", "булгур", "киноа", "гречк", "перловк", "соба", "удон", "лапш", "рамен", "тортильи", "хлеб", "кускус", "листы лазань"] },
-  { id: "canned",  label: "Консервы и соусы",  keys: ["томат в", "томатн", "кокосов", "соевый", "терияк", "карри", "бульон", "вяленые", "красная фасол", "нут", "чечевиц", "фасол", "кукуруз"] },
-  { id: "other",   label: "Остальное",         keys: [] }
+  { id: "seasoning", label: "Специи и приправы", keys: [
+    "мускат", "корица", "гвоздик", "лавровый", "лавров лист", "кардамон",
+    "зира", "зиру", "тмин", "паприк", "куркум", "анис", "бадьян",
+    "ваниль", "ванильн", "сумах", "хмели", "барбарис", "шафран",
+    "молотый перец", "чёрный перец", "черный перец", "белый перец",
+    "душистый перец", "перец горошком", "перец молотый", "красный молотый",
+    "чили порошок", "порошок чили", "сушен", "специи"
+  ]},
+  { id: "dairy", label: "Молочное и яйца", keys: [
+    "яйц", "сливк", "молок", "молочн",
+    "сыр", "фет", "рикотт", "моцарелл", "пармезан", "грюйер", "маскарпон",
+    "бри", "камамбер", "рокфор", "голуб",
+    "йогурт", "халум", "творог", "сметан", "кефир", "ряженк", "простокваш",
+    "сливочное масло"
+  ]},
+  { id: "canned", label: "Консервы и соусы", keys: [
+    // Специфичные помидорные продукты (не путать со свежими).
+    // Важно учитывать окончания: «томатная паста», а не «томатн паста».
+    "томатная паста", "томатной пасты", "томатная пюре", "томатное пюре",
+    "томатный соус", "томатного соуса", "томатный сок", "томатного сока",
+    "томатный кетчуп", "томатная заправ",
+    "томаты в собствен", "томаты в соб", "помидоры в собствен",
+    "консерв томат", "томат в банк",
+    // Консервы бобовых — только специфичные формы (сухие/свежие идут в veggie)
+    "фасоль консерв", "красная фасол", "белая фасол", "нут консерв",
+    "горошек консерв", "кукуруза консерв", "консервирован",
+    // Соусы и основы
+    "кокосовое молоко", "кокосовый", "соев", "терияк", "карри паст",
+    "бульон", "вялен", "сок лимона", "сок лайма",
+    "горчиц", "майонез", "кетчуп", "уксус", "вустерш", "сладкий соус",
+    "рыбный соус", "устричный соус"
+  ]},
+  { id: "oils", label: "Масла и жиры", keys: [
+    "оливковое масло", "растительное масло", "подсолнечное масло",
+    "кунжутное масло", "кокосовое масло", "льняное масло",
+    "масло extra virgin", "топлёное масло", "гхи"
+  ]},
+  { id: "veggie", label: "Овощи и зелень", keys: [
+    // овощи — стручков должен матчнуться раньше (canned already ran с "фасоль консерв")
+    "стручков", "зелёная стручковая", "стручковая фасоль",
+    "картофел", "картошк", "помидор", "томат", "черри",
+    "чеснок", "морков", "шпинат", "капуст", "цукин", "кабачок",
+    "баклажан", "батат", "авокадо", "огурец", "огурцы", "огурц",
+    "редис", "свекл", "репа", "сельдере", "спарж", "брокколи",
+    "сладкий перец", "болгарский перец", "перец болгар", "перец чили", "перец острый",
+    "зелёный горошек", "зеленый горошек",
+    "цветная капуст", "брюссельск", "пекинск", "фенхел", "артишок",
+    "лук-порей", "лук порей", "зелёный лук", "зеленый лук", "репчатый лук",
+    "шалот",
+    // зелень
+    "петрушк", "укроп", "базилик", "кинза", "зелён", "салат", "руккол",
+    "мят", "черемш", "тимьян", "розмарин", "эстрагон", "шалфей",
+    // тыквенные
+    "тыкв",
+    // общий лук (fallback в самом конце)
+    "лук"
+  ]},
+  { id: "meat", label: "Мясо и рыба", keys: [
+    // мясо и птица
+    "говяд", "говяж", "телят", "теляч",
+    "свинин", "свиной", "свиная", "свиные",
+    "барани", "баранье", "баранья", "ягн",
+    "курин", "куриц", "курочк", "курятин", "цыпл",
+    "индейк", "индюш", "утк", "утин", "утя", "гус", "перепел", "кролик",
+    "фарш", "стейк", "бекон", "ветчин", "колбас", "салями",
+    "грудинк", "корейк", "буженин", "пастром", "прошутт", "хамон", "шпик",
+    // рыба и морепродукты
+    "лосос", "форель", "горбуш", "сёмг", "семг", "кет", "нерк",
+    "тунец", "тунц", "треск", "хек", "палтус", "судак", "окун", "щук",
+    "сельд", "кильк", "скумбри", "сардин", "сайр", "анчоус",
+    "креветк", "кальмар", "мидии", "осьминог", "краб", "гребешк", "лангустин",
+    "морепродукт", "икр", "дорад", "сибас", "тилапи"
+  ]},
+  { id: "grain", label: "Крупы, паста, мука", keys: [
+    "рис", "паста", "спагетт", "пенне", "пенны", "орзо", "фарфалле", "фузилли",
+    "феттучин", "тальятелл", "ригатон", "макарон", "вермишел",
+    "булгур", "киноа", "гречк", "перловк", "соба", "удон", "лапш", "рамен",
+    "тортиль", "хлеб", "кускус", "кус-кус", "лазан", "лист лазань",
+    "мук", "толокн", "овсянк", "крупа", "манк", "кукурузн крупа"
+  ]},
+  { id: "fruit", label: "Фрукты и ягоды", keys: [
+    "лимон", "лайм", "яблок", "апельсин", "мандарин", "грейпфрут", "банан",
+    "клубник", "малин", "черник", "голубик", "смородин", "виноград",
+    "груш", "персик", "абрикос", "слив", "манго", "ананас", "ягод",
+    "изюм", "курага", "чернослив", "оливк", "маслин"
+  ]},
+  { id: "other", label: "Остальное", keys: [] }
 ];
 
 const getCategory = (name) => {
@@ -308,26 +391,123 @@ const getCategory = (name) => {
   return "other";
 };
 
+// --- Объединение одинаковых ингредиентов с конвертацией единиц ---
+// "Куриный бульон 1л" + "Куриный бульон 700мл" → "Куриный бульон 1.7 л"
+// "Говядина 500г" + "Говядина 0.3кг" → "Говядина 800 г"
+// Если единицы разные и несовместимые (напр. штуки и граммы) — остаются отдельными позициями.
+
+const VOLUME_UNITS_TO_ML = {
+  "мл": 1,
+  "миллилитр": 1,
+  "миллилитра": 1,
+  "миллилитров": 1,
+  "л": 1000,
+  "литр": 1000,
+  "литра": 1000,
+  "литров": 1000,
+  "стакан": 200,
+  "стакана": 200,
+  "стаканов": 200,
+  "столовая ложка": 15,
+  "столовых ложек": 15,
+  "столовые ложки": 15,
+  "ст. л.": 15,
+  "ст.л.": 15,
+  "чайная ложка": 5,
+  "чайных ложек": 5,
+  "чайные ложки": 5,
+  "ч. л.": 5,
+  "ч.л.": 5,
+  "десертная ложка": 10,
+  "десертных ложек": 10
+};
+
+const WEIGHT_UNITS_TO_G = {
+  "г": 1,
+  "грамм": 1,
+  "грамма": 1,
+  "граммов": 1,
+  "кг": 1000,
+  "килограмм": 1000,
+  "килограмма": 1000,
+  "килограммов": 1000
+};
+
+// Разбирает единицу → { family, factor } для дальнейшей конвертации в канонические.
+const classifyUnit = (unit) => {
+  const u = (unit || "").toLowerCase().trim();
+  if (Object.prototype.hasOwnProperty.call(VOLUME_UNITS_TO_ML, u)) {
+    return { family: "volume", factor: VOLUME_UNITS_TO_ML[u], originalUnit: u };
+  }
+  if (Object.prototype.hasOwnProperty.call(WEIGHT_UNITS_TO_G, u)) {
+    return { family: "weight", factor: WEIGHT_UNITS_TO_G[u], originalUnit: u };
+  }
+  // "штука", "головка", "зубчик", "пучок", "по вкусу", ... — не конвертируем, мерджим по точной единице.
+  return { family: "count", factor: 1, originalUnit: u };
+};
+
+// Подбирает красивую единицу для отображения после слияния.
+const formatMergedAmount = (family, amountBase, fallbackUnit) => {
+  if (family === "volume") {
+    if (amountBase >= 1000) return { amount: amountBase / 1000, unit: "л" };
+    return { amount: amountBase, unit: "мл" };
+  }
+  if (family === "weight") {
+    if (amountBase >= 1000) return { amount: amountBase / 1000, unit: "кг" };
+    return { amount: amountBase, unit: "г" };
+  }
+  return { amount: amountBase, unit: fallbackUnit };
+};
+
+const canonicalIngredientKey = (name) => name.toLowerCase().trim();
+
 const buildShoppingItems = () => {
   const multiplier = state.servings / 2;
   const basket = new Map();
+
   state.plannedRecipeIds.forEach((recipeId) => {
     const recipe = sortedRecipes.find((r) => r.id === recipeId);
     if (!recipe) return;
     recipe.ingredients.forEach((ingredient) => {
       if (isPantryStaple(ingredient.name)) return;
-      const key = `${ingredient.name}-${ingredient.unit}`;
-      const prev = basket.get(key) || {
-        name: ingredient.name,
-        unit: ingredient.unit,
-        amount: 0,
-        category: getCategory(ingredient.name)
-      };
-      prev.amount += ingredient.amount * multiplier;
-      basket.set(key, prev);
+      const { family, factor, originalUnit } = classifyUnit(ingredient.unit);
+      // Для volume и weight — мерджим по названию независимо от единицы.
+      // Для count — мерджим только по точному совпадению единицы (штуки с штуками).
+      const key =
+        family === "count"
+          ? `${canonicalIngredientKey(ingredient.name)}|count|${originalUnit}`
+          : `${canonicalIngredientKey(ingredient.name)}|${family}`;
+
+      const existing = basket.get(key);
+      const addition = (Number(ingredient.amount) || 0) * factor * multiplier;
+
+      if (existing) {
+        existing.amountBase += addition;
+      } else {
+        basket.set(key, {
+          key,
+          name: ingredient.name, // берём оригинальное имя из первого вхождения
+          family,
+          originalUnit,
+          amountBase: addition,
+          category: getCategory(ingredient.name)
+        });
+      }
     });
   });
-  return Array.from(basket.values()).sort((a, b) => a.name.localeCompare(b.name, "ru"));
+
+  return Array.from(basket.values())
+    .map((it) => {
+      const { amount, unit } = formatMergedAmount(it.family, it.amountBase, it.originalUnit);
+      return {
+        key: it.key,
+        name: it.name,
+        amount,
+        unit,
+        category: it.category
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, "ru"));
 };
 
 const groupByCategory = (items) => {
@@ -367,7 +547,7 @@ const getStoreSearchUrl = (ingredientName) =>
 const checkedItems = new Set();
 
 const renderShoppingItem = (item) => {
-  const key = `${item.name}-${item.unit}`;
+  const key = item.key;
   const checked = checkedItems.has(key);
   const searchUrl = getStoreSearchUrl(item.name);
   return `
@@ -400,7 +580,7 @@ const renderShoppingList = () => {
     return;
   }
   const groups = groupByCategory(items);
-  const unchecked = items.filter((i) => !checkedItems.has(`${i.name}-${i.unit}`));
+  const unchecked = items.filter((i) => !checkedItems.has(i.key));
   const storeName = STORES[state.selectedStore].label;
 
   shoppingList.innerHTML = `
@@ -511,7 +691,7 @@ const copyShoppingList = exportByCategories;
 
 const openAllInStore = () => {
   const items = buildShoppingItems();
-  const unchecked = items.filter((i) => !checkedItems.has(`${i.name}-${i.unit}`));
+  const unchecked = items.filter((i) => !checkedItems.has(i.key));
   if (!unchecked.length) return;
   unchecked.forEach((item) => {
     window.open(getStoreSearchUrl(item.name), "_blank", "noreferrer");
