@@ -1,20 +1,70 @@
-name: Deploy to GitHub Pages
+name: Deploy & Rotate
+
+# Этот workflow делает две вещи в одном прогоне:
+#  1. Каждое воскресенье в 07:00 UTC (10:00 по Москве) — тянет свежую подборку
+#     рецептов с eda.rambler.ru и коммитит recipes-pending.json в репозиторий.
+#  2. При любом пуше в main — деплоит статический сайт на GitHub Pages.
+#
+# Один объединённый workflow, а не два — так весь деплой детерминированно включает
+# только что сгенерированный recipes-pending.json без цепочек между задачами.
+
 on:
   push:
     branches: [main]
+  schedule:
+    # Sunday 07:00 UTC == 10:00 Europe/Moscow (летом и зимой)
+    - cron: '0 7 * * 0'
+  workflow_dispatch: {}
+
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install parser dependencies
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        working-directory: ./parser
+        run: npm install --no-audit --no-fund
+
+      - name: Fetch fresh recipes from eda.rambler.ru
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node parser/build-weekly.js --pending
+
+      - name: Commit weekly rotation
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add recipes-pending.json
+          if git diff --staged --quiet; then
+            echo "No changes in recipes-pending.json, skipping commit"
+          else
+            git commit -m "Weekly recipe rotation $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
-      - uses: actions/deploy-pages@v4
+      - id: deployment
+        uses: actions/deploy-pages@v4

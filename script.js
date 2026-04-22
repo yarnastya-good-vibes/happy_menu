@@ -1,522 +1,11 @@
 const STORAGE_KEY = "happy-wife-menu-filters-v2";
 const RECIPE_CYCLE_STORAGE_KEY = "happy-wife-menu-recipe-cycle-v1";
-const pantryExclusions = [
-  "соль", "перец", "подсолнечное масло", "растительное масло", "оливковое масло"
-];
+// pantryExclusions временно пуст — добавим на следующей итерации.
+const pantryExclusions = [];
 
-const recipes = [
-  {
-    id: 1,
-    title: "Лосось с киноа и зелёной фасолью",
-    image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=900&q=80",
-    time: 25,
-    difficulty: "Легко",
-    meatCategory: "no-red-meat",
-    diet: "pescatarian",
-    macros: { protein: 44, fat: 27, carbs: 32 },
-    ingredients: [
-      { name: "Филе лосося", amount: 360, unit: "г" },
-      { name: "Киноа", amount: 140, unit: "г" },
-      { name: "Стручковая фасоль", amount: 220, unit: "г" },
-      { name: "Лимон", amount: 1, unit: "шт" },
-      { name: "Оливковое масло", amount: 2, unit: "ст. л." }
-    ]
-  },
-  {
-    id: 2,
-    title: "Паста с курицей и вялеными томатами",
-    image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80",
-    time: 35,
-    difficulty: "Средне",
-    meatCategory: "no-red-meat",
-    diet: "meat",
-    macros: { protein: 41, fat: 22, carbs: 58 },
-    ingredients: [
-      { name: "Куриное филе", amount: 300, unit: "г" },
-      { name: "Паста", amount: 180, unit: "г" },
-      { name: "Сливки 10%", amount: 180, unit: "мл" },
-      { name: "Вяленые томаты", amount: 80, unit: "г" },
-      { name: "Шпинат", amount: 70, unit: "г" }
-    ]
-  },
-  {
-    id: 3,
-    title: "Тыквенное ризотто с пармезаном",
-    image: "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=900&q=80",
-    time: 45,
-    difficulty: "Посложнее",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 18, fat: 17, carbs: 63 },
-    ingredients: [
-      { name: "Рис арборио", amount: 180, unit: "г" },
-      { name: "Тыква", amount: 320, unit: "г" },
-      { name: "Пармезан", amount: 60, unit: "г" },
-      { name: "Овощной бульон", amount: 700, unit: "мл" },
-      { name: "Лук", amount: 1, unit: "шт" }
-    ]
-  },
-  {
-    id: 4,
-    title: "Гречневая лапша с говядиной и брокколи",
-    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80",
-    time: 20,
-    difficulty: "Легко",
-    meatCategory: "red-meat",
-    diet: "meat",
-    macros: { protein: 36, fat: 19, carbs: 47 },
-    ingredients: [
-      { name: "Говядина", amount: 280, unit: "г" },
-      { name: "Соба", amount: 180, unit: "г" },
-      { name: "Брокколи", amount: 240, unit: "г" },
-      { name: "Соевый соус", amount: 3, unit: "ст. л." },
-      { name: "Кунжут", amount: 1, unit: "ст. л." }
-    ]
-  },
-  {
-    id: 5,
-    title: "Шакшука с фетой и тостами",
-    image: "https://images.unsplash.com/photo-1510693206972-df098062cb71?auto=format&fit=crop&w=900&q=80",
-    time: 30,
-    difficulty: "Легко",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 24, fat: 20, carbs: 29 },
-    ingredients: [
-      { name: "Яйца", amount: 4, unit: "шт" },
-      { name: "Томаты в собственном соку", amount: 400, unit: "г" },
-      { name: "Фета", amount: 100, unit: "г" },
-      { name: "Болгарский перец", amount: 1, unit: "шт" },
-      { name: "Хлеб", amount: 4, unit: "ломтика" }
-    ]
-  },
-  {
-    id: 6,
-    title: "Индейка в кокосовом карри с рисом",
-    image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=900&q=80",
-    time: 40,
-    difficulty: "Средне",
-    meatCategory: "no-red-meat",
-    diet: "meat",
-    macros: { protein: 39, fat: 24, carbs: 55 },
-    ingredients: [
-      { name: "Филе индейки", amount: 320, unit: "г" },
-      { name: "Рис жасмин", amount: 170, unit: "г" },
-      { name: "Кокосовое молоко", amount: 240, unit: "мл" },
-      { name: "Паста карри", amount: 2, unit: "ст. л." },
-      { name: "Морковь", amount: 2, unit: "шт" }
-    ]
-  },
-  {
-    id: 7,
-    title: "Овощная лазанья с рикоттой",
-    image: "https://images.unsplash.com/photo-1619895092538-128341789043?auto=format&fit=crop&w=900&q=80",
-    time: 55,
-    difficulty: "Посложнее",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 26, fat: 21, carbs: 49 },
-    ingredients: [
-      { name: "Листы лазаньи", amount: 180, unit: "г" },
-      { name: "Рикотта", amount: 250, unit: "г" },
-      { name: "Цукини", amount: 2, unit: "шт" },
-      { name: "Томатный соус", amount: 350, unit: "мл" },
-      { name: "Моцарелла", amount: 150, unit: "г" }
-    ]
-  },
-  {
-    id: 8,
-    title: "Тёплый салат с креветками и авокадо",
-    image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80",
-    time: 18,
-    difficulty: "Легко",
-    meatCategory: "no-red-meat",
-    diet: "pescatarian",
-    macros: { protein: 29, fat: 21, carbs: 18 },
-    ingredients: [
-      { name: "Креветки", amount: 260, unit: "г" },
-      { name: "Авокадо", amount: 1, unit: "шт" },
-      { name: "Микс салата", amount: 120, unit: "г" },
-      { name: "Черри", amount: 160, unit: "г" },
-      { name: "Лайм", amount: 1, unit: "шт" }
-    ]
-  },
-  {
-    id: 9,
-    title: "Нутовые котлеты с йогуртовым соусом",
-    image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80",
-    time: 35,
-    difficulty: "Средне",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 22, fat: 14, carbs: 41 },
-    ingredients: [
-      { name: "Нут", amount: 240, unit: "г" },
-      { name: "Лук", amount: 1, unit: "шт" },
-      { name: "Йогурт", amount: 140, unit: "г" },
-      { name: "Огурец", amount: 1, unit: "шт" },
-      { name: "Чеснок", amount: 2, unit: "зубчика" }
-    ]
-  },
-  {
-    id: 10,
-    title: "Удон с тофу и шиитаке",
-    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80",
-    time: 25,
-    difficulty: "Легко",
-    meatCategory: "vegetarian",
-    diet: "vegan",
-    macros: { protein: 21, fat: 15, carbs: 54 },
-    ingredients: [
-      { name: "Тофу", amount: 240, unit: "г" },
-      { name: "Удон", amount: 220, unit: "г" },
-      { name: "Шиитаке", amount: 160, unit: "г" },
-      { name: "Соевый соус", amount: 3, unit: "ст. л." },
-      { name: "Зелёный лук", amount: 1, unit: "пучок" }
-    ]
-  },
-  {
-    id: 11,
-    title: "Куриные тефтели с булгуром",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80",
-    time: 38,
-    difficulty: "Средне",
-    meatCategory: "no-red-meat",
-    diet: "meat",
-    macros: { protein: 37, fat: 16, carbs: 43 },
-    ingredients: [
-      { name: "Куриный фарш", amount: 320, unit: "г" },
-      { name: "Булгур", amount: 170, unit: "г" },
-      { name: "Томатный соус", amount: 280, unit: "мл" },
-      { name: "Лук", amount: 1, unit: "шт" },
-      { name: "Петрушка", amount: 1, unit: "пучок" }
-    ]
-  },
-  {
-    id: 12,
-    title: "Стейк с бататом и салатом",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
-    time: 32,
-    difficulty: "Средне",
-    meatCategory: "red-meat",
-    diet: "meat",
-    macros: { protein: 42, fat: 24, carbs: 34 },
-    ingredients: [
-      { name: "Говяжий стейк", amount: 320, unit: "г" },
-      { name: "Батат", amount: 360, unit: "г" },
-      { name: "Микс салата", amount: 100, unit: "г" },
-      { name: "Черри", amount: 150, unit: "г" },
-      { name: "Оливковое масло", amount: 2, unit: "ст. л." }
-    ]
-  },
-  {
-    id: 13,
-    title: "Ленивое карри из чечевицы",
-    image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=900&q=80",
-    time: 28,
-    difficulty: "Легко",
-    meatCategory: "vegetarian",
-    diet: "vegan",
-    macros: { protein: 19, fat: 11, carbs: 46 },
-    ingredients: [
-      { name: "Чечевица", amount: 220, unit: "г" },
-      { name: "Кокосовое молоко", amount: 240, unit: "мл" },
-      { name: "Томаты в собственном соку", amount: 300, unit: "г" },
-      { name: "Шпинат", amount: 80, unit: "г" },
-      { name: "Паста карри", amount: 1, unit: "ст. л." }
-    ]
-  },
-  {
-    id: 14,
-    title: "Треска с картофелем и горошком",
-    image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=80",
-    time: 27,
-    difficulty: "Легко",
-    meatCategory: "no-red-meat",
-    diet: "pescatarian",
-    macros: { protein: 35, fat: 12, carbs: 33 },
-    ingredients: [
-      { name: "Филе трески", amount: 340, unit: "г" },
-      { name: "Картофель", amount: 360, unit: "г" },
-      { name: "Зелёный горошек", amount: 160, unit: "г" },
-      { name: "Лимон", amount: 1, unit: "шт" },
-      { name: "Укроп", amount: 1, unit: "пучок" }
-    ]
-  },
-  {
-    id: 15,
-    title: "Грибной орзо со шпинатом",
-    image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=900&q=80",
-    time: 30,
-    difficulty: "Средне",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 17, fat: 15, carbs: 52 },
-    ingredients: [
-      { name: "Орзо", amount: 180, unit: "г" },
-      { name: "Шампиньоны", amount: 260, unit: "г" },
-      { name: "Шпинат", amount: 80, unit: "г" },
-      { name: "Пармезан", amount: 50, unit: "г" },
-      { name: "Лук", amount: 1, unit: "шт" }
-    ]
-  },
-  {
-    id: 16,
-    title: "Свинина терияки с рисом",
-    image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=900&q=80",
-    time: 34,
-    difficulty: "Средне",
-    meatCategory: "red-meat",
-    diet: "meat",
-    macros: { protein: 38, fat: 22, carbs: 48 },
-    ingredients: [
-      { name: "Свинина", amount: 320, unit: "г" },
-      { name: "Рис жасмин", amount: 180, unit: "г" },
-      { name: "Болгарский перец", amount: 1, unit: "шт" },
-      { name: "Соус терияки", amount: 4, unit: "ст. л." },
-      { name: "Кунжут", amount: 1, unit: "ст. л." }
-    ]
-  },
-  {
-    id: 17,
-    title: "Тако с фасолью и кукурузой",
-    image: "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=900&q=80",
-    time: 22,
-    difficulty: "Легко",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 18, fat: 13, carbs: 49 },
-    ingredients: [
-      { name: "Красная фасоль", amount: 220, unit: "г" },
-      { name: "Кукуруза", amount: 160, unit: "г" },
-      { name: "Тортильи", amount: 6, unit: "шт" },
-      { name: "Авокадо", amount: 1, unit: "шт" },
-      { name: "Лайм", amount: 1, unit: "шт" }
-    ]
-  },
-  {
-    id: 18,
-    title: "Паэлья с морепродуктами",
-    image: "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=900&q=80",
-    time: 42,
-    difficulty: "Посложнее",
-    meatCategory: "no-red-meat",
-    diet: "pescatarian",
-    macros: { protein: 33, fat: 13, carbs: 51 },
-    ingredients: [
-      { name: "Рис арборио", amount: 180, unit: "г" },
-      { name: "Морепродукты", amount: 320, unit: "г" },
-      { name: "Черри", amount: 180, unit: "г" },
-      { name: "Болгарский перец", amount: 1, unit: "шт" },
-      { name: "Чеснок", amount: 2, unit: "зубчика" }
-    ]
-  },
-  {
-    id: 19,
-    title: "Запечённая цветная капуста с тахини",
-    image: "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=900&q=80",
-    time: 26,
-    difficulty: "Легко",
-    meatCategory: "vegetarian",
-    diet: "vegan",
-    macros: { protein: 12, fat: 16, carbs: 28 },
-    ingredients: [
-      { name: "Цветная капуста", amount: 1, unit: "кочан" },
-      { name: "Тахини", amount: 3, unit: "ст. л." },
-      { name: "Нут", amount: 180, unit: "г" },
-      { name: "Лимон", amount: 1, unit: "шт" },
-      { name: "Петрушка", amount: 1, unit: "пучок" }
-    ]
-  },
-  {
-    id: 20,
-    title: "Курица в медово-горчичном соусе",
-    image: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=900&q=80",
-    time: 33,
-    difficulty: "Легко",
-    meatCategory: "no-red-meat",
-    diet: "meat",
-    macros: { protein: 40, fat: 17, carbs: 26 },
-    ingredients: [
-      { name: "Куриное филе", amount: 320, unit: "г" },
-      { name: "Картофель", amount: 340, unit: "г" },
-      { name: "Брокколи", amount: 220, unit: "г" },
-      { name: "Мёд", amount: 1, unit: "ст. л." },
-      { name: "Горчица", amount: 1, unit: "ст. л." }
-    ]
-  },
-  {
-    id: 21,
-    title: "Рамен с яйцом и кукурузой",
-    image: "https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=900&q=80",
-    time: 24,
-    difficulty: "Средне",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 20, fat: 14, carbs: 48 },
-    ingredients: [
-      { name: "Лапша рамен", amount: 200, unit: "г" },
-      { name: "Яйца", amount: 4, unit: "шт" },
-      { name: "Кукуруза", amount: 120, unit: "г" },
-      { name: "Зелёный лук", amount: 1, unit: "пучок" },
-      { name: "Соевый соус", amount: 2, unit: "ст. л." }
-    ]
-  },
-  {
-    id: 22,
-    title: "Фаршированные перцы с говядиной",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
-    time: 50,
-    difficulty: "Посложнее",
-    meatCategory: "red-meat",
-    diet: "meat",
-    macros: { protein: 34, fat: 18, carbs: 31 },
-    ingredients: [
-      { name: "Говяжий фарш", amount: 300, unit: "г" },
-      { name: "Болгарский перец", amount: 4, unit: "шт" },
-      { name: "Рис арборио", amount: 120, unit: "г" },
-      { name: "Томатный соус", amount: 250, unit: "мл" },
-      { name: "Лук", amount: 1, unit: "шт" }
-    ]
-  },
-  {
-    id: 23,
-    title: "Соба с лососем и эдамаме",
-    image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=900&q=80",
-    time: 21,
-    difficulty: "Легко",
-    meatCategory: "no-red-meat",
-    diet: "pescatarian",
-    macros: { protein: 34, fat: 19, carbs: 39 },
-    ingredients: [
-      { name: "Филе лосося", amount: 300, unit: "г" },
-      { name: "Соба", amount: 180, unit: "г" },
-      { name: "Эдамаме", amount: 160, unit: "г" },
-      { name: "Огурец", amount: 1, unit: "шт" },
-      { name: "Соевый соус", amount: 2, unit: "ст. л." }
-    ]
-  },
-  {
-    id: 24,
-    title: "Крем-паста с брокколи и горошком",
-    image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80",
-    time: 23,
-    difficulty: "Легко",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 16, fat: 14, carbs: 53 },
-    ingredients: [
-      { name: "Паста", amount: 180, unit: "г" },
-      { name: "Брокколи", amount: 220, unit: "г" },
-      { name: "Зелёный горошек", amount: 150, unit: "г" },
-      { name: "Сливки 10%", amount: 160, unit: "мл" },
-      { name: "Пармезан", amount: 40, unit: "г" }
-    ]
-  },
-  {
-    id: 25,
-    title: "Бургер боул с индейкой",
-    image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=80",
-    time: 29,
-    difficulty: "Легко",
-    meatCategory: "no-red-meat",
-    diet: "meat",
-    macros: { protein: 35, fat: 18, carbs: 24 },
-    ingredients: [
-      { name: "Филе индейки", amount: 300, unit: "г" },
-      { name: "Микс салата", amount: 120, unit: "г" },
-      { name: "Черри", amount: 160, unit: "г" },
-      { name: "Огурец", amount: 1, unit: "шт" },
-      { name: "Авокадо", amount: 1, unit: "шт" }
-    ]
-  },
-  {
-    id: 26,
-    title: "Веганский чили с фасолью",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80",
-    time: 36,
-    difficulty: "Средне",
-    meatCategory: "vegetarian",
-    diet: "vegan",
-    macros: { protein: 20, fat: 9, carbs: 44 },
-    ingredients: [
-      { name: "Красная фасоль", amount: 240, unit: "г" },
-      { name: "Томаты в собственном соку", amount: 350, unit: "г" },
-      { name: "Кукуруза", amount: 160, unit: "г" },
-      { name: "Лук", amount: 1, unit: "шт" },
-      { name: "Болгарский перец", amount: 1, unit: "шт" }
-    ]
-  },
-  {
-    id: 27,
-    title: "Кускус с халуми и овощами",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80",
-    time: 19,
-    difficulty: "Легко",
-    meatCategory: "vegetarian",
-    diet: "vegetarian",
-    macros: { protein: 19, fat: 18, carbs: 42 },
-    ingredients: [
-      { name: "Кускус", amount: 170, unit: "г" },
-      { name: "Халуми", amount: 180, unit: "г" },
-      { name: "Цукини", amount: 1, unit: "шт" },
-      { name: "Черри", amount: 160, unit: "г" },
-      { name: "Лимон", amount: 1, unit: "шт" }
-    ]
-  },
-  {
-    id: 28,
-    title: "Том ям с креветками",
-    image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80",
-    time: 31,
-    difficulty: "Посложнее",
-    meatCategory: "no-red-meat",
-    diet: "pescatarian",
-    macros: { protein: 28, fat: 16, carbs: 17 },
-    ingredients: [
-      { name: "Креветки", amount: 260, unit: "г" },
-      { name: "Кокосовое молоко", amount: 200, unit: "мл" },
-      { name: "Шампиньоны", amount: 160, unit: "г" },
-      { name: "Лайм", amount: 1, unit: "шт" },
-      { name: "Чеснок", amount: 2, unit: "зубчика" }
-    ]
-  },
-  {
-    id: 29,
-    title: "Перловка с грибами и тимьяном",
-    image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=900&q=80",
-    time: 44,
-    difficulty: "Средне",
-    meatCategory: "vegetarian",
-    diet: "vegan",
-    macros: { protein: 14, fat: 8, carbs: 50 },
-    ingredients: [
-      { name: "Перловка", amount: 180, unit: "г" },
-      { name: "Шампиньоны", amount: 260, unit: "г" },
-      { name: "Лук", amount: 1, unit: "шт" },
-      { name: "Чеснок", amount: 2, unit: "зубчика" },
-      { name: "Петрушка", amount: 1, unit: "пучок" }
-    ]
-  },
-  {
-    id: 30,
-    title: "Кесадилья с курицей и сыром",
-    image: "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=900&q=80",
-    time: 18,
-    difficulty: "Легко",
-    meatCategory: "no-red-meat",
-    diet: "meat",
-    macros: { protein: 31, fat: 20, carbs: 35 },
-    ingredients: [
-      { name: "Куриное филе", amount: 260, unit: "г" },
-      { name: "Тортильи", amount: 4, unit: "шт" },
-      { name: "Сыр", amount: 140, unit: "г" },
-      { name: "Кукуруза", amount: 120, unit: "г" },
-      { name: "Болгарский перец", amount: 1, unit: "шт" }
-    ]
-  }
-];
-;
+// Активные рецепты загружаются из recipes.json в bootstrap()
+// (или из localStorage, если пользователь принял еженедельную ротацию).
+let recipes = [];
 
 // ---------- Цикл рецептов по неделям ----------
 
@@ -567,7 +56,7 @@ const getNextRecipeRefreshLabel = () => {
 };
 
 const recipeCycleKey = getCurrentRecipeCycleKey();
-const sortedRecipes = sortRecipesByCycle(recipes, recipeCycleKey);
+let sortedRecipes = [];  // вычисляется в bootstrap() после загрузки рецептов
 
 const weekDays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 
@@ -620,6 +109,16 @@ const isPantryStaple = (name) =>
   pantryExclusions.some((p) => name.toLowerCase().includes(p));
 
 const buildRecipeSteps = (recipe) => {
+  // Если у рецепта есть настоящие пошаговые инструкции (из eda.rambler.ru) — используем их.
+  // Шаблон ниже остаётся как fallback для старых/ручных рецептов без поля steps.
+  if (Array.isArray(recipe.steps) && recipe.steps.length > 0) {
+    return recipe.steps.map((step, i) => {
+      const text = typeof step === "string" ? step : step.text || "";
+      const timing = typeof step === "object" && step.timeMin
+        ? ` (≈ ${step.timeMin} мин)` : "";
+      return `Шаг ${i + 1}. ${text}${timing}`;
+    });
+  }
   const [first, second, third, fourth] = recipe.ingredients;
   return [
     `Шаг 1. Подготовьте продукты: нарежьте ${first.name.toLowerCase()} и ${second.name.toLowerCase()}, разогрейте рабочую поверхность.`,
@@ -1059,6 +558,159 @@ document.addEventListener("keydown", (e) => {
 
 // ---------- Инициализация ----------
 
-loadFilters();
-window.localStorage.setItem(RECIPE_CYCLE_STORAGE_KEY, recipeCycleKey);
-render();
+const ACTIVE_RECIPES_LS_KEY = "happy-wife-menu-active-recipes-v1";
+const SKIPPED_PENDING_LS_KEY = "happy-wife-menu-skipped-pending-v1";
+
+const safeFetchJson = async (url) => {
+  try {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+};
+
+const readActiveFromLS = () => {
+  try {
+    const raw = window.localStorage.getItem(ACTIVE_RECIPES_LS_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.recipes)) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+};
+
+const writeActiveToLS = (payload) => {
+  try {
+    window.localStorage.setItem(ACTIVE_RECIPES_LS_KEY, JSON.stringify(payload));
+  } catch (err) {
+    console.warn("Can\'t persist active recipes:", err);
+  }
+};
+
+const readSkippedWeekTag = () => {
+  try { return window.localStorage.getItem(SKIPPED_PENDING_LS_KEY); }
+  catch { return null; }
+};
+
+const writeSkippedWeekTag = (tag) => {
+  try { window.localStorage.setItem(SKIPPED_PENDING_LS_KEY, tag); }
+  catch {}
+};
+
+// --- Модалка ротации ---
+
+const buildRotationModal = (pending, active, plannedOldCount) => new Promise((resolve) => {
+  const overlay = document.createElement("div");
+  overlay.className = "rotation-modal";
+  overlay.style.cssText = [
+    "position:fixed", "inset:0", "z-index:9999",
+    "background:rgba(24,28,38,0.55)", "display:flex",
+    "align-items:center", "justify-content:center", "padding:16px"
+  ].join(";");
+
+  const box = document.createElement("div");
+  box.style.cssText = [
+    "background:#fff", "border-radius:14px", "max-width:480px", "width:100%",
+    "padding:28px", "box-shadow:0 20px 60px rgba(0,0,0,0.25)",
+    "font-family:inherit", "color:#222"
+  ].join(";");
+
+  const planLine = plannedOldCount > 0
+    ? `<p style="margin:0 0 16px;color:#555">В твоём плане на неделю <strong>${plannedOldCount}</strong> ${plannedOldCount === 1 ? "рецепт" : "рецептов"} из старой подборки. Что с ним делать?</p>`
+    : `<p style="margin:0 0 16px;color:#555">План на неделю пуст, можно безопасно применить новые рецепты.</p>`;
+
+  box.innerHTML = `
+    <h3 style="margin:0 0 12px;font-size:22px">Новая подборка рецептов готова</h3>
+    <p style="margin:0 0 8px;color:#555">
+      Парсер собрал <strong>${pending.counts?.total ?? pending.recipes.length}</strong> свежих рецептов с eda.ru (${pending.weekTag}).
+    </p>
+    ${planLine}
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin-top:20px">
+      <button data-act="skip"  style="padding:10px 16px;border:1px solid #ccc;background:#f5f5f7;border-radius:8px;cursor:pointer">Оставить старую</button>
+      ${plannedOldCount > 0 ? '<button data-act="apply-keep" style="padding:10px 16px;border:1px solid #ccc;background:#fff;border-radius:8px;cursor:pointer">Применить, план оставить</button>' : ''}
+      <button data-act="apply-clear" style="padding:10px 16px;border:none;background:#e86a3c;color:#fff;border-radius:8px;cursor:pointer;font-weight:600">Применить${plannedOldCount > 0 ? " и очистить план" : ""}</button>
+    </div>
+  `;
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+  overlay.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-act]");
+    if (!btn) return;
+    const act = btn.dataset.act;
+    overlay.remove();
+    resolve(act);
+  });
+});
+
+// --- Нормализация формата рецепта (на случай старого кэша) ---
+
+const ensureRecipeShape = (r) => ({
+  ...r,
+  macros: r.macros || { protein: 0, fat: 0, carbs: 0 }
+});
+
+// --- Bootstrap ---
+
+const bootstrap = async () => {
+  window.localStorage.setItem(RECIPE_CYCLE_STORAGE_KEY, recipeCycleKey);
+
+  const [pendingRaw, activeFromFile] = await Promise.all([
+    safeFetchJson("./recipes-pending.json"),
+    safeFetchJson("./recipes.json")
+  ]);
+  const activeFromLS = readActiveFromLS();
+
+  // "Активная" подборка — из localStorage (если пользователь принял ротацию)
+  // или из recipes.json (первая установка).
+  let active = activeFromLS || activeFromFile;
+  if (!active) {
+    console.error("recipes.json не найден и localStorage пуст — рендерим пустой интерфейс");
+    active = { recipes: [], weekTag: "unknown" };
+  }
+
+  // Показать модалку, если есть свежий pending, не совпадающий с active и не пропущенный.
+  if (
+    pendingRaw &&
+    Array.isArray(pendingRaw.recipes) &&
+    pendingRaw.weekTag &&
+    pendingRaw.weekTag !== active.weekTag &&
+    pendingRaw.weekTag !== readSkippedWeekTag()
+  ) {
+    const plannedInActive = state.plannedRecipeIds.filter(
+      (id) => active.recipes.some((r) => r.id === id)
+    ).length;
+    const choice = await buildRotationModal(pendingRaw, active, plannedInActive);
+    if (choice === "apply-clear" || choice === "apply-keep") {
+      active = pendingRaw;
+      writeActiveToLS({
+        weekTag: pendingRaw.weekTag,
+        generatedAt: pendingRaw.generatedAt,
+        recipes: pendingRaw.recipes
+      });
+      if (choice === "apply-clear") {
+        state.plannedRecipeIds = [];
+      } else {
+        // оставить только те id, что есть в новой подборке
+        state.plannedRecipeIds = state.plannedRecipeIds.filter(
+          (id) => pendingRaw.recipes.some((r) => r.id === id)
+        );
+      }
+      // сбросить «пропущено» — пользователь принял
+      try { window.localStorage.removeItem(SKIPPED_PENDING_LS_KEY); } catch {}
+    } else {
+      writeSkippedWeekTag(pendingRaw.weekTag);
+    }
+  }
+
+  recipes = (active.recipes || []).map(ensureRecipeShape);
+  sortedRecipes = sortRecipesByCycle(recipes, recipeCycleKey);
+
+  loadFilters();
+  render();
+};
+
+bootstrap();

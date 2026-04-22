@@ -1,24 +1,46 @@
-# Happy Wife Menu: публикация в интернете
+# Happy Wife Menu 2.0 — публикация и автоматизация
 
-Проект уже подготовлен к публикации через GitHub Pages.
+## Как всё устроено
 
-Что нужно сделать:
+- **Сайт**: статический (HTML + CSS + JS), хостится на GitHub Pages.
+- **Репозиторий**: https://github.com/yarnastya-good-vibes/happy_menu
+- **Публичный URL**: https://yarnastya-good-vibes.github.io/happy_menu/
+- **Ротация рецептов**: парсер на Node.js каждое воскресенье в 10:00 по Москве тянет 25 основных блюд + 5 супов с eda.rambler.ru и коммитит `recipes-pending.json` в репо. Запускает это GitHub Actions (`.github/workflows/deploy-pages.yml`) — твой Mac для этого включать не нужно.
+- **Модалка**: когда в репозитории появляется новый `recipes-pending.json`, фронтенд при следующем открытии сайта показывает тебе модалку «применить / оставить старые».
 
-1. Создать новый публичный репозиторий на GitHub.
-2. Загрузить в него содержимое этой папки целиком.
-3. Назвать основную ветку `main`.
-4. В GitHub открыть `Settings -> Pages` и убедиться, что Pages включён.
-5. После первого `push` GitHub Actions сам опубликует сайт.
+## Первый пуш (один раз)
 
-Где появится сайт:
+1. Открой **Terminal.app** (Cmd+Space → «Terminal»)
+2. Выполни:
+   ```
+   cd "/Users/Anastasia/Downloads/Happy Wife Menu/Happy Wife Menu 2.0"
+   bash deploy-to-github.sh
+   ```
+3. Если git спросит логин/пароль — введи GitHub username и **Personal Access Token** (не обычный пароль). Токен создаётся здесь: https://github.com/settings/tokens (галочка `repo`).
 
-- Обычно по адресу вида `https://<ваш-github-логин>.github.io/<имя-репозитория>/`
+После этого можно забыть про ручное перетаскивание файлов.
 
-Что уже настроено:
+## Ручной запуск ротации (для теста)
 
-- workflow автодеплоя: `.github/workflows/deploy-pages.yml`
-- сайт статический, без сборки и зависимостей
+- Из интерфейса GitHub: Actions → «Deploy & Rotate» → Run workflow.
+- Или локально:
+  ```
+  cd "/Users/Anastasia/Downloads/Happy Wife Menu/Happy Wife Menu 2.0"
+  node parser/build-weekly.js --pending
+  ```
+  И открой `index.html` — увидишь модалку с новой подборкой.
 
-Важно:
+## Файлы
 
-- В проекте используется локальное фото `hero-photo.jpeg`, оно тоже должно быть в репозитории.
+| Файл                          | Что                                                        |
+|-------------------------------|------------------------------------------------------------|
+| `index.html`, `styles.css`    | Разметка и стили                                            |
+| `script.js`                   | Вся UI-логика, модалка ротации, загрузка `recipes.json`    |
+| `recipes.json`                | Текущие 30 активных рецептов (база)                         |
+| `recipes-pending.json`        | Новая подборка, ждущая подтверждения (создаётся воркфлоу)  |
+| `hero-photo.jpeg`             | Главная картинка сайта                                     |
+| `parser/fetch-recipe.js`      | Парсер одного рецепта (через `__NEXT_DATA__`)              |
+| `parser/fetch-category.js`    | Сборщик URL из категории с пагинацией                      |
+| `parser/build-weekly.js`      | Оркестратор: 25 основных + 5 супов → JSON                  |
+| `.github/workflows/deploy-pages.yml` | Автодеплой + еженедельная ротация                    |
+| `deploy-to-github.sh`         | Ручной скрипт первого пуша                                 |

@@ -1,0 +1,10 @@
+{
+  "name": "hwm-parser",
+  "version": "1.0.0",
+  "private": true,
+  "main": "fetch-recipe.js",
+  "description": "Парсер рецептов eda.rambler.ru для Happy Wife Menu 2.0. undici нужен только для прокси-режима; на машине пользователя плоский fetch работает без зависимостей.",
+  "dependencies": {
+    "undici": "^6.0.0"
+  }
+}
