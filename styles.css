@@ -1588,15 +1588,28 @@ html {
     margin-top: 6px;
   }
 
-  /* Фото — короткий баннер вместо высокого портрета */
+  /* Фото — небольшой квадрат в правом верхнем углу */
   .hero__media {
-    width: 100%;
-    max-height: 190px;
-    aspect-ratio: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 92px;
+    height: 92px;
+    aspect-ratio: 1;
+    max-height: none;
+    margin: 0;
+    border-radius: 18px;
+    z-index: 2;
   }
 
   .hero__media img {
-    object-position: center 30%;
+    object-position: center;
+  }
+
+  /* Заголовок не должен заезжать под фото */
+  .hero .eyebrow,
+  .hero h1 {
+    padding-right: 104px;
   }
 
   /* ---------- Фильтры: сворачиваемые ---------- */
@@ -1626,14 +1639,71 @@ html {
     padding: 12px 14px;
   }
 
-  /* ---------- Карточки рецептов: ниже фото, плотнее ---------- */
+  /* ---------- Карточки рецептов: компактнее (~1,5 на экран) ---------- */
   .recipe-card__image {
-    aspect-ratio: 16 / 10;
-    max-height: 200px;
+    aspect-ratio: 16 / 9;
+    max-height: 150px;
   }
 
   .recipe-card__body {
-    padding: 16px;
+    padding: 14px;
+  }
+
+  .recipe-card__title {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+
+  .recipe-card__meta {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .meta-pill {
+    padding: 8px 10px;
+  }
+
+  .meta-pill strong {
+    font-size: 0.7rem;
+    margin-bottom: 2px;
+  }
+
+  .meta-pill span {
+    font-size: 0.9rem;
+  }
+
+  .recipe-card__macros {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .macro-pill {
+    padding: 7px 5px;
+  }
+
+  .macro-pill strong {
+    font-size: 0.66rem;
+    margin-bottom: 2px;
+  }
+
+  .macro-pill span {
+    font-size: 0.84rem;
+  }
+
+  .recipe-card__ingredients {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .recipe-card__ingredients li {
+    font-size: 0.72rem;
+    padding: 5px 9px;
+  }
+
+  .recipe-card__actions .add-button,
+  .recipe-card__actions .ghost-button {
+    padding: 11px 12px;
+    font-size: 0.92rem;
   }
 
   /* ---------- Нижняя таб-навигация ---------- */
