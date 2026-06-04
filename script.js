@@ -101,6 +101,9 @@ const recipeViewerIngredients = document.querySelector("#recipe-viewer-ingredien
 const recipeViewerSteps = document.querySelector("#recipe-viewer-steps");
 const copyListBtn = document.querySelector("#copy-list-btn");
 const shareMenuEl = document.querySelector("#share-menu");
+const filtersToggle = document.querySelector("#filters-toggle");
+const filtersPanel = document.querySelector(".filters-panel");
+const tabbarPlanCount = document.querySelector("#tabbar-plan-count");
 
 // ---------- Утилиты ----------
 
@@ -756,6 +759,7 @@ const renderSummary = () => {
   servingsValue.textContent = String(state.servings);
   servingsNote.textContent = `База рецептов рассчитана на 2 персоны. Сейчас показан пересчёт на ${state.servings}.`;
   selectedCount.textContent = String(state.plannedRecipeIds.length);
+  if (tabbarPlanCount) tabbarPlanCount.textContent = String(state.plannedRecipeIds.length);
   if (catalogRefreshNote) {
     catalogRefreshNote.textContent = `Каталог обновляется каждый понедельник в 06:00 по Москве. Следующее: ${getNextRecipeRefreshLabel()}.`;
   }
@@ -956,6 +960,15 @@ meatFilter.addEventListener("change", (e) => { state.filters.meat = e.target.val
 timeFilters.forEach((f) => f.addEventListener("change", (e) => { state.filters.time = e.target.value; saveFilters(); renderRecipes(); }));
 
 if (resetFiltersButton) resetFiltersButton.addEventListener("click", resetFilters);
+
+// Сворачивание фильтров на мобилке.
+if (filtersToggle && filtersPanel) {
+  filtersToggle.addEventListener("click", () => {
+    const open = filtersPanel.classList.toggle("is-open");
+    filtersToggle.setAttribute("aria-expanded", String(open));
+    filtersToggle.textContent = open ? "Скрыть фильтры" : "Показать фильтры";
+  });
+}
 if (copyListBtn) copyListBtn.addEventListener("click", copyShoppingList);
 
 recipesGrid.addEventListener("click", (e) => {

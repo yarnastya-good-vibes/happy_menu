@@ -1111,9 +1111,12 @@ select {
     grid-template-columns: 1fr;
   }
 
-  .recipe-card__meta,
+  .recipe-card__meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .recipe-card__macros {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .day-card {
@@ -1139,7 +1142,16 @@ select {
 
   .recipe-viewer__summary,
   .recipe-viewer__macros {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .recipe-viewer__dialog {
+    max-height: calc(100dvh - 20px);
+  }
+
+  .basket-confirmation__dialog {
+    max-height: calc(100dvh - 20px);
   }
 
   .basket-confirmation__dialog {
@@ -1517,4 +1529,165 @@ select {
 .hwm-toast--show {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+/* ============================================================
+   Мобильная адаптация v2 (hero, фильтры, навигация, плотность)
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Якоря таб-навигации не должны прятаться под край экрана */
+#catalog,
+#plan,
+#shopping {
+  scroll-margin-top: 14px;
+}
+
+/* По умолчанию (десктоп) эти элементы скрыты */
+.filters-toggle {
+  display: none;
+}
+
+.mobile-tabbar {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  /* ---------- Hero: компактнее ---------- */
+  .hero {
+    padding: 16px 16px 18px;
+  }
+
+  .hero h1 {
+    font-size: 1.95rem;
+  }
+
+  .hero__lead {
+    font-size: 0.92rem;
+    margin-top: 8px;
+  }
+
+  .hero__controls {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .servings-card,
+  .hero__stats {
+    padding: 12px 14px;
+  }
+
+  .servings-card {
+    min-width: 0;
+  }
+
+  #servings-note {
+    margin-top: 6px;
+  }
+
+  /* Фото — короткий баннер вместо высокого портрета */
+  .hero__media {
+    width: 100%;
+    max-height: 190px;
+    aspect-ratio: auto;
+  }
+
+  .hero__media img {
+    object-position: center 30%;
+  }
+
+  /* ---------- Фильтры: сворачиваемые ---------- */
+  .filters-toggle {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 13px 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  .filters-panel:not(.is-open) #filters-form {
+    display: none;
+  }
+
+  .filters-panel.is-open #filters-form {
+    margin-top: 14px;
+  }
+
+  .filter {
+    padding: 12px 14px;
+  }
+
+  /* ---------- Карточки рецептов: ниже фото, плотнее ---------- */
+  .recipe-card__image {
+    aspect-ratio: 16 / 10;
+    max-height: 200px;
+  }
+
+  .recipe-card__body {
+    padding: 16px;
+  }
+
+  /* ---------- Нижняя таб-навигация ---------- */
+  .mobile-tabbar {
+    display: flex;
+    position: fixed;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    width: min(420px, calc(100% - 24px));
+    gap: 4px;
+    padding: 6px;
+    border-radius: 18px;
+    background: rgba(45, 31, 23, 0.93);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    z-index: 40;
+  }
+
+  .mobile-tabbar__item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 6px;
+    border-radius: 13px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    transition: background 0.15s ease;
+  }
+
+  .mobile-tabbar__item:active {
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .mobile-tabbar__badge {
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  /* Чтобы таб-бар не перекрывал нижний контент */
+  .page-shell {
+    padding-bottom: 88px;
+  }
 }
