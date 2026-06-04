@@ -29,7 +29,9 @@ const BUCKET_TARGETS = { quick: 15, medium: 10, long: 5 };
 // В листинге быстрых (≤20 мин) рецептов мало — примерно 1-2 на страницу.
 // Нужен большой пул, чтобы набрать 15 «до 20 мин» после отсева гарниров.
 const MAIN_LISTING_PAGES = 25; // 25 × 14 ≈ 350 кандидатов, ~30-35 быстрых
-const SOUP_LISTING_PAGES = 2;  //  2 × 14 ≈ 28
+// Супов нужно 5 в неделю; чтобы ротация не повторялась после исключения прошлых
+// подборок, держим пул побольше (5 × 14 ≈ 70 → ~25-30 после фильтров).
+const SOUP_LISTING_PAGES = 5;
 
 // Минимальный белок в «основных блюдах» — ниже скорее всего гарнир.
 // На practice этого хватает: Картофельное пюре 4g, Рататуй 4g, Айдахо 10g → отсекутся,
@@ -159,6 +161,53 @@ const dedupe = (items) => {
   return out;
 };
 
+// --- Исключение блюд из прошлых подборок ---
+// Читаем уже существующие recipes.json и recipes-pending.json и собираем их
+// id + нормализованные названия. Новый набор не должен содержать ничего из них —
+// иначе ротация «не меняется» (старый баг: 29/30 повторялись каждую неделю).
+
+const loadExclusionFromDisk = (logger = console) => {
+  const files = ['recipes.json', 'recipes-pending.json'];
+  const ids = new Set();
+  const titles = new Set();
+  for (const f of files) {
+    const p = path.resolve(__dirname, '..', f);
+    try {
+      if (!fs.existsSync(p)) continue;
+      const data = JSON.parse(fs.readFileSync(p, 'utf-8'));
+      for (const r of data.recipes || []) {
+        if (r.id != null) ids.add(Number(r.id));
+        const t = normalizeTitle(r.title || r.name);
+        if (t) titles.add(t);
+      }
+    } catch (e) {
+      logger.warn(`[build] не удалось прочитать ${f} для исключения: ${e.message}`);
+    }
+  }
+  return { ids, titles };
+};
+
+const applyExclusion = (pool, excl) =>
+  pool.filter(
+    (c) => !excl.ids.has(Number(c.id)) && !excl.titles.has(normalizeTitle(c.name))
+  );
+
+// --- Недельная вариативность ---
+// Детерминированный «джиттер» по (weekTag, id): небольшая добавка к score, чтобы
+// среди близких по качеству кандидатов порядок отличался от недели к неделе.
+// Топовые editor's choice (+50) всё равно остаются впереди — качество не страдает.
+
+const hashStr = (s) => {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+};
+
+const seededJitter = (seed, id, max = 14) => hashStr(`${seed}:${id}`) % (max + 1);
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const isMainSideDish = (recipe) => {
@@ -172,12 +221,13 @@ const isMainSideDish = (recipe) => {
 // --- Планирование выборки ---
 // Раскладывает кандидатов по бакетам type+bucket, потом оптимально выбирает.
 
-const planSelection = (mainPool, soupPool, logger) => {
+const planSelection = (mainPool, soupPool, logger, seed = '') => {
   // Навешиваем score и сортируем пулы по убыванию качества — в каждом бакете
-  // сначала берутся самые качественные кандидаты.
+  // сначала берутся самые качественные кандидаты. seededJitter добавляет
+  // недельную вариативность среди близких по качеству.
   const prepareWithScore = (pool) =>
     pool
-      .map((c) => ({ ...c, __score: scoreCandidate(c) }))
+      .map((c) => ({ ...c, __score: scoreCandidate(c) + seededJitter(seed, c.id) }))
       .sort((a, b) => b.__score - a.__score);
 
   const scoredMains = prepareWithScore(mainPool);
@@ -367,8 +417,24 @@ const topUpAfterFilter = async (
 
 // --- Основной флоу ---
 
-const buildWeekly = async ({ logger = console } = {}) => {
+const buildWeekly = async ({ logger = console, exclude } = {}) => {
   const startedAt = new Date();
+  const weekTag = startedAt.toISOString().slice(0, 10);
+
+  const excl = exclude || loadExclusionFromDisk(logger);
+  logger.log(
+    `[build] исключаем прошлые подборки: ${excl.ids.size} id, ${excl.titles.size} названий`
+  );
+
+  // Если после исключения пул не дотягивает до нужного — мягко откатываем
+  // исключение для этой категории, чтобы всё же набрать 30 (лучше повтор, чем дыра).
+  const guardPool = (gated, excluded, need, label) => {
+    if (excluded.length >= need) return excluded;
+    logger.warn(
+      `[build] пул «${label}» после исключения мал (${excluded.length} < ${need}) — ослабляю исключение`
+    );
+    return gated;
+  };
 
   logger.log('[build] === collecting main dishes listings ===');
   const mainsRaw = await fetchCategoryRecipes('osnovnye-blyuda', {
@@ -376,9 +442,15 @@ const buildWeekly = async ({ logger = console } = {}) => {
     logger
   });
   const mainPoolRaw = dedupe(mainsRaw).filter(isRealDish);
-  const mainPool = mainPoolRaw.filter(passesQualityGate);
+  const mainGated = mainPoolRaw.filter(passesQualityGate);
+  const mainPool = guardPool(
+    mainGated,
+    applyExclusion(mainGated, excl),
+    TOTAL_TARGET - SOUP_TARGET,
+    'основные'
+  );
   logger.log(
-    `[build] main listing: ${mainPoolRaw.length} candidates → ${mainPool.length} after quality gate`
+    `[build] main listing: ${mainPoolRaw.length} candidates → ${mainGated.length} after quality gate → ${mainPool.length} after exclusion`
   );
 
   logger.log('[build] === collecting soups listings ===');
@@ -387,12 +459,18 @@ const buildWeekly = async ({ logger = console } = {}) => {
     logger
   });
   const soupPoolRaw = dedupe(soupsRaw).filter(isRealDish);
-  const soupPool = soupPoolRaw.filter(passesQualityGate);
+  const soupGated = soupPoolRaw.filter(passesQualityGate);
+  const soupPool = guardPool(
+    soupGated,
+    applyExclusion(soupGated, excl),
+    SOUP_TARGET,
+    'супы'
+  );
   logger.log(
-    `[build] soup listing: ${soupPoolRaw.length} candidates → ${soupPool.length} after quality gate`
+    `[build] soup listing: ${soupPoolRaw.length} candidates → ${soupGated.length} after quality gate → ${soupPool.length} after exclusion`
   );
 
-  const picks = planSelection(mainPool, soupPool, logger);
+  const picks = planSelection(mainPool, soupPool, logger, weekTag);
   logger.log(`[build] planned ${picks.length} candidates for full fetch`);
   logger.log('[build] top-5 planned by score:');
   picks
@@ -421,7 +499,6 @@ const buildWeekly = async ({ logger = console } = {}) => {
   // Удалить служебное поле __bucket перед записью
   fetched = fetched.map(({ __bucket, ...rest }) => rest);
 
-  const weekTag = startedAt.toISOString().slice(0, 10);
   return {
     generatedAt: startedAt.toISOString(),
     weekTag,
@@ -463,4 +540,12 @@ if (require.main === module) {
   });
 }
 
-module.exports = { buildWeekly, bucketOf };
+module.exports = {
+  buildWeekly,
+  bucketOf,
+  planSelection,
+  applyExclusion,
+  loadExclusionFromDisk,
+  normalizeTitle,
+  seededJitter
+};
