@@ -307,6 +307,21 @@ const planSelection = (mainPool, soupPool, logger, seed = '', opts = {}) => {
     }
   }
 
+  // Переплан: добиваем до minTotal любыми основными (бакет неважен), по score.
+  // Это гарантия, что фетч соберёт достаточно кандидатов для финальных 30,
+  // даже если в каком-то бакете (обычно «до 20 мин») почти пусто.
+  const minTotal = opts.minTotal || 0;
+  if (picks.length < minTotal) {
+    const have = new Set(picks.map((p) => p.id));
+    for (const c of scoredMains) {
+      if (picks.length >= minTotal) break;
+      if (have.has(c.id)) continue;
+      const b = bucketOf(c.cookingTime + c.preparationTime) || 'medium';
+      picks.push({ ...c, __type: 'main', __bucket: b });
+      have.add(c.id);
+    }
+  }
+
   return picks;
 };
 
@@ -528,7 +543,13 @@ const topUpAfterFilter = async (
 
 const buildWeekly = async ({ logger = console, exclude } = {}) => {
   const startedAt = new Date();
-  const weekTag = startedAt.toISOString().slice(0, 10);
+  // weekTag — уникальный идентификатор подборки. Включаем время запуска, чтобы
+  // повторная генерация в тот же день не совпала с уже применённой подборкой
+  // (иначе фронтенд не покажет модалку «новые рецепты»).
+  const pad = (n) => String(n).padStart(2, '0');
+  const weekTag = `${startedAt.toISOString().slice(0, 10)}_${pad(
+    startedAt.getUTCHours()
+  )}${pad(startedAt.getUTCMinutes())}`;
 
   const excl = exclude || loadExclusionFromDisk(logger);
   logger.log(
@@ -583,7 +604,8 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
   // сытные/сбалансированные (selectFinal), а не «первые попавшиеся 30».
   const OVERFETCH = {
     bucketTargets: { quick: 22, medium: 16, long: 8 },
-    soupTarget: 9
+    soupTarget: 9,
+    minTotal: 42 // добрать пул до 42 даже при перекосе бакетов → selectFinal наберёт 30
   };
   const picks = planSelection(mainPool, soupPool, logger, weekTag, OVERFETCH);
   logger.log(`[build] planned ${picks.length} candidates for full fetch (переплан)`);
