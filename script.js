@@ -57,6 +57,8 @@ const getNextRecipeRefreshLabel = () => {
 
 const recipeCycleKey = getCurrentRecipeCycleKey();
 let sortedRecipes = [];  // вычисляется в bootstrap() после загрузки рецептов
+let activeWeekTag = "unknown";   // weekTag активной подборки — для шеринг-ссылки
+let pendingShareNotice = null;   // текст уведомления после восстановления меню из ссылки
 
 const weekDays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 
@@ -67,7 +69,8 @@ const state = {
   plannedRecipeIds: [],
   filters: { ...defaultFilters },
   activeRecipeId: null,
-  selectedStore: "perekrestok"
+  selectedStore: "perekrestok",
+  shareExpanded: false
 };
 
 // ---------- DOM refs ----------
@@ -97,6 +100,7 @@ const recipeViewerMacros = document.querySelector("#recipe-viewer-macros");
 const recipeViewerIngredients = document.querySelector("#recipe-viewer-ingredients");
 const recipeViewerSteps = document.querySelector("#recipe-viewer-steps");
 const copyListBtn = document.querySelector("#copy-list-btn");
+const shareMenuEl = document.querySelector("#share-menu");
 
 // ---------- Утилиты ----------
 
@@ -277,11 +281,13 @@ const renderWeeklyPlan = () => {
         <div><p class="day-card__title">${day}</p><p class="day-card__note">Свободный вечер. Выберите рецепт из каталога.</p></div>
       </div>`;
     return `
-      <div class="day-card">
+      <div class="day-card day-card--clickable" data-action="open-day-recipe" data-recipe-id="${recipe.id}"
+        role="button" tabindex="0" aria-label="Открыть рецепт: ${recipe.title.replace(/"/g, "&quot;")}">
         <div class="day-card__index">${index + 1}</div>
         <div>
           <p class="day-card__title">${day}</p>
           <p class="day-card__note">${recipe.title} · ${recipe.time} мин · ${recipe.difficulty}</p>
+          <span class="day-card__hint">Открыть рецепт →</span>
         </div>
         <button type="button" data-action="remove-plan" data-recipe-id="${recipe.id}">Убрать</button>
       </div>`;
@@ -762,6 +768,7 @@ const render = () => {
   renderWeeklyPlan();
   renderShoppingList();
   renderRecipeViewer();
+  renderShareMenu();
 };
 
 // ---------- Экспорт списка ----------
@@ -805,6 +812,134 @@ const openAllInStore = () => {
   });
 };
 
+// ---------- Поделиться меню (ссылка + QR) ----------
+
+// Кодируем выбранное меню в URL-хэш: версия, неделя, персоны, id рецептов.
+const encodeMenuPayload = () => {
+  const payload = { v: 1, w: activeWeekTag, s: state.servings, ids: state.plannedRecipeIds };
+  const json = JSON.stringify(payload);
+  return btoa(unescape(encodeURIComponent(json)))
+    .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+};
+
+const buildShareUrl = () =>
+  `${location.origin}${location.pathname}#menu=${encodeMenuPayload()}`;
+
+const decodeMenuPayload = (str) => {
+  try {
+    const b64 = str.replace(/-/g, "+").replace(/_/g, "/");
+    const json = decodeURIComponent(escape(atob(b64)));
+    const data = JSON.parse(json);
+    if (!data || !Array.isArray(data.ids)) return null;
+    return data;
+  } catch { return null; }
+};
+
+const readMenuFromUrl = () => {
+  const m = location.hash.match(/menu=([^&]+)/);
+  return m ? decodeMenuPayload(m[1]) : null;
+};
+
+// Восстановить меню из ссылки при открытии (например, на телефоне).
+const applyMenuFromUrl = (active) => {
+  const data = readMenuFromUrl();
+  if (!data) return;
+  if (typeof data.s === "number") {
+    state.servings = Math.min(8, Math.max(1, Math.round(data.s)));
+  }
+  const incoming = Array.isArray(data.ids) ? data.ids : [];
+  const presentIds = incoming
+    .filter((id) => recipes.some((r) => r.id === id))
+    .slice(0, 7);
+  state.plannedRecipeIds = presentIds;
+
+  const weekMismatch = data.w && active.weekTag && data.w !== active.weekTag;
+  const dropped = incoming.length - presentIds.length;
+  if (weekMismatch) {
+    pendingShareNotice = "Меню собрано в другую неделю — каталог успел обновиться. Перенесли рецепты, которые ещё доступны.";
+  } else if (dropped > 0) {
+    pendingShareNotice = `Часть рецептов из ссылки уже недоступна в каталоге (${dropped}). Остальные перенесены.`;
+  }
+  // Очищаем hash, чтобы перезагрузка не перетёрла локальные изменения.
+  try { history.replaceState(null, "", location.pathname + location.search); } catch {}
+};
+
+const shareViaTelegram = () => {
+  const text = "Меню ужинов на неделю — открой на телефоне:";
+  window.open(
+    `https://t.me/share/url?url=${encodeURIComponent(buildShareUrl())}&text=${encodeURIComponent(text)}`,
+    "_blank"
+  );
+};
+
+const renderShareMenu = () => {
+  if (!shareMenuEl) return;
+  if (state.plannedRecipeIds.length === 0) {
+    state.shareExpanded = false;
+    shareMenuEl.innerHTML = "";
+    return;
+  }
+  if (!state.shareExpanded) {
+    shareMenuEl.innerHTML =
+      `<button class="share-toggle" type="button" data-action="toggle-share">📱 Поделиться меню на телефон</button>`;
+    return;
+  }
+  const url = buildShareUrl();
+  let qrMarkup = "";
+  if (typeof qrcode === "function") {
+    try {
+      const qr = qrcode(0, "M");
+      qr.addData(url);
+      qr.make();
+      qrMarkup = `<img class="share-card__qr" src="${qr.createDataURL(5, 8)}" alt="QR-код со ссылкой на меню" width="170" height="170" />`;
+    } catch { qrMarkup = ""; }
+  }
+  shareMenuEl.innerHTML = `
+    <div class="share-card">
+      <div class="share-card__head">
+        <p class="share-card__title">Открыть меню на телефоне</p>
+        <button class="share-card__close" type="button" data-action="toggle-share" aria-label="Свернуть">×</button>
+      </div>
+      <p class="share-card__hint">Наведите камеру телефона на код или отправьте ссылку себе.</p>
+      ${qrMarkup}
+      <div class="share-card__actions">
+        <button class="add-button" type="button" data-action="copy-share">Скопировать ссылку</button>
+        <button class="ghost-button" type="button" data-action="share-telegram">Telegram</button>
+      </div>
+    </div>`;
+};
+
+const showToast = (msg) => {
+  const t = document.createElement("div");
+  t.className = "hwm-toast";
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => t.classList.add("hwm-toast--show"));
+  setTimeout(() => {
+    t.classList.remove("hwm-toast--show");
+    setTimeout(() => t.remove(), 300);
+  }, 5500);
+};
+
+if (shareMenuEl) {
+  shareMenuEl.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    const action = btn.dataset.action;
+    if (action === "toggle-share") {
+      state.shareExpanded = !state.shareExpanded;
+      renderShareMenu();
+    } else if (action === "copy-share") {
+      navigator.clipboard.writeText(buildShareUrl()).then(() => {
+        btn.textContent = "Ссылка скопирована!";
+        setTimeout(() => { btn.textContent = "Скопировать ссылку"; }, 2000);
+      }).catch(() => { showToast("Не удалось скопировать ссылку"); });
+    } else if (action === "share-telegram") {
+      shareViaTelegram();
+    }
+  });
+}
+
 // ---------- События ----------
 
 document.querySelector("#increase-servings").addEventListener("click", () => {
@@ -837,10 +972,24 @@ recipesGrid.addEventListener("click", (e) => {
 });
 
 weeklyPlan.addEventListener("click", (e) => {
-  const button = e.target.closest("button");
-  if (!button || button.dataset.action !== "remove-plan") return;
-  state.plannedRecipeIds = state.plannedRecipeIds.filter((id) => id !== Number(button.dataset.recipeId));
-  render();
+  // "Убрать" имеет приоритет — проверяем его раньше клика по карточке.
+  const removeBtn = e.target.closest('[data-action="remove-plan"]');
+  if (removeBtn) {
+    state.plannedRecipeIds = state.plannedRecipeIds.filter((id) => id !== Number(removeBtn.dataset.recipeId));
+    render();
+    return;
+  }
+  const card = e.target.closest('[data-action="open-day-recipe"]');
+  if (card) openRecipeViewer(Number(card.dataset.recipeId));
+});
+
+// Клавиатурная доступность: Enter/Space на карточке дня открывает рецепт.
+weeklyPlan.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const card = e.target.closest('[data-action="open-day-recipe"]');
+  if (!card) return;
+  e.preventDefault();
+  openRecipeViewer(Number(card.dataset.recipeId));
 });
 
 shoppingList.addEventListener("click", (e) => {
@@ -1027,9 +1176,18 @@ const bootstrap = async () => {
 
   recipes = (active.recipes || []).map(ensureRecipeShape);
   sortedRecipes = sortRecipesByCycle(recipes, recipeCycleKey);
+  activeWeekTag = active.weekTag || "unknown";
+
+  // Если страницу открыли по шеринг-ссылке — восстановить меню из неё.
+  applyMenuFromUrl(active);
 
   loadFilters();
   render();
+
+  if (pendingShareNotice) {
+    showToast(pendingShareNotice);
+    pendingShareNotice = null;
+  }
 };
 
 bootstrap();

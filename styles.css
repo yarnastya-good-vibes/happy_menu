@@ -1367,3 +1367,154 @@ select {
   background: rgba(208, 111, 69, 0.22);
   transform: translateY(-1px);
 }
+
+/* ---------- Кликабельная карточка дня (открывает рецепт) ---------- */
+.day-card--clickable {
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.day-card--clickable:hover {
+  border-color: rgba(208, 111, 69, 0.35);
+  box-shadow: 0 10px 24px rgba(79, 49, 34, 0.1);
+  transform: translateY(-1px);
+}
+
+.day-card--clickable:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.day-card__hint {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateX(-2px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.day-card--clickable:hover .day-card__hint,
+.day-card--clickable:focus-visible .day-card__hint {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* "Убрать" не должна перетягивать клик карточки визуально */
+.day-card--clickable > button[data-action="remove-plan"] {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Поделиться меню (ссылка + QR) ---------- */
+.share-menu:empty {
+  display: none;
+}
+
+.share-menu {
+  margin-top: 14px;
+}
+
+.share-toggle {
+  width: 100%;
+  border: 1px dashed rgba(208, 111, 69, 0.45);
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.share-toggle:hover {
+  background: rgba(208, 111, 69, 0.18);
+  transform: translateY(-1px);
+}
+
+.share-card {
+  border: 1px solid var(--line);
+  background: var(--paper-strong);
+  border-radius: 20px;
+  padding: 16px;
+  text-align: center;
+}
+
+.share-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+
+.share-card__title {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.share-card__close {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.share-card__hint {
+  margin: 8px 0 14px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.share-card__qr {
+  display: block;
+  margin: 0 auto 16px;
+  width: 170px;
+  height: 170px;
+  image-rendering: pixelated;
+  border-radius: 12px;
+  background: #fff;
+  padding: 8px;
+  border: 1px solid var(--line);
+}
+
+.share-card__actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+/* ---------- Тост-уведомление ---------- */
+.hwm-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%, 16px);
+  max-width: min(440px, calc(100vw - 32px));
+  background: var(--text);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  z-index: 2000;
+}
+
+.hwm-toast--show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
