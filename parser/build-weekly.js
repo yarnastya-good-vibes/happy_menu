@@ -36,7 +36,7 @@ const SOUP_LISTING_PAGES = 5;
 // Минимальный белок в «основных блюдах» — ниже скорее всего гарнир.
 // На practice этого хватает: Картофельное пюре 4g, Рататуй 4g, Айдахо 10g → отсекутся,
 // а «Макароны с сыром» 14g или «Спагетти путтанеска» 24g пройдут.
-const MIN_MAIN_PROTEIN = 12;
+const MIN_MAIN_PROTEIN = 15;
 
 // Максимум ингредиентов — рецепты с длиннее списка обычно сложные/ресторанные.
 const MAX_INGREDIENTS = 15;
@@ -221,7 +221,12 @@ const isMainSideDish = (recipe) => {
 // --- Планирование выборки ---
 // Раскладывает кандидатов по бакетам type+bucket, потом оптимально выбирает.
 
-const planSelection = (mainPool, soupPool, logger, seed = '') => {
+const planSelection = (mainPool, soupPool, logger, seed = '', opts = {}) => {
+  // opts позволяет «переплан» — набрать больше кандидатов, чем нужно, чтобы потом
+  // выбрать самые сытные/сбалансированные (selectFinal).
+  const bucketTargets = opts.bucketTargets || BUCKET_TARGETS;
+  const soupTarget = opts.soupTarget != null ? opts.soupTarget : SOUP_TARGET;
+
   // Навешиваем score и сортируем пулы по убыванию качества — в каждом бакете
   // сначала берутся самые качественные кандидаты. seededJitter добавляет
   // недельную вариативность среди близких по качеству.
@@ -254,31 +259,31 @@ const planSelection = (mainPool, soupPool, logger, seed = '') => {
   );
 
   // remaining — сколько ещё осталось в каждом бакете для финального target.
-  const remaining = { ...BUCKET_TARGETS };
+  const remaining = { ...bucketTargets };
   const picks = [];
 
-  // --- Фаза 1: 5 супов в бакетах, где есть место ---
+  // --- Фаза 1: супы в бакетах, где есть место ---
   let soupsPicked = 0;
   for (const b of ['medium', 'long', 'quick']) {
     for (const s of bucketed.soup[b]) {
-      if (soupsPicked >= SOUP_TARGET) break;
+      if (soupsPicked >= soupTarget) break;
       if (remaining[b] <= 0) break;
       picks.push({ ...s, __type: 'soup', __bucket: b });
       remaining[b]--;
       soupsPicked++;
     }
-    if (soupsPicked >= SOUP_TARGET) break;
+    if (soupsPicked >= soupTarget) break;
   }
-  // Если всё ещё не 5 супов — берём из любого бакета (даже если переполним target).
-  if (soupsPicked < SOUP_TARGET) {
+  // Если всё ещё не добрали супы — берём из любого бакета (даже если переполним target).
+  if (soupsPicked < soupTarget) {
     for (const b of ['medium', 'long', 'quick']) {
       for (const s of bucketed.soup[b]) {
-        if (soupsPicked >= SOUP_TARGET) break;
+        if (soupsPicked >= soupTarget) break;
         if (picks.some((p) => p.id === s.id)) continue;
         picks.push({ ...s, __type: 'soup', __bucket: b });
         soupsPicked++;
       }
-      if (soupsPicked >= SOUP_TARGET) break;
+      if (soupsPicked >= soupTarget) break;
     }
   }
 
@@ -303,6 +308,109 @@ const planSelection = (mainPool, soupPool, logger, seed = '') => {
   }
 
   return picks;
+};
+
+// --- Питательность: «сытнее» + «сбалансированное БЖУ» ---
+// БЖУ хранятся на порцию: protein/fat/carbs (г) и kcal. Калибровка по реальным
+// данным eda.ru: медиана белка у основных ~32 г, доля белка ~0.21.
+
+const kcalOf = (m = {}) =>
+  (m.protein || 0) * 4 + (m.carbs || 0) * 4 + (m.fat || 0) * 9;
+
+const proteinRatio = (m = {}) => {
+  const c = kcalOf(m);
+  return c > 0 ? ((m.protein || 0) * 4) / c : 0;
+};
+
+const fatRatio = (m = {}) => {
+  const c = kcalOf(m);
+  return c > 0 ? ((m.fat || 0) * 9) / c : 0;
+};
+
+// «Сытнее»: ценим белок и достаточную (но не экстремальную) калорийность.
+const fillingScore = (recipe) => {
+  const m = recipe.macros || {};
+  let s = Math.min(m.protein || 0, 60) * 1.2;
+  const c = kcalOf(m);
+  if (c >= 350 && c <= 900) s += 8;
+  else if (c > 0 && c < 250) s -= 6;
+  return s;
+};
+
+// «Сбалансированное БЖУ»: хорошая доля белка, без перекоса в жир.
+const balanceScore = (recipe) => {
+  const m = recipe.macros || {};
+  const pr = proteinRatio(m);
+  const fr = fatRatio(m);
+  let s = 0;
+  if (pr >= 0.25) s += 22;
+  else if (pr >= 0.2) s += 16;
+  else if (pr >= 0.15) s += 9;
+  else if (pr >= 0.1) s += 3;
+  if (fr > 0.6) s -= 16;
+  else if (fr > 0.52) s -= 8;
+  return s;
+};
+
+const nutritionScore = (recipe) => fillingScore(recipe) + balanceScore(recipe);
+
+// --- Финальный отбор из переплана ---
+// Из расширенного пула (с уже посчитанными БЖУ) выбирает ровно target блюд:
+//   • жёстко: ровно soupTarget супов (если есть) и всего target (если хватает пула);
+//   • мягко: распределение по времени готовки и питательность (сытно/баланс);
+//   • дефицит бакета перераспределяется — меню не остаётся неполным (фикс бага 15/30).
+const selectFinal = (
+  pool,
+  { seed = '', soupTarget = SOUP_TARGET, total = TOTAL_TARGET, bucketTargets = BUCKET_TARGETS } = {}
+) => {
+  const bucketOfRecipe = (r) => r.__bucket || bucketOf(r.time) || 'medium';
+  const rank = (r) =>
+    (r.__score || 0) * 0.6 + nutritionScore(r) + seededJitter(seed, r.id, 10);
+
+  const sorted = [...pool].sort((a, b) => rank(b) - rank(a));
+  const soups = sorted.filter((r) => r.mealType === 'soup');
+  const mains = sorted.filter((r) => r.mealType !== 'soup');
+
+  const picked = [];
+  const used = new Set();
+  const take = (r, bucket) => {
+    if (used.has(r.id)) return;
+    used.add(r.id);
+    picked.push({ ...r, __bucket: bucket });
+  };
+
+  // 1) Супы
+  soups.slice(0, soupTarget).forEach((r) => take(r, bucketOfRecipe(r)));
+
+  // 2) Основные по бакетам (target минус уже занятые супами слоты)
+  const remain = { ...bucketTargets };
+  picked.forEach((r) => {
+    if (remain[r.__bucket] != null) remain[r.__bucket]--;
+  });
+  for (const b of ['quick', 'medium', 'long']) {
+    for (const r of mains) {
+      if (picked.length >= total) break;
+      if (used.has(r.id) || bucketOfRecipe(r) !== b || remain[b] <= 0) continue;
+      take(r, b);
+      remain[b]--;
+    }
+  }
+
+  // 3) Перераспределение: добиваем total любыми основными (бакет уже неважен)
+  for (const r of mains) {
+    if (picked.length >= total) break;
+    if (used.has(r.id)) continue;
+    take(r, bucketOfRecipe(r));
+  }
+
+  // 4) Если основные кончились — добиваем дополнительными супами
+  for (const r of soups) {
+    if (picked.length >= total) break;
+    if (used.has(r.id)) continue;
+    take(r, bucketOfRecipe(r));
+  }
+
+  return picked.slice(0, total);
 };
 
 // --- Полный фетч с отсевом гарниров ---
@@ -332,6 +440,7 @@ const fetchAndFilter = async (picks, { logger = console } = {}) => {
       }
       recipe.id = Number(recipe.sourceId);
       recipe.__bucket = pick.__bucket;
+      recipe.__score = pick.__score || 0;
       results.push(recipe);
       await sleep(120);
     } catch (err) {
@@ -470,8 +579,14 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
     `[build] soup listing: ${soupPoolRaw.length} candidates → ${soupGated.length} after quality gate → ${soupPool.length} after exclusion`
   );
 
-  const picks = planSelection(mainPool, soupPool, logger, weekTag);
-  logger.log(`[build] planned ${picks.length} candidates for full fetch`);
+  // Переплан: набираем кандидатов с запасом, чтобы из них выбрать самые
+  // сытные/сбалансированные (selectFinal), а не «первые попавшиеся 30».
+  const OVERFETCH = {
+    bucketTargets: { quick: 22, medium: 16, long: 8 },
+    soupTarget: 9
+  };
+  const picks = planSelection(mainPool, soupPool, logger, weekTag, OVERFETCH);
+  logger.log(`[build] planned ${picks.length} candidates for full fetch (переплан)`);
   logger.log('[build] top-5 planned by score:');
   picks
     .slice()
@@ -484,20 +599,25 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
     );
 
   let fetched = await fetchAndFilter(picks, { logger });
-  logger.log(`[build] after filter: ${fetched.length} / ${TOTAL_TARGET}`);
+  logger.log(`[build] пул после фетча: ${fetched.length} (переплан для отбора по БЖУ)`);
 
-  if (fetched.length < TOTAL_TARGET) {
-    logger.log('[build] under target — topping up from backup pool');
+  // Если пула мало даже для выбора 30 — добираем из backup.
+  if (fetched.length < TOTAL_TARGET + 6) {
+    logger.log('[build] добираем пул из backup перед финальным отбором');
     await topUpAfterFilter(fetched, mainPool, soupPool, { logger });
-    logger.log(`[build] after top-up: ${fetched.length}`);
+    logger.log(`[build] пул после добора: ${fetched.length}`);
   }
 
-  // Дедупликация по id на случай коллизий при добре
+  // Дедупликация по id на случай коллизий при доборе
   const seen = new Set();
   fetched = fetched.filter((r) => (seen.has(r.id) ? false : seen.add(r.id)));
 
-  // Удалить служебное поле __bucket перед записью
-  fetched = fetched.map(({ __bucket, ...rest }) => rest);
+  // Финальный отбор: ровно 30 сытных/сбалансированных блюд, 5 супов — гарантированно.
+  const selected = selectFinal(fetched, { seed: weekTag });
+  logger.log(`[build] финальный отбор: ${selected.length} / ${TOTAL_TARGET}`);
+
+  // Удалить служебные поля перед записью
+  fetched = selected.map(({ __bucket, __score, ...rest }) => rest);
 
   return {
     generatedAt: startedAt.toISOString(),
@@ -544,6 +664,10 @@ module.exports = {
   buildWeekly,
   bucketOf,
   planSelection,
+  selectFinal,
+  nutritionScore,
+  kcalOf,
+  proteinRatio,
   applyExclusion,
   loadExclusionFromDisk,
   normalizeTitle,
