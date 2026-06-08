@@ -1153,10 +1153,26 @@ const bootstrap = async () => {
     active = { recipes: [], weekTag: "unknown" };
   }
 
-  // Показать модалку, если есть свежий pending, не совпадающий с active и не пропущенный.
+  // Защита: если активная подборка (из localStorage) оказалась пустой —
+  // например, ранее применили сломанный pending с 0 рецептов — откатываемся
+  // на recipes.json из репозитория, чтобы каталог не оставался пустым.
+  if ((!active.recipes || active.recipes.length === 0) &&
+      activeFromFile && Array.isArray(activeFromFile.recipes) && activeFromFile.recipes.length > 0) {
+    active = activeFromFile;
+    writeActiveToLS({
+      weekTag: activeFromFile.weekTag,
+      generatedAt: activeFromFile.generatedAt,
+      recipes: activeFromFile.recipes
+    });
+  }
+
+  // Показать модалку, если есть свежий НЕПУСТОЙ pending, не совпадающий с active и не пропущенный.
+  // Пустой pending (парсер не смог собрать рецепты) игнорируем — иначе можно
+  // случайно «применить» 0 рецептов и получить пустой каталог.
   if (
     pendingRaw &&
     Array.isArray(pendingRaw.recipes) &&
+    pendingRaw.recipes.length > 0 &&
     pendingRaw.weekTag &&
     pendingRaw.weekTag !== active.weekTag &&
     pendingRaw.weekTag !== readSkippedWeekTag()

@@ -18,7 +18,10 @@
 const fs = require('fs');
 const path = require('path');
 const { fetchRecipe } = require('./fetch-recipe');
-const { fetchCategoryRecipes, isRealDish } = require('./fetch-category');
+const { fetchCategoryRecipes } = require('./fetch-category');
+
+// Примечание: второй источник 1000.menu отключён — в 2026 у него сменились адреса
+// категорий (отдаёт 404). Парсер работает на одном источнике eda.rambler.ru.
 
 // --- Параметры ---
 
@@ -26,12 +29,11 @@ const TOTAL_TARGET = 30;
 const SOUP_TARGET = 5;
 const BUCKET_TARGETS = { quick: 15, medium: 10, long: 5 };
 
-// В листинге быстрых (≤20 мин) рецептов мало — примерно 1-2 на страницу.
-// Нужен большой пул, чтобы набрать 15 «до 20 мин» после отсева гарниров.
-const MAIN_LISTING_PAGES = 25; // 25 × 14 ≈ 350 кандидатов, ~30-35 быстрых
-// Супов нужно 5 в неделю; чтобы ротация не повторялась после исключения прошлых
-// подборок, держим пул побольше (5 × 14 ≈ 70 → ~25-30 после фильтров).
-const SOUP_LISTING_PAGES = 5;
+// Новая вёрстка отдаёт ~6 рецептов на страницу листинга. Чтобы собрать пул
+// кандидатов с запасом (фетчим из него до 55 основных / 14 супов), берём много
+// страниц. Сбор останавливается раньше, если новые рецепты кончились (emptyStreak).
+const MAIN_LISTING_PAGES = 18; // ~18×6 ≈ 108 ссылок → хватает на пул 55 после отсева
+const SOUP_LISTING_PAGES = 8; // ~8×6 ≈ 48 ссылок супов
 
 // Минимальный белок в «основных блюдах» — ниже скорее всего гарнир.
 // На practice этого хватает: Картофельное пюре 4g, Рататуй 4g, Айдахо 10g → отсекутся,
@@ -67,17 +69,18 @@ const likeBonus = (likes, dislikes) => {
   return Math.round(net * 0.4 + (ratio >= 0.85 ? 6 : 0));
 };
 
-const scoreCandidate = (c) => {
-  let s = 0;
-  if (c.isEditorChoice) s += 50;
-  if (c.isGold1000) s += 30;
-  if (c.hasVideo) s += 10;
-  s += cookbookBonus(c.inCookbookCount);
-  s += likeBonus(c.likes, c.dislikes);
-  // Рейтинг без reviewCount ненадёжен (в листинге нет reviewCount).
-  // Даём лёгкий бонус, только если рейтинг высокий И есть достаточная активность.
-  if (c.ratingValue >= 4.5 && c.inCookbookCount >= 200) s += 8;
-  else if (c.ratingValue >= 4.0 && c.inCookbookCount >= 100) s += 4;
+// Новая вёрстка eda не отдаёт сигналы листинга (editor's choice, cookbook, likes).
+// Единственный доступный сигнал качества — aggregateRating со страницы рецепта
+// (recipe.rating = { value, count }). Скорим по нему: ценим высокий рейтинг,
+// подкреплённый числом оценок (одинокая «пятёрка» весит меньше многих оценок).
+const scoreCandidate = (recipe) => {
+  const value = Number(recipe?.rating?.value) || 0;
+  const count = Number(recipe?.rating?.count) || 0;
+  if (count <= 0) return 0;
+  let s = value * 6; // 5★ → 30
+  if (count >= 5) s += 8;
+  if (count >= 20) s += 8;
+  if (count >= 100) s += 6;
   return s;
 };
 
@@ -187,10 +190,16 @@ const loadExclusionFromDisk = (logger = console) => {
   return { ids, titles };
 };
 
-const applyExclusion = (pool, excl) =>
-  pool.filter(
-    (c) => !excl.ids.has(Number(c.id)) && !excl.titles.has(normalizeTitle(c.name))
-  );
+// keepBuckets — бакеты по времени, которые НЕ исключаем (например, «быстрые»:
+// их в источнике мало, и полное исключение оставляет почти пустой бакет ≤20 мин).
+const applyExclusion = (pool, excl, { keepBuckets = [] } = {}) =>
+  pool.filter((c) => {
+    if (keepBuckets.length) {
+      const b = bucketOf((c.cookingTime || 0) + (c.preparationTime || 0));
+      if (keepBuckets.includes(b)) return true;
+    }
+    return !excl.ids.has(Number(c.id)) && !excl.titles.has(normalizeTitle(c.name));
+  });
 
 // --- Недельная вариативность ---
 // Детерминированный «джиттер» по (weekTag, id): небольшая добавка к score, чтобы
@@ -411,11 +420,14 @@ const selectFinal = (
     }
   }
 
-  // 3) Перераспределение: добиваем total любыми основными (бакет уже неважен)
-  for (const r of mains) {
-    if (picked.length >= total) break;
-    if (used.has(r.id)) continue;
-    take(r, bucketOfRecipe(r));
+  // 3) Перераспределение: добиваем total, предпочитая КОРОТКИЕ блюда
+  // (quick → medium → long). Так дефицит уходит в medium, а не плодит длинные >40 мин.
+  for (const b of ['quick', 'medium', 'long']) {
+    for (const r of mains) {
+      if (picked.length >= total) break;
+      if (used.has(r.id) || bucketOfRecipe(r) !== b) continue;
+      take(r, b);
+    }
   }
 
   // 4) Если основные кончились — добиваем дополнительными супами
@@ -566,80 +578,119 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
     return gated;
   };
 
-  logger.log('[build] === collecting main dishes listings ===');
-  const mainsRaw = await fetchCategoryRecipes('osnovnye-blyuda', {
+  // --- Сбор ссылок из листингов (новая вёрстка: ~6 рецептов на страницу) ---
+  logger.log('[build] === сбор ссылок: основные блюда ===');
+  const mainLinks = await fetchCategoryRecipes('osnovnye-blyuda', {
     pageCount: MAIN_LISTING_PAGES,
     logger
   });
-  const mainPoolRaw = dedupe(mainsRaw).filter(isRealDish);
-  const mainGated = mainPoolRaw.filter(passesQualityGate);
-  const mainPool = guardPool(
-    mainGated,
-    applyExclusion(mainGated, excl),
-    TOTAL_TARGET - SOUP_TARGET,
-    'основные'
-  );
-  logger.log(
-    `[build] main listing: ${mainPoolRaw.length} candidates → ${mainGated.length} after quality gate → ${mainPool.length} after exclusion`
-  );
-
-  logger.log('[build] === collecting soups listings ===');
-  const soupsRaw = await fetchCategoryRecipes('supy', {
+  logger.log('[build] === сбор ссылок: супы ===');
+  const soupLinks = await fetchCategoryRecipes('supy', {
     pageCount: SOUP_LISTING_PAGES,
     logger
   });
-  const soupPoolRaw = dedupe(soupsRaw).filter(isRealDish);
-  const soupGated = soupPoolRaw.filter(passesQualityGate);
-  const soupPool = guardPool(
-    soupGated,
-    applyExclusion(soupGated, excl),
-    SOUP_TARGET,
-    'супы'
-  );
-  logger.log(
-    `[build] soup listing: ${soupPoolRaw.length} candidates → ${soupGated.length} after quality gate → ${soupPool.length} after exclusion`
-  );
 
-  // Переплан: набираем кандидатов с запасом, чтобы из них выбрать самые
-  // сытные/сбалансированные (selectFinal), а не «первые попавшиеся 30».
-  const OVERFETCH = {
-    bucketTargets: { quick: 22, medium: 16, long: 8 },
-    soupTarget: 9,
-    minTotal: 42 // добрать пул до 42 даже при перекосе бакетов → selectFinal наберёт 30
+  const uniqById = (arr) => {
+    const s = new Set();
+    return arr.filter((r) => (s.has(r.id) ? false : s.add(r.id)));
   };
-  const picks = planSelection(mainPool, soupPool, logger, weekTag, OVERFETCH);
-  logger.log(`[build] planned ${picks.length} candidates for full fetch (переплан)`);
-  logger.log('[build] top-5 planned by score:');
-  picks
-    .slice()
-    .sort((a, b) => (b.__score || 0) - (a.__score || 0))
-    .slice(0, 5)
-    .forEach((p) =>
-      logger.log(
-        `   [${p.__score}] ${p.name} — editorChoice=${p.isEditorChoice}, cookbook=${p.inCookbookCount}, video=${p.hasVideo}`
-      )
-    );
+  // Детерминированное перемешивание по неделе → разнообразие ротации.
+  const shuffleByWeek = (arr) =>
+    arr
+      .map((r) => ({ r, k: seededJitter(weekTag, r.id, 999999) }))
+      .sort((a, b) => a.k - b.k)
+      .map((x) => x.r);
 
-  let fetched = await fetchAndFilter(picks, { logger });
-  logger.log(`[build] пул после фетча: ${fetched.length} (переплан для отбора по БЖУ)`);
-
-  // Если пула мало даже для выбора 30 — добираем из backup.
-  if (fetched.length < TOTAL_TARGET + 6) {
-    logger.log('[build] добираем пул из backup перед финальным отбором');
-    await topUpAfterFilter(fetched, mainPool, soupPool, { logger });
-    logger.log(`[build] пул после добора: ${fetched.length}`);
+  let mainCand = shuffleByWeek(
+    uniqById(mainLinks).filter((r) => !excl.ids.has(Number(r.id)))
+  );
+  let soupCand = shuffleByWeek(
+    uniqById(soupLinks).filter((r) => !excl.ids.has(Number(r.id)))
+  );
+  // Исключение прошлых подборок не должно оставлять дыру: если срезало слишком
+  // сильно — берём весь пул (лучше повтор, чем пустое меню).
+  if (mainCand.length < TOTAL_TARGET - SOUP_TARGET + 6) {
+    logger.warn('[build] мало основных после исключения — беру весь пул');
+    mainCand = shuffleByWeek(uniqById(mainLinks));
   }
+  if (soupCand.length < SOUP_TARGET + 2) {
+    logger.warn('[build] мало супов после исключения — беру весь пул');
+    soupCand = shuffleByWeek(uniqById(soupLinks));
+  }
+  logger.log(
+    `[build] кандидатов к фетчу: основные ${mainCand.length}, супы ${soupCand.length}`
+  );
 
-  // Дедупликация по id на случай коллизий при доборе
-  const seen = new Set();
-  fetched = fetched.filter((r) => (seen.has(r.id) ? false : seen.add(r.id)));
+  // --- Детальный фетч + фильтрация + скоринг (всё из JSON-LD страницы рецепта) ---
+  const buildPool = async (cands, mealType, cap) => {
+    const out = [];
+    const catSlug = mealType === 'soup' ? 'supy' : 'osnovnye-blyuda';
+    const catName = mealType === 'soup' ? 'Супы' : 'Основные блюда';
+    for (const c of cands) {
+      if (out.length >= cap) break;
+      let recipe;
+      try {
+        recipe = await fetchRecipe(`https://eda.rambler.ru${c.relativeUrl}`, {
+          logger
+        });
+      } catch (err) {
+        logger.warn(`[build] fetch failed ${c.relativeUrl}: ${err.message}`);
+        continue;
+      }
+      if (!recipe.title || !recipe.ingredients?.length || !recipe.steps?.length) continue;
+      if (recipe.ingredients.length > MAX_INGREDIENTS) continue;
+      // Нужны БЖУ — иначе нечем скорить/фильтровать сытность.
+      if (!recipe.macros || (!recipe.macros.kcal && !recipe.macros.protein)) continue;
+
+      recipe.mealType = mealType;
+      recipe.category = { slug: catSlug, name: recipe.category?.name || catName };
+      if (isMainSideDish(recipe)) continue; // несытные основные/гарниры — мимо
+
+      recipe.id = Number(recipe.sourceId) || recipe.id;
+      recipe.__bucket = bucketOf(recipe.time) || 'medium';
+      recipe.__score = scoreCandidate(recipe);
+      out.push(recipe);
+      logger.log(
+        `[build] +${mealType} ${recipe.title} (${recipe.time}мин, P${recipe.macros.protein}, ★${recipe.rating.value}/${recipe.rating.count})`
+      );
+      await sleep(120);
+    }
+    return out;
+  };
+
+  const POOL_MAIN_CAP = 55; // до 55 основных → после selectFinal останется ~25
+  const POOL_SOUP_CAP = 14; // до 14 супов → останется 5
+  logger.log('[build] === детальный фетч основных ===');
+  const mainsPool = await buildPool(mainCand, 'main', POOL_MAIN_CAP);
+  logger.log('[build] === детальный фетч супов ===');
+  const soupsPool = await buildPool(soupCand, 'soup', POOL_SOUP_CAP);
+
+  // Дедуп по id и по нормализованному названию (названия теперь известны).
+  const dedupeFetched = (items) => {
+    const ids = new Set();
+    const titles = new Set();
+    const res = [];
+    for (const r of items) {
+      if (ids.has(r.id)) continue;
+      const t = normalizeTitle(r.title);
+      if (titles.has(t)) continue;
+      ids.add(r.id);
+      titles.add(t);
+      res.push(r);
+    }
+    return res;
+  };
+  let fetched = dedupeFetched([...mainsPool, ...soupsPool]);
+  logger.log(
+    `[build] пул после фетча: ${fetched.length} (основные ${fetched.filter((r) => r.mealType === 'main').length}, супы ${fetched.filter((r) => r.mealType === 'soup').length})`
+  );
 
   // Финальный отбор: ровно 30 сытных/сбалансированных блюд, 5 супов — гарантированно.
   const selected = selectFinal(fetched, { seed: weekTag });
   logger.log(`[build] финальный отбор: ${selected.length} / ${TOTAL_TARGET}`);
 
-  // Удалить служебные поля перед записью
-  fetched = selected.map(({ __bucket, __score, ...rest }) => rest);
+  // Удалить служебные поля перед записью (rating нужен только для скоринга)
+  fetched = selected.map(({ __bucket, __score, rating, ...rest }) => rest);
 
   return {
     generatedAt: startedAt.toISOString(),
@@ -669,6 +720,23 @@ const main = async () => {
 
   console.log(`[build] target file: ${outPath}`);
   const result = await buildWeekly();
+
+  // Защита от «пустой ротации»: если источники недоступны (eda.rambler.ru
+  // часто блокирует IP дата-центров GitHub Actions), buildWeekly вернёт мало
+  // или 0 рецептов. Раньше такой результат всё равно записывался и коммитился,
+  // из-за чего на сайте каталог становился пустым после «Применить».
+  // Теперь — отказываемся писать файл и падаем с ошибкой, сохраняя
+  // предыдущую (рабочую) подборку нетронутой.
+  const MIN_ACCEPTABLE = 10;
+  if (!result || !result.counts || result.counts.total < MIN_ACCEPTABLE) {
+    console.error(
+      `[build] FATAL: собрано всего ${result?.counts?.total ?? 0} рецептов ` +
+      `(минимум ${MIN_ACCEPTABLE}). Файл НЕ перезаписан — оставляем прошлую подборку. ` +
+      `Вероятно, источник недоступен или изменил разметку.`
+    );
+    process.exit(1);
+  }
+
   fs.writeFileSync(outPath, JSON.stringify(result, null, 2), 'utf-8');
   console.log(
     `[build] ✓ ${outPath} — ${result.counts.total} recipes (main=${result.counts.main}, soup=${result.counts.soup}, quick=${result.counts.byTimeBucket.quick}, medium=${result.counts.byTimeBucket.medium}, long=${result.counts.byTimeBucket.long})`

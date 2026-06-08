@@ -1,9 +1,14 @@
 // parser/fetch-category.js
-// Собирает список URL рецептов из категории eda.rambler.ru с пагинацией.
-// Фильтрует явный шум (маринады, соусы, заправки — они встречаются в «Основных блюдах»).
+// Собирает URL рецептов из категории eda.rambler.ru с пагинацией.
+// Новая вёрстка (2026): рецепты в листинге лежат в JSON-LD ItemList (по 6 на
+// страницу) — __NEXT_DATA__/Apollo больше нет. Берём ссылки оттуда + фолбэк по
+// якорям в HTML.
 //
-// Использование (CLI): node parser/fetch-category.js osnovnye-blyuda 3
-//   → соберёт рецепты с 3-х первых страниц категории osnovnye-blyuda.
+// Экспортирует:
+//   fetchCategoryRecipes(slug, {pageCount}) — массив { id, relativeUrl, name }
+//   extractRecipeLinks(html, slug)          — чистый парсер (для тестов)
+//
+// CLI: node parser/fetch-category.js osnovnye-blyuda 3
 
 'use strict';
 
@@ -24,9 +29,6 @@ if (proxyUrl) {
   }
 }
 
-// Имена-«не блюда», встречающиеся в osnovnye-blyuda.
-const NOT_A_DISH = /^(маринад|соус|заправк|паста\s+из|масло\s|пюре\s+из\s+(чеснок|лук)|сироп|глазур|панировк|бульон|специи)/i;
-
 const httpGet = async (url) => {
   const opts = {
     headers: { 'User-Agent': UA, Accept: 'text/html' },
@@ -38,114 +40,135 @@ const httpGet = async (url) => {
   return await res.text();
 };
 
-const extractNextData = (html) => {
-  const m = html.match(
-    /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/
-  );
-  if (!m) throw new Error('NEXT_DATA not found');
-  return JSON.parse(m[1]);
-};
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// Извлекает базовую инфу о рецептах из Apollo-state (до фактического fetch каждой страницы).
-// Каждый элемент Apollo-state с ключом "RecipeModel:ID" и непустым relativeUrl — кандидат.
-// Также тянем сигналы качества: editor choice, gold1000, likes, inCookbookCount, рейтинг,
-// videoFileId, specialProject — они все уже есть в листинге, детальный фетч не нужен для фильтра.
-const extractRecipesFromListing = (nextData) => {
-  const apollo = nextData?.props?.pageProps?.__APOLLO_STATE__ || {};
-  const recipes = [];
-  for (const key of Object.keys(apollo)) {
-    if (!key.startsWith('RecipeModel:')) continue;
-    const r = apollo[key];
-    if (!r?.relativeUrl || !r?.name) continue;
-    recipes.push({
-      id: String(r.id),
-      name: r.name,
-      relativeUrl: r.relativeUrl,
-      cookingTime: r.cookingTime || 0,
-      preparationTime: r.preparationTime || 0,
-      // Сигналы качества
-      isEditorChoice: Boolean(r.isEditorChoice),
-      isGold1000: Boolean(r.isGold1000),
-      isSpecialProject: Boolean(r.isSpecialProject),
-      hasVideo: Boolean(r.videoFileId),
-      likes: Number(r.likes) || 0,
-      dislikes: Number(r.dislikes) || 0,
-      inCookbookCount: Number(r.inCookbookCount) || 0,
-      ratingValue: Number(r.aggregateRating?.ratingValue) || 0,
-      ingredientsCount: Array.isArray(r.composition) ? r.composition.length : 0
-    });
+// Имена-«не блюда» (на случай, если из URL вытащим slug-намёк). Сейчас название в
+// листинге обычно пустое, поэтому фильтр почти всегда пропускает — основной отсев
+// идёт уже на этапе детального фетча в build-weekly.
+const NOT_A_DISH = /^(marinad|sous|zapravk|maslo|sirop|glazur|panirovk|bulon|specii)/i;
+
+const extractLdBlocks = (html) => {
+  const re = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+  const out = [];
+  let m;
+  while ((m = re.exec(html))) {
+    try {
+      const parsed = JSON.parse(m[1].trim());
+      if (Array.isArray(parsed)) out.push(...parsed);
+      else if (parsed && parsed['@graph']) out.push(...parsed['@graph']);
+      else if (parsed) out.push(parsed);
+    } catch {
+      /* skip */
+    }
   }
-  // Apollo возвращает в непредсказуемом порядке — сортируем по id desc
-  // как proxy на «свежие / новые» (не критично, но стабильно).
-  recipes.sort((a, b) => Number(b.id) - Number(a.id));
-  return recipes;
+  return out;
 };
 
-// Эвристика: это реальное блюдо, а не заготовка/маринад?
+const RECIPE_URL_RE = /\/recepty\/[a-z0-9-]+\/[a-z0-9-]+-\d+/i;
+
+// Превращает абсолютный/относительный URL рецепта в { id, relativeUrl, name }
+const toCandidate = (url, name = '') => {
+  let rel = String(url || '')
+    .replace(/^https?:\/\/[^/]+/i, '')
+    .replace(/\/$/, '')
+    .replace(/[?#].*$/, '');
+  if (!RECIPE_URL_RE.test(rel)) return null;
+  const idm = rel.match(/-(\d+)$/);
+  if (!idm) return null;
+  return { id: idm[1], relativeUrl: rel, name: (name || '').trim() };
+};
+
+// Достаёт ссылки на рецепты из одной страницы листинга.
+const extractRecipeLinks = (html, slug) => {
+  const byId = new Map();
+  const add = (cand) => {
+    if (cand && !byId.has(cand.id)) byId.set(cand.id, cand);
+  };
+
+  // 1) JSON-LD ItemList → ListItem.url
+  for (const b of extractLdBlocks(html)) {
+    if (!b || b['@type'] !== 'ItemList') continue;
+    for (const it of b.itemListElement || []) {
+      if (!it) continue;
+      const url = it.url || (it.item && (it.item['@id'] || it.item.url));
+      const name = it.name || (it.item && it.item.name) || '';
+      if (typeof url === 'string') add(toCandidate(url, name));
+    }
+  }
+
+  // 2) Фолбэк: прямые ссылки в HTML (на случай изменения JSON-LD)
+  if (byId.size === 0) {
+    const re = new RegExp(`/recepty/${slug}/[a-z0-9-]+-\\d+`, 'gi');
+    let m;
+    while ((m = re.exec(html))) add(toCandidate(m[0]));
+  }
+
+  return [...byId.values()];
+};
+
+// Реальное блюдо, а не заготовка/маринад (по slug в URL, имя обычно пустое).
 const isRealDish = (r) => {
-  if (NOT_A_DISH.test(r.name)) return false;
-  const total = (r.cookingTime || 0) + (r.preparationTime || 0);
-  if (total > 0 && total < 10) return false; // слишком коротко для ужина
-  if (total > 180) return false; // 3+ часа — отсекаем экзотику
-  return true;
+  const slugTail = String(r.relativeUrl || '').split('/').pop() || '';
+  return !NOT_A_DISH.test(slugTail);
 };
 
-// Собирает pageCount страниц категории и возвращает массив кандидатов.
+// Собирает pageCount страниц категории. Возвращает массив кандидатов (dedupe по id).
 const fetchCategoryRecipes = async (
-  categorySlug,
+  slug,
   { pageCount = 3, logger = console } = {}
 ) => {
   const seen = new Set();
   const all = [];
+  let emptyStreak = 0;
+
   for (let page = 1; page <= pageCount; page++) {
     const url =
       page === 1
-        ? `${BASE}/recepty/${categorySlug}`
-        : `${BASE}/recepty/${categorySlug}?page=${page}`;
+        ? `${BASE}/recepty/${slug}`
+        : `${BASE}/recepty/${slug}?page=${page}`;
     logger.log(`[category] fetch ${url}`);
     try {
       const html = await httpGet(url);
-      const nextData = extractNextData(html);
-      const items = extractRecipesFromListing(nextData);
+      const items = extractRecipeLinks(html, slug);
+      let added = 0;
       for (const r of items) {
         if (seen.has(r.id)) continue;
         seen.add(r.id);
         all.push(r);
+        added++;
+      }
+      logger.log(`[category] page ${page}: +${added} (всего ${all.length})`);
+      // Если две страницы подряд не дали новых рецептов — пагинация кончилась.
+      emptyStreak = added === 0 ? emptyStreak + 1 : 0;
+      if (emptyStreak >= 2) {
+        logger.log('[category] новых рецептов нет 2 страницы подряд — стоп.');
+        break;
       }
     } catch (err) {
       logger.warn(`[category] page ${page} failed: ${err.message}`);
     }
+    await sleep(150);
   }
+
   const filtered = all.filter(isRealDish);
   logger.log(
-    `[category] ${categorySlug}: collected ${all.length}, after filter ${filtered.length}`
+    `[category] ${slug}: собрано ${all.length}, после фильтра ${filtered.length}`
   );
   return filtered;
 };
 
 module.exports = {
   fetchCategoryRecipes,
+  extractRecipeLinks,
   isRealDish
 };
 
+// CLI
 if (require.main === module) {
   const slug = process.argv[2] || 'osnovnye-blyuda';
   const pages = Number(process.argv[3] || 3);
   fetchCategoryRecipes(slug, { pageCount: pages })
-    .then((list) => {
-      console.log(
-        JSON.stringify(
-          list.map((r) => ({
-            id: r.id,
-            name: r.name,
-            url: `${BASE}${r.relativeUrl}`,
-            time: r.cookingTime + r.preparationTime
-          })),
-          null,
-          2
-        )
-      );
-    })
+    .then((list) => console.log(JSON.stringify(list, null, 2)))
     .catch((err) => {
       console.error('Error:', err.message);
       process.exit(1);

@@ -1,12 +1,11 @@
 // parser/fetch-recipe.js
-// Парсер одной страницы рецепта eda.rambler.ru.
-// Источник данных — <script id="__NEXT_DATA__"> на HTML-странице.
-// Весь recipe-объект лежит в data.props.pageProps.recipe. HTML-селекторы не используются.
+// Парсит страницу рецепта eda.rambler.ru через JSON-LD (schema.org/Recipe).
+// Сайт в 2026 перешёл на новую вёрстку: __NEXT_DATA__/Apollo больше нет, но
+// есть стабильный JSON-LD с полными данными рецепта — на него и опираемся.
 //
-// Использование:
-//   node parser/fetch-recipe.js https://eda.rambler.ru/recepty/osnovnye-blyuda/azu-po-tatarski-21751
-//   const { fetchRecipe } = require('./parser/fetch-recipe');
-//   const r = await fetchRecipe(url);
+// Экспортирует:
+//   fetchRecipe(url)          — скачать страницу и вернуть рецепт в формате приложения
+//   parseRecipeHtml(html,url) — чистый парсер (для тестов на сохранённом HTML)
 
 'use strict';
 
@@ -14,11 +13,6 @@ const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' +
   '(KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 
-const BASE = 'https://eda.rambler.ru';
-
-// Опциональная поддержка HTTP-прокси (для запуска в песочнице).
-// На машине пользователя переменные окружения обычно не выставлены — тогда fetch
-// работает напрямую, без лишнего диспатчера.
 let proxyDispatcher = null;
 const proxyUrl = process.env.HTTPS_PROXY || process.env.https_proxy;
 if (proxyUrl) {
@@ -26,96 +20,13 @@ if (proxyUrl) {
     const { ProxyAgent } = require('undici');
     proxyDispatcher = new ProxyAgent(proxyUrl);
   } catch {
-    // undici недоступен (Node <18?) — работаем без прокси
+    /* proxy unavailable */
   }
 }
 
-// ---------------- Таксономия ----------------
-
-// Лёгкое правило «мясо / не-красное мясо / пескетарианец / вегетарианец».
-// Смотрим по именам ингредиентов (в lowercase). Приоритет сверху вниз.
-// Важно: \b в JS не работает с кириллицей — поэтому матчим по стемам,
-// опираясь на однозначность слов-ингредиентов. Тесты — в bottom of file.
-const MEAT_MATCHERS = {
-  'red-meat': [
-    // говядина/говяжий + телятина/телячий
-    /говяд/i, /говяж/i, /телят/i, /теляч/i,
-    // свинина/свиной и её формы
-    /свинин/i, /свино[йяе]/i, /свиные/i,
-    // баранина/бараний/барашек; ягнятина/ягнёнок
-    /баран/i, /ягн[яёе]/i,
-    // экзотика
-    /конин/i, /оленин/i, /лосятин/i, /лосин/i, /кролик/i, /крольчат/i,
-    // переработка
-    /фарш/i, /бекон/i, /шпик/i, /грудинк/i, /корейк/i,
-    /колбас/i, /салями/i, /сервелат/i, /ветчин/i, /пастром/i, /солонин/i,
-    /буженин/i, /пепперони/i, /прошутт/i, /хамон/i,
-    // сало — только как начало слова/отдельное слово
-    /(^|\s)сало(\s|$)/i
-  ],
-  'no-red-meat': [
-    /курин/i, /куриц/i, /курочк/i, /курятин/i, /цыпл[её]н/i,
-    /индейк/i, /индюш/i, /утк/i, /утин/i, /утя/i, /гус[еёь]/i,
-    /перепел/i, /фазан/i,
-    // субпродукты из птицы — сюда же
-    /куриная\s+печ/i, /куриные\s+сердеч/i, /куриные\s+желудк/i
-  ],
-  pescatarian: [
-    /лосос/i, /форель/i, /горбуш/i, /с[её]мг/i, /кет[ау]/i, /нерк/i,
-    /тунец/i, /тунц/i, /треск/i, /хек/i, /палтус/i, /судак/i, /окун/i,
-    /щук/i, /сельд/i, /кильк/i, /скумбри/i, /сардин/i, /сайр/i, /анчоус/i,
-    /креветк/i, /кальмар/i, /мидии/i, /осьминог/i, /краб/i, /гребешк/i,
-    /лангустин/i, /морепродукт/i, /икр[аы]/i,
-    /\sрыб/i, /^рыб/i, /филе\s*рыб/i, /дорад/i, /сибас/i, /тилапи/i
-  ]
-};
-
-const classifyDiet = (composition) => {
-  const names = (composition || [])
-    .map((c) => c?.ingredient?.name || '')
-    .filter(Boolean);
-
-  const hasAny = (regexes) =>
-    names.some((n) => regexes.some((re) => re.test(n)));
-
-  if (hasAny(MEAT_MATCHERS['red-meat']))
-    return { diet: 'meat', meatCategory: 'red-meat' };
-  if (hasAny(MEAT_MATCHERS['no-red-meat']))
-    return { diet: 'meat', meatCategory: 'no-red-meat' };
-  if (hasAny(MEAT_MATCHERS.pescatarian))
-    return { diet: 'pescatarian', meatCategory: 'no-red-meat' };
-  return { diet: 'vegetarian', meatCategory: 'vegetarian' };
-};
-
-// Сложность по суммарному времени: ≤25 → Легко, 26–50 → Средне, >50 → Посложнее.
-const classifyDifficulty = (totalMinutes) => {
-  if (!Number.isFinite(totalMinutes)) return 'Средне';
-  if (totalMinutes <= 25) return 'Легко';
-  if (totalMinutes <= 50) return 'Средне';
-  return 'Посложнее';
-};
-
-// Тип блюда по slug категории с сайта.
-const classifyMealType = (categorySlug) => {
-  if (categorySlug === 'supy') return 'soup';
-  if (categorySlug === 'osnovnye-blyuda') return 'main';
-  if (categorySlug === 'salaty') return 'salad';
-  return 'main';
-};
-
-// ---------------- HTTP + извлечение __NEXT_DATA__ ----------------
-
-const extractNextData = (html) => {
-  const m = html.match(
-    /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/
-  );
-  if (!m) throw new Error('NEXT_DATA script not found in HTML');
-  return JSON.parse(m[1]);
-};
-
 const httpGet = async (url) => {
   const opts = {
-    headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml' },
+    headers: { 'User-Agent': UA, Accept: 'text/html' },
     redirect: 'follow'
   };
   if (proxyDispatcher) opts.dispatcher = proxyDispatcher;
@@ -124,122 +35,209 @@ const httpGet = async (url) => {
   return await res.text();
 };
 
-// ---------------- Нормализация полей ----------------
-
-const toAbsoluteUrl = (href) => {
-  if (!href) return null;
-  if (/^https?:\/\//i.test(href)) return href;
-  return `${BASE}${href.startsWith('/') ? '' : '/'}${href}`;
+// --- Извлечение всех JSON-LD блоков ---
+const extractLdBlocks = (html) => {
+  const re = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+  const out = [];
+  let m;
+  while ((m = re.exec(html))) {
+    const txt = m[1].trim();
+    try {
+      const parsed = JSON.parse(txt);
+      if (Array.isArray(parsed)) out.push(...parsed);
+      else if (parsed && parsed['@graph']) out.push(...parsed['@graph']);
+      else if (parsed) out.push(parsed);
+    } catch {
+      /* пропускаем битый блок */
+    }
+  }
+  return out;
 };
 
-const normalizeIngredients = (composition) =>
-  (composition || []).map((c) => ({
-    name: c?.ingredient?.name ?? '',
-    amount: typeof c?.amount === 'number' ? c.amount : null,
-    unit: c?.measureUnit?.name ?? ''
-  }));
+const typesOf = (x) =>
+  !x ? [] : Array.isArray(x['@type']) ? x['@type'] : [x['@type']];
 
-const normalizeSteps = (recipeSteps) =>
-  (recipeSteps || []).map((s) => ({
-    text: (s?.description || '').trim(),
-    // На eda.rambler.ru cookingTime на шаге почти всегда null.
-    // Сохраняем как есть — фронтенд должен уметь работать с null.
-    timeMin: typeof s?.cookingTime === 'number' ? s.cookingTime : null
-  }));
+const findByType = (blocks, type) => blocks.find((b) => typesOf(b).includes(type));
 
-const normalizeMacros = (nutritionInfo) => {
-  if (!nutritionInfo) return null;
-  // nutritionInfo на сайте считается на порцию (проверено на нескольких рецептах,
-  // цифры сопоставимы с обычными порционными значениями).
-  return {
-    protein: Math.round(nutritionInfo.proteins ?? 0),
-    fat: Math.round(nutritionInfo.fats ?? 0),
-    carbs: Math.round(nutritionInfo.carbohydrates ?? 0),
-    kcal: Math.round(nutritionInfo.kilocalories ?? 0)
+// --- Хелперы разбора ---
+
+// "PT120M" / "PT1H30M" → минуты
+const parseISODuration = (iso) => {
+  if (!iso || typeof iso !== 'string') return 0;
+  const m = iso.match(/P(?:T(?:(\d+)H)?(?:(\d+)M)?)?/);
+  if (!m) return 0;
+  return Number(m[1] || 0) * 60 + Number(m[2] || 0);
+};
+
+// "894 калорий" / "33" → 894 / 33
+const toInt = (s) => {
+  const m = String(s == null ? '' : s).match(/-?\d+/);
+  return m ? Number(m[0]) : 0;
+};
+
+// "Куриная печень, 800 г" → { name:"Куриная печень", amount:800, unit:"г" }
+// "Соль, по вкусу"        → { name:"Соль", amount:0, unit:"по вкусу" }
+const parseIngredient = (line) => {
+  const raw = String(line || '').trim();
+  if (!raw) return null;
+  // Формат eda: "Название, количество единица". Разделитель — ПЕРВАЯ запятая
+  // (в названиях запятых нет, а в количестве бывает десятичная: "1,5").
+  const idx = raw.indexOf(',');
+  let name = raw;
+  let tail = '';
+  if (idx > 0) {
+    name = raw.slice(0, idx).trim();
+    tail = raw.slice(idx + 1).trim();
+  }
+  let amount = 0;
+  let unit = tail;
+  const am = tail.match(/^(\d+(?:[.,]\d+)?)\s*(.*)$/);
+  if (am) {
+    amount = Number(am[1].replace(',', '.'));
+    unit = am[2].trim();
+  }
+  if (!Number.isFinite(amount)) amount = 0;
+  return { name, amount, unit };
+};
+
+// --- Эвристики полей, которых нет в JSON-LD напрямую ---
+
+const MEAT_RE =
+  /(говядин|свинин|баранин|телятин|кролик|конин|оленин|фарш|стейк|бекон|ветчин|колбас|сосиск|сардельк|курин|куриц|куриное|цыпл|индейк|утк|гус|перепел|печен|язык|сердц|почк|рыб|лосос|форел|треск|тунец|сёмг|семг|сельд|скумбри|окун|судак|карп|щук|краб|мидии|креветк|кальмар|морепродукт|анчоус|икр)/i;
+const RED_MEAT_RE =
+  /(говядин|свинин|баранин|телятин|кролик|конин|оленин|бекон|ветчин|сало|корейк|грудинк)/i;
+const DAIRY_EGG_RE =
+  /(яйц|молок|сливк|сметан|\bсыр|творог|кефир|сливочное масло|масло сливочное|йогурт|ряженк|простокваш|маскарпоне|моцарелл|пармезан|фета|брынз)/i;
+
+const joinNames = (ingredients) =>
+  ingredients.map((i) => (i.name || '').toLowerCase()).join(' | ');
+
+const deriveDiet = (ingredients) => {
+  const text = joinNames(ingredients);
+  if (MEAT_RE.test(text)) return 'meat';
+  if (DAIRY_EGG_RE.test(text)) return 'vegetarian';
+  return 'vegan';
+};
+
+const deriveMeatCategory = (ingredients) =>
+  RED_MEAT_RE.test(joinNames(ingredients)) ? 'red-meat' : 'no-red-meat';
+
+const deriveDifficulty = (time, ingCount, stepCount) => {
+  let s = 0;
+  s += time > 60 ? 2 : time > 30 ? 1 : 0;
+  s += ingCount > 12 ? 2 : ingCount > 8 ? 1 : 0;
+  s += stepCount > 8 ? 1 : 0;
+  if (s <= 1) return 'Легко';
+  if (s >= 4) return 'Сложно';
+  return 'Средне';
+};
+
+const firstImageUrl = (image) => {
+  if (!image) return '';
+  if (typeof image === 'string') return image;
+  if (Array.isArray(image)) {
+    const f = image[0];
+    return typeof f === 'string' ? f : f?.url || '';
+  }
+  return image.url || '';
+};
+
+const idFromUrl = (url) => {
+  const m = String(url || '').match(/-(\d+)\/?(?:[?#].*)?$/);
+  return m ? m[1] : '';
+};
+
+// --- Главный парсер ---
+
+const parseRecipeHtml = (html, url) => {
+  const blocks = extractLdBlocks(html);
+  const r = findByType(blocks, 'Recipe');
+  if (!r) throw new Error('Recipe JSON-LD не найден');
+
+  const ingredients = (r.recipeIngredient || [])
+    .map(parseIngredient)
+    .filter((x) => x && x.name);
+
+  const instr = Array.isArray(r.recipeInstructions)
+    ? r.recipeInstructions
+    : r.recipeInstructions
+    ? [r.recipeInstructions]
+    : [];
+  const steps = instr
+    .map((s) => ({
+      text:
+        typeof s === 'string'
+          ? s.trim()
+          : s && s.text
+          ? String(s.text).trim()
+          : '',
+      timeMin: null
+    }))
+    .filter((s) => s.text);
+
+  const n = r.nutrition || {};
+  const macros = {
+    protein: toInt(n.proteinContent),
+    fat: toInt(n.fatContent),
+    carbs: toInt(n.carbohydrateContent),
+    kcal: toInt(n.calories)
   };
-};
 
-// ---------------- Основная функция ----------------
+  const time =
+    parseISODuration(r.totalTime) ||
+    parseISODuration(r.cookTime) ||
+    parseISODuration(r.prepTime) ||
+    0;
 
-const fetchRecipe = async (url, { logger = console } = {}) => {
-  const absoluteUrl = url.startsWith('http') ? url : `${BASE}${url}`;
-  const html = await httpGet(absoluteUrl);
-  const nextData = extractNextData(html);
-
-  const recipe = nextData?.props?.pageProps?.recipe;
-  if (!recipe) {
-    throw new Error(`pageProps.recipe missing for ${absoluteUrl}`);
-  }
-
-  // Раннее логирование отсутствующих критичных полей.
-  const missing = [];
-  if (!recipe.name) missing.push('name');
-  if (!recipe.composition?.length) missing.push('composition');
-  if (!recipe.recipeSteps?.length) missing.push('recipeSteps');
-  if (!recipe.recipeCover?.imageUrl && !recipe.openGraphImageUrl)
-    missing.push('image');
-  if (missing.length) {
-    logger.warn(
-      `[fetch-recipe] WARN ${absoluteUrl} missing fields: ${missing.join(', ')}`
-    );
-  }
-
-  const totalTime =
-    (recipe.cookingTime || 0) + (recipe.preparationTime || 0) || null;
-
-  const categorySlug = recipe.recipeCategory?.slug || null;
-  const { diet, meatCategory } = classifyDiet(recipe.composition);
-
-  const sourceUrl = recipe.relativeUrl
-    ? toAbsoluteUrl(recipe.relativeUrl)
-    : absoluteUrl;
+  const sourceId = idFromUrl(url) || idFromUrl(r.mainEntityOfPage);
+  const cleanUrl = String(url || '').replace(/\/$/, '');
 
   return {
-    id: `eda-${recipe.id}`, // id с префиксом, чтобы не коллидировал со старой нумерацией
-    sourceId: String(recipe.id),
-    title: recipe.name,
-    image:
-      recipe.recipeCover?.imageUrl ||
-      recipe.openGraphImageUrl ||
-      null,
-    time: totalTime,
-    difficulty: classifyDifficulty(totalTime),
-    diet,
-    meatCategory,
-    mealType: classifyMealType(categorySlug),
-    category: {
-      slug: categorySlug,
-      name: recipe.recipeCategory?.name || null
+    id: Number(sourceId) || 0,
+    sourceId: String(sourceId || ''),
+    title: (r.name || '').trim(),
+    image: firstImageUrl(r.image),
+    time,
+    difficulty: deriveDifficulty(time, ingredients.length, steps.length),
+    diet: deriveDiet(ingredients),
+    meatCategory: deriveMeatCategory(ingredients),
+    // mealType проставляет build-weekly по категории-источнику (osnovnye-blyuda/supy)
+    mealType: 'main',
+    category: { slug: '', name: (r.recipeCategory || '').trim() },
+    cuisine: { slug: '', name: (r.recipeCuisine || '').trim() },
+    portions: toInt(r.recipeYield) || 1,
+    ingredients,
+    steps,
+    macros,
+    // сигнал качества для скоринга (build-weekly удалит перед записью)
+    rating: {
+      value: Number(r.aggregateRating?.ratingValue) || 0,
+      count: Number(r.aggregateRating?.ratingCount) || 0
     },
-    cuisine: {
-      slug: recipe.cuisine?.slug || null,
-      name: recipe.cuisine?.name || null
-    },
-    portions: recipe.portionsCount || null,
-    ingredients: normalizeIngredients(recipe.composition),
-    steps: normalizeSteps(recipe.recipeSteps),
-    macros: normalizeMacros(recipe.nutritionInfo),
-    tags: (recipe.navigationTags || []).map((t) => ({
-      slug: t.slug,
-      name: t.name
-    })),
-    recipeGroups: (recipe.recipeGroups || []).map((g) => ({
-      slug: g.slug,
-      name: g.name
-    })),
-    sourceUrl,
+    tags: [],
+    recipeGroups: [],
+    sourceUrl: cleanUrl,
     fetchedAt: new Date().toISOString()
   };
 };
 
-module.exports = {
-  fetchRecipe,
-  classifyDiet,
-  classifyDifficulty,
-  classifyMealType
+const fetchRecipe = async (url) => {
+  const html = await httpGet(url);
+  return parseRecipeHtml(html, url);
 };
 
-// CLI: node parser/fetch-recipe.js <url>
+module.exports = {
+  fetchRecipe,
+  parseRecipeHtml,
+  // экспорт хелперов для тестов
+  parseISODuration,
+  parseIngredient,
+  deriveDiet,
+  deriveMeatCategory,
+  extractLdBlocks
+};
+
+// CLI
 if (require.main === module) {
   const url = process.argv[2];
   if (!url) {
@@ -247,11 +245,9 @@ if (require.main === module) {
     process.exit(1);
   }
   fetchRecipe(url)
-    .then((r) => {
-      console.log(JSON.stringify(r, null, 2));
-    })
-    .catch((err) => {
-      console.error('Error:', err.message);
+    .then((r) => console.log(JSON.stringify(r, null, 2)))
+    .catch((e) => {
+      console.error('Error:', e.message);
       process.exit(1);
     });
 }
