@@ -17,8 +17,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const { fetchRecipe } = require('./fetch-recipe');
-const { fetchCategoryRecipes } = require('./fetch-category');
+const { fetchRecipe } = require('./fetch-recipe'); // eda (fallback)
+const { fetchCategoryRecipes } = require('./fetch-category'); // eda (fallback)
+const calor = require('./fetch-calorizator'); // ядро
+const FILTERS = require('./recipe-filters'); // жёсткие фильтры + скоринг + квоты
 
 // Примечание: второй источник 1000.menu отключён — в 2026 у него сменились адреса
 // категорий (отдаёт 404). Парсер работает на одном источнике eda.rambler.ru.
@@ -568,105 +570,101 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
     `[build] исключаем прошлые подборки: ${excl.ids.size} id, ${excl.titles.size} названий`
   );
 
-  // Если после исключения пул не дотягивает до нужного — мягко откатываем
-  // исключение для этой категории, чтобы всё же набрать 30 (лучше повтор, чем дыра).
-  const guardPool = (gated, excluded, need, label) => {
-    if (excluded.length >= need) return excluded;
-    logger.warn(
-      `[build] пул «${label}» после исключения мал (${excluded.length} < ${need}) — ослабляю исключение`
-    );
-    return gated;
-  };
-
-  // --- Сбор ссылок из листингов (новая вёрстка: ~6 рецептов на страницу) ---
-  logger.log('[build] === сбор ссылок: основные блюда ===');
-  const mainLinks = await fetchCategoryRecipes('osnovnye-blyuda', {
-    pageCount: MAIN_LISTING_PAGES,
-    logger
-  });
-  logger.log('[build] === сбор ссылок: супы ===');
-  const soupLinks = await fetchCategoryRecipes('supy', {
-    pageCount: SOUP_LISTING_PAGES,
-    logger
-  });
-
   const uniqById = (arr) => {
     const s = new Set();
     return arr.filter((r) => (s.has(r.id) ? false : s.add(r.id)));
   };
-  // Детерминированное перемешивание по неделе → разнообразие ротации.
   const shuffleByWeek = (arr) =>
     arr
       .map((r) => ({ r, k: seededJitter(weekTag, r.id, 999999) }))
       .sort((a, b) => a.k - b.k)
       .map((x) => x.r);
 
-  let mainCand = shuffleByWeek(
-    uniqById(mainLinks).filter((r) => !excl.ids.has(Number(r.id)))
-  );
-  let soupCand = shuffleByWeek(
-    uniqById(soupLinks).filter((r) => !excl.ids.has(Number(r.id)))
-  );
-  // Исключение прошлых подборок не должно оставлять дыру: если срезало слишком
-  // сильно — берём весь пул (лучше повтор, чем пустое меню).
-  if (mainCand.length < TOTAL_TARGET - SOUP_TARGET + 6) {
-    logger.warn('[build] мало основных после исключения — беру весь пул');
-    mainCand = shuffleByWeek(uniqById(mainLinks));
-  }
-  if (soupCand.length < SOUP_TARGET + 2) {
-    logger.warn('[build] мало супов после исключения — беру весь пул');
-    soupCand = shuffleByWeek(uniqById(soupLinks));
-  }
-  logger.log(
-    `[build] кандидатов к фетчу: основные ${mainCand.length}, супы ${soupCand.length}`
-  );
+  // Счётчик причин отбраковки — для отладки качества подборки.
+  const rejects = {};
+  const tally = (reason) => { rejects[reason] = (rejects[reason] || 0) + 1; };
 
-  // --- Детальный фетч + фильтрация + скоринг (всё из JSON-LD страницы рецепта) ---
-  const buildPool = async (cands, mealType, cap) => {
+  // Общий сбор: фетч деталей + жёсткие фильтры (FILTERS.hardFilter).
+  const collectFromSource = async (sourceName, cands, mealType, fetchOne, cap) => {
     const out = [];
-    const catSlug = mealType === 'soup' ? 'supy' : 'osnovnye-blyuda';
-    const catName = mealType === 'soup' ? 'Супы' : 'Основные блюда';
     for (const c of cands) {
       if (out.length >= cap) break;
       let recipe;
       try {
-        recipe = await fetchRecipe(`https://eda.rambler.ru${c.relativeUrl}`, {
-          logger
-        });
-      } catch (err) {
-        logger.warn(`[build] fetch failed ${c.relativeUrl}: ${err.message}`);
+        recipe = await fetchOne(c);
+      } catch (e) {
+        tally('fetch-error');
         continue;
       }
-      if (!recipe.title || !recipe.ingredients?.length || !recipe.steps?.length) continue;
-      if (recipe.ingredients.length > MAX_INGREDIENTS) continue;
-      // Нужны БЖУ — иначе нечем скорить/фильтровать сытность.
-      if (!recipe.macros || (!recipe.macros.kcal && !recipe.macros.protein)) continue;
-
+      if (!recipe) { tally('fetch-empty'); continue; }
       recipe.mealType = mealType;
-      recipe.category = { slug: catSlug, name: recipe.category?.name || catName };
-      if (isMainSideDish(recipe)) continue; // несытные основные/гарниры — мимо
-
       recipe.id = Number(recipe.sourceId) || recipe.id;
-      recipe.__bucket = bucketOf(recipe.time) || 'medium';
-      recipe.__score = scoreCandidate(recipe);
+      const res = FILTERS.hardFilter(recipe, {
+        recentIds: excl.ids,
+        recentTitles: excl.titles,
+        normalizeTitle
+      });
+      if (!res.pass) { tally(res.reason); continue; }
       out.push(recipe);
-      logger.log(
-        `[build] +${mealType} ${recipe.title} (${recipe.time}мин, P${recipe.macros.protein}, ★${recipe.rating.value}/${recipe.rating.count})`
-      );
       await sleep(120);
     }
+    logger.log(
+      `[build] ${sourceName}/${mealType}: прошло фильтры ${out.length} (фетчей ~${Math.min(cands.length, cap)})`
+    );
     return out;
   };
 
-  const POOL_MAIN_CAP = 55; // до 55 основных → после selectFinal останется ~25
-  const POOL_SOUP_CAP = 14; // до 14 супов → останется 5
-  logger.log('[build] === детальный фетч основных ===');
-  const mainsPool = await buildPool(mainCand, 'main', POOL_MAIN_CAP);
-  logger.log('[build] === детальный фетч супов ===');
-  const soupsPool = await buildPool(soupCand, 'soup', POOL_SOUP_CAP);
+  // ===== Источник 1: ЯДРО — calorizator.ru =====
+  logger.log('[build] === calorizator: сбор ссылок ===');
+  const cVtorye = shuffleByWeek(
+    uniqById(await calor.fetchCategoryRecipes('garnish', { pageCount: 8, logger }))
+  );
+  const cSupy = shuffleByWeek(
+    uniqById(await calor.fetchCategoryRecipes('soups', { pageCount: 3, logger }))
+  );
+  logger.log(
+    `[build] calorizator кандидатов: вторые ${cVtorye.length}, супы ${cSupy.length}`
+  );
 
-  // Дедуп по id и по нормализованному названию (названия теперь известны).
-  const dedupeFetched = (items) => {
+  let mains = await collectFromSource(
+    'calorizator', cVtorye, 'main',
+    (c) => calor.fetchRecipe(`https://calorizator.ru${c.relativeUrl}`, { mealType: 'main' }),
+    120
+  );
+  let soups = await collectFromSource(
+    'calorizator', cSupy, 'soup',
+    (c) => calor.fetchRecipe(`https://calorizator.ru${c.relativeUrl}`, { mealType: 'soup' }),
+    30
+  );
+
+  // ===== Источник 2 (fallback): eda.rambler.ru — только если ядро не набрало =====
+  const needMains = FILTERS.CONFIG.MAIN_TARGET;
+  const needSoups = FILTERS.CONFIG.SOUP_TARGET;
+  if (mains.length < needMains || soups.length < needSoups) {
+    logger.log('[build] === fallback eda: ядро не добрало, дополняем ===');
+    const edaBucket = (min) => (!min ? null : min <= 30 ? 'quick' : min <= 60 ? 'medium' : 'long');
+    const edaFetch = (mealType) => async (c) => {
+      const r = await fetchRecipe(`https://eda.rambler.ru${c.relativeUrl}`, { logger });
+      r.timeBucket = edaBucket(r.time);
+      r.source = 'eda.rambler.ru';
+      return r;
+    };
+    try {
+      if (mains.length < needMains) {
+        const e = shuffleByWeek(uniqById(await fetchCategoryRecipes('osnovnye-blyuda', { pageCount: 12, logger })));
+        mains = mains.concat(await collectFromSource('eda', e, 'main', edaFetch('main'), 80));
+      }
+      if (soups.length < needSoups) {
+        const e = shuffleByWeek(uniqById(await fetchCategoryRecipes('supy', { pageCount: 6, logger })));
+        soups = soups.concat(await collectFromSource('eda', e, 'soup', edaFetch('soup'), 30));
+      }
+    } catch (e) {
+      logger.warn(`[build] fallback eda пропущен: ${e.message}`);
+    }
+  }
+
+  // Дедуп по id и нормализованному названию (между источниками тоже).
+  const dedupe = (items) => {
     const ids = new Set();
     const titles = new Set();
     const res = [];
@@ -674,39 +672,39 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
       if (ids.has(r.id)) continue;
       const t = normalizeTitle(r.title);
       if (titles.has(t)) continue;
-      ids.add(r.id);
-      titles.add(t);
+      ids.add(r.id); titles.add(t);
       res.push(r);
     }
     return res;
   };
-  let fetched = dedupeFetched([...mainsPool, ...soupsPool]);
+  const pool = dedupe([...mains, ...soups]);
   logger.log(
-    `[build] пул после фетча: ${fetched.length} (основные ${fetched.filter((r) => r.mealType === 'main').length}, супы ${fetched.filter((r) => r.mealType === 'soup').length})`
+    `[build] пул после фильтров: вторые ${pool.filter((r) => r.mealType === 'main').length}, супы ${pool.filter((r) => r.mealType === 'soup').length}`
   );
+  logger.log(`[build] причины отбраковки: ${JSON.stringify(rejects)}`);
 
-  // Финальный отбор: ровно 30 сытных/сбалансированных блюд, 5 супов — гарантированно.
-  const selected = selectFinal(fetched, { seed: weekTag });
-  logger.log(`[build] финальный отбор: ${selected.length} / ${TOTAL_TARGET}`);
+  // Отбор недели по квотам (25 вторых + 5 супов, разнообразие белка/кухни и т.д.).
+  const { recipes: selected, stats } = FILTERS.selectWeek(pool, { seed: weekTag });
+  logger.log(`[build] отбор: ${JSON.stringify(stats)}`);
 
-  // Удалить служебные поля перед записью (rating нужен только для скоринга)
-  fetched = selected.map(({ __bucket, __score, rating, ...rest }) => rest);
+  // Убираем служебные поля перед записью.
+  const clean = selected.map(({ __score, timeBucket, ...rest }) => rest);
 
   return {
     generatedAt: startedAt.toISOString(),
     weekTag,
-    source: 'eda.rambler.ru',
+    source: 'calorizator.ru',
     counts: {
-      main: fetched.filter((r) => r.mealType === 'main').length,
-      soup: fetched.filter((r) => r.mealType === 'soup').length,
-      total: fetched.length,
+      main: selected.filter((r) => r.mealType === 'main').length,
+      soup: selected.filter((r) => r.mealType === 'soup').length,
+      total: selected.length,
       byTimeBucket: {
-        quick: fetched.filter((r) => bucketOf(r.time) === 'quick').length,
-        medium: fetched.filter((r) => bucketOf(r.time) === 'medium').length,
-        long: fetched.filter((r) => bucketOf(r.time) === 'long').length
+        quick: selected.filter((r) => r.timeBucket === 'quick').length,
+        medium: selected.filter((r) => r.timeBucket === 'medium').length,
+        long: selected.filter((r) => r.timeBucket === 'long').length
       }
     },
-    recipes: fetched
+    recipes: clean
   };
 };
 
