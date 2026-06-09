@@ -1,342 +1,23 @@
 {
-  "generatedAt": "2026-06-09T10:36:55.445Z",
-  "weekTag": "2026-06-09_1036",
+  "generatedAt": "2026-06-09T11:04:33.462Z",
+  "weekTag": "2026-06-09_1104",
   "source": "calorizator.ru",
   "counts": {
-    "main": 14,
+    "main": 5,
     "soup": 5,
-    "total": 19,
+    "total": 10,
     "byTimeBucket": {
-      "quick": 4,
-      "medium": 15,
+      "quick": 2,
+      "medium": 8,
       "long": 0
     }
   },
   "recipes": [
     {
-      "id": 98081,
-      "sourceId": "98081",
-      "title": "Веганские спагетти по-флотски",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/98081.jpg",
-      "time": 25,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 2,
-      "ingredients": [
-        {
-          "name": "Цельнозерновые спагетти из киноа",
-          "amount": 170,
-          "unit": "гр"
-        },
-        {
-          "name": "Вода (для варки взять 1,5 литра)",
-          "amount": 100,
-          "unit": "мл"
-        },
-        {
-          "name": "Фарш соевый",
-          "amount": 200,
-          "unit": "гр"
-        },
-        {
-          "name": "Помидор",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Красный лук",
-          "amount": 70,
-          "unit": "гр"
-        },
-        {
-          "name": "Зелень",
-          "amount": 15,
-          "unit": "гр"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 15,
-          "unit": "гр"
-        },
-        {
-          "name": "Соль",
-          "amount": 1,
-          "unit": "ч.л"
-        },
-        {
-          "name": "Черный перец",
-          "amount": 1,
-          "unit": "/2 ч.л"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Нарезать помидор и лук полукольцами.",
-          "timeMin": null
-        },
-        {
-          "text": "Натереть чеснок на терке.",
-          "timeMin": null
-        },
-        {
-          "text": "Овощи потушить под крышкой в течение 5 минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Размять фарш вилкой и добавить к овощам. Тушить под крышкой минут 7.",
-          "timeMin": null
-        },
-        {
-          "text": "Отварить макароны.",
-          "timeMin": null
-        },
-        {
-          "text": "Нашинковать зелень.",
-          "timeMin": null
-        },
-        {
-          "text": "Подавать макароны с овощами и зеленью.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 56.2,
-        "fat": 3.7,
-        "carbs": 90.7,
-        "kcal": 692.7
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/98081",
-      "fetchedAt": "2026-06-09T10:38:25.201Z"
-    },
-    {
-      "id": 141161,
-      "sourceId": "141161",
-      "title": "Креветки в томатном соусе",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/141161.jpg",
-      "time": 25,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 3,
-      "ingredients": [
-        {
-          "name": "Креветки (замороженные)",
-          "amount": 600,
-          "unit": "гр"
-        },
-        {
-          "name": "Вода",
-          "amount": 200,
-          "unit": "мл"
-        },
-        {
-          "name": "Томатная паста",
-          "amount": 2,
-          "unit": "ст.л"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 2,
-          "unit": "зуб"
-        },
-        {
-          "name": "Лимон",
-          "amount": 1,
-          "unit": "/2 шт"
-        },
-        {
-          "name": "Перец горошек",
-          "amount": 10,
-          "unit": "шт"
-        },
-        {
-          "name": "Гвоздика",
-          "amount": 10,
-          "unit": "шт"
-        },
-        {
-          "name": "Базилик сушеный",
-          "amount": 1,
-          "unit": "/2 ч.л"
-        },
-        {
-          "name": "Орегано сушеный",
-          "amount": 1,
-          "unit": "/2 ч.л"
-        },
-        {
-          "name": "Растительное масло",
-          "amount": 2,
-          "unit": "ст.л"
-        },
-        {
-          "name": "Соль",
-          "amount": 1,
-          "unit": "/2 ч.л"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Чеснок очистить от шелухи, порезать на тонкие кружочки и обжарить на растительном масле.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить к чесноку томатную пасту и специи, перемешать, влить воду.",
-          "timeMin": null
-        },
-        {
-          "text": "Выдавить лимон и оставить его мякоть в соусе. Посолить и тушить соус 5-7 минут.",
-          "timeMin": null
-        },
-        {
-          "text": "В соус добавить размороженные и промытые креветки. Тушить 2-3 минуты.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 45.2,
-        "fat": 9,
-        "carbs": 5.9,
-        "kcal": 285.4
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/141161",
-      "fetchedAt": "2026-06-09T10:38:29.382Z"
-    },
-    {
-      "id": 20161,
-      "sourceId": "20161",
-      "title": "Котлеты куриные",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/20161.jpg",
-      "time": 25,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 8,
-      "ingredients": [
-        {
-          "name": "Филе куриной грудки",
-          "amount": 1,
-          "unit": "кг"
-        },
-        {
-          "name": "Яйцо куриное",
-          "amount": 2,
-          "unit": "шт"
-        },
-        {
-          "name": "Лук репчатый (большой)",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 3,
-          "unit": "зуб"
-        },
-        {
-          "name": "Белый хлеб (батон)",
-          "amount": 1,
-          "unit": "/2 шт"
-        },
-        {
-          "name": "Молоко (для размачивания хлеба)",
-          "amount": 200,
-          "unit": "мл"
-        },
-        {
-          "name": "Соль (по вкусу)",
-          "amount": 5,
-          "unit": "гр"
-        },
-        {
-          "name": "Перец (по вкусу)",
-          "amount": 5,
-          "unit": "гр"
-        },
-        {
-          "name": "Панировочные сухари (по вкусу)",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Масло растительное (по вкусу)",
-          "amount": 20,
-          "unit": "гр"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Белый хлеб размять и замочить в молоке.",
-          "timeMin": null
-        },
-        {
-          "text": "Пропустить через мясорубку куриное филе, лук, размоченный в молоке хлеб.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить пропущенный через пресс чеснок, соль и перец по вкусу, тщательно все перемешать. Затем добавить яйцо и перемешать все еще раз.",
-          "timeMin": null
-        },
-        {
-          "text": "Из фарша сформировать котлеты, обвалять их в панировочных сухарях.",
-          "timeMin": null
-        },
-        {
-          "text": "На сковороде разогреть растительное масло, обжаривать котлеты в течение 5&ndash;7 минут до хрустящей корочки.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 35.7,
-        "fat": 7.6,
-        "carbs": 26.4,
-        "kcal": 316.7
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/20161",
-      "fetchedAt": "2026-06-09T10:38:05.807Z"
-    },
-    {
-      "id": 30839,
-      "sourceId": "30839",
-      "title": "Ёка абхазская",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/30839.jpg",
+      "id": 122012,
+      "sourceId": "122012",
+      "title": "Высокобелковый низкокалорийный салат",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/122012.jpg",
       "time": 25,
       "difficulty": "Легко",
       "diet": "meat",
@@ -350,287 +31,95 @@
         "slug": "",
         "name": ""
       },
-      "portions": 1,
+      "portions": 6,
       "ingredients": [
         {
-          "name": "Лаваш тонкий",
-          "amount": 1,
-          "unit": "/2 шт"
-        },
-        {
-          "name": "Яйцо куриное",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Сыр твердых сортов",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Индейка",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Масло сливочное",
-          "amount": 25,
-          "unit": "гр"
-        },
-        {
-          "name": "Соль (по вкусу)",
-          "amount": 2,
-          "unit": "гр"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Сыр натереть на мелкой терке. Индейку отрезать кусочек.",
-          "timeMin": null
-        },
-        {
-          "text": "В миску налить воды, посолить и окунуть в нее лаваш на пару секунд.",
-          "timeMin": null
-        },
-        {
-          "text": "Обжарить лаваш на сливочном масле, затем аккуратно перевернуть, разбить на него яйцо, положить индейку и посыпать сыром.",
-          "timeMin": null
-        },
-        {
-          "text": "Свернуть лаваш, чтобы яйцо не вытекло, и обжарить в течение 3-х минут.",
-          "timeMin": null
-        },
-        {
-          "text": "По желанию можно добавить зелени.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 35.8,
-        "fat": 40.4,
-        "carbs": 43.4,
-        "kcal": 691.2
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/30839",
-      "fetchedAt": "2026-06-09T10:38:18.041Z"
-    },
-    {
-      "id": 102228,
-      "sourceId": "102228",
-      "title": "Греча с курицей в духовке",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/102228.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 3,
-      "ingredients": [
-        {
-          "name": "Куриное бедро",
-          "amount": 700,
-          "unit": "гр"
-        },
-        {
-          "name": "Гречка",
-          "amount": 150,
-          "unit": "гр"
-        },
-        {
-          "name": "Вода",
-          "amount": 300,
-          "unit": "гр"
-        },
-        {
-          "name": "Летняя смесь",
-          "amount": 400,
-          "unit": "гр"
-        },
-        {
-          "name": "Черный перец",
-          "amount": 1,
-          "unit": "ч.л"
-        },
-        {
-          "name": "Соль (по вкусу)",
-          "amount": 1,
-          "unit": "гр"
-        },
-        {
-          "name": "Масло оливковое",
-          "amount": 1,
-          "unit": "ч.л"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Промыть гречку.",
-          "timeMin": null
-        },
-        {
-          "text": "Смазать форму каплей масла.",
-          "timeMin": null
-        },
-        {
-          "text": "Выложить в форму промытую гречку.",
-          "timeMin": null
-        },
-        {
-          "text": "Выложить курицу поверх гречки.",
-          "timeMin": null
-        },
-        {
-          "text": "Разложить овощи поверх гречки с курицей, залить водой.",
-          "timeMin": null
-        },
-        {
-          "text": "Накрыть фольгой и отправить в духовку на 30 минут при 180 градусах.",
-          "timeMin": null
-        },
-        {
-          "text": "Снять фольгу и поддержать в духовке еще 15 минут, можно включить режим гриля.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 58.9,
-        "fat": 32.8,
-        "carbs": 44.6,
-        "kcal": 702.3
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/102228",
-      "fetchedAt": "2026-06-09T10:37:17.851Z"
-    },
-    {
-      "id": 73310,
-      "sourceId": "73310",
-      "title": "Куриная грудка с гречкой и грибами",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/73310.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 2,
-      "ingredients": [
-        {
-          "name": "Филе куриное",
+          "name": "Куриная грудка вареная",
           "amount": 500,
           "unit": "гр"
         },
         {
-          "name": "Гречка",
-          "amount": 100,
-          "unit": "гр"
-        },
-        {
-          "name": "Сливки 10%",
-          "amount": 250,
-          "unit": "гр"
-        },
-        {
-          "name": "Грибы",
-          "amount": 70,
-          "unit": "гр"
-        },
-        {
-          "name": "Лук репчатый",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Масло подсолнечное",
-          "amount": 30,
-          "unit": "гр"
-        },
-        {
-          "name": "Соль",
-          "amount": 1,
-          "unit": "ч. л"
-        },
-        {
-          "name": "Перец черный молотый",
-          "amount": 1,
-          "unit": "/3 ч. л"
-        },
-        {
-          "name": "Вода (для варки гречки)",
+          "name": "Фасоль красная консервированная",
           "amount": 200,
           "unit": "гр"
+        },
+        {
+          "name": "Помидор",
+          "amount": 2,
+          "unit": "шт"
+        },
+        {
+          "name": "Яйцо вареное",
+          "amount": 3,
+          "unit": "шт"
+        },
+        {
+          "name": "Зелень",
+          "amount": 5,
+          "unit": "гр"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 5,
+          "unit": "гр"
+        },
+        {
+          "name": "Йогурт греческий",
+          "amount": 180,
+          "unit": "гр"
+        },
+        {
+          "name": "Соль (по вкусу)",
+          "amount": 1,
+          "unit": "/2 ч.л"
         }
       ],
       "steps": [
         {
-          "text": "Гречку отварить до готовности, добавить 1/2 ч. л. соли.",
+          "text": "Очистить и нарезать яйца.",
           "timeMin": null
         },
         {
-          "text": "Нарезать грибы и лук.",
+          "text": "Куриную грудку нарезать или разобрать на волокна.",
           "timeMin": null
         },
         {
-          "text": "На подсолнечном масле обжарить лук с грибами.",
+          "text": "Нарезать помидор.",
           "timeMin": null
         },
         {
-          "text": "В куриной грудке сделать надрезы для фаршировки, посолить, поперчить.",
+          "text": "Чеснок очистить и пропустить через пресс или мелко порубить ножом.",
           "timeMin": null
         },
         {
-          "text": "Смешать гречку с обжаренными грибами и луком.",
+          "text": "Зелень мелко порубить.",
           "timeMin": null
         },
         {
-          "text": "Выложить начинку на куриное филе, края соединить с помощью зубочисток.",
-          "timeMin": null
-        },
-        {
-          "text": "В сковороду или сотейник вылить сливки, выложить курицу, тушить на маленьком огне 40 минут, периодически переворачивать мясо так, чтобы каждая сторона была покрыта сливками.",
+          "text": "Все ингредиенты смешать в салатнике, заправить йогуртом и подсолить.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 69.6,
-        "fat": 32.8,
-        "carbs": 39.5,
-        "kcal": 738.9
+        "protein": 32.5,
+        "fat": 5.8,
+        "carbs": 9,
+        "kcal": 218.8
       },
       "tags": [],
       "recipeGroups": [],
       "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/73310",
-      "fetchedAt": "2026-06-09T10:38:25.933Z"
+      "sourceUrl": "https://calorizator.ru/recipes/122012",
+      "fetchedAt": "2026-06-09T11:04:55.764Z"
     },
     {
-      "id": 74386,
-      "sourceId": "74386",
-      "title": "Голец фаршированный овощами",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/74386.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "vegan",
+      "id": 16765,
+      "sourceId": "16765",
+      "title": "Бутерброд Рыбный",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/16765.jpg",
+      "time": 25,
+      "difficulty": "Легко",
+      "diet": "meat",
       "meatCategory": "no-red-meat",
       "mealType": "main",
       "category": {
@@ -644,75 +133,74 @@
       "portions": 2,
       "ingredients": [
         {
-          "name": "Голец",
-          "amount": 520,
+          "name": "Хлеб белый (ломтики)",
+          "amount": 2,
+          "unit": "кус"
+        },
+        {
+          "name": "Семга слабосоленая",
+          "amount": 100,
           "unit": "гр"
         },
         {
-          "name": "Фасоль стручковая (замороженная)",
-          "amount": 180,
-          "unit": "гр"
+          "name": "Картофель (средний)",
+          "amount": 1,
+          "unit": "шт"
         },
         {
-          "name": "Кукуруза сладкая (замороженная)",
+          "name": "Сыр плавленый",
           "amount": 50,
           "unit": "гр"
         },
         {
-          "name": "Лимон",
-          "amount": 30,
+          "name": "Зелень укропа",
+          "amount": 20,
           "unit": "гр"
-        },
-        {
-          "name": "Масло подсолнечное",
-          "amount": 40,
-          "unit": "гр"
-        },
-        {
-          "name": "Соль",
-          "amount": 1,
-          "unit": "ч. л"
         }
       ],
       "steps": [
         {
-          "text": "Рыбу почистить, выпотрошить, сверху по хребту сделать надрез для фаршировки, удалить позвоночные кости.",
+          "text": "На хлеб намазать плавленый сыр.",
           "timeMin": null
         },
         {
-          "text": "Натереть солью, сбрызнуть лимонным соком.",
+          "text": "Предварительно отварить картофель и порезать кружочками.",
           "timeMin": null
         },
         {
-          "text": "Нафаршировать овощами.",
+          "text": "Уложить кружочки картофеля на хлеб.",
           "timeMin": null
         },
         {
-          "text": "Фольгу смазать подсолнечным маслом, выложить рыбу, плотно обернув фольгой. Запекать 25 минут с понижением температуры (10 минут при 220 &deg;С и 15 минут при 170 &deg;С).",
+          "text": "Зелень укропа порубить и посыпать картофель.",
           "timeMin": null
         },
         {
-          "text": "Гольца вынуть из духовки и дать немного остыть.",
+          "text": "Семгу нарезать на небольшие кусочки.",
+          "timeMin": null
+        },
+        {
+          "text": "Уложить семгу на хлеб поверх картофеля.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 61.2,
-        "fat": 35.3,
-        "carbs": 9.4,
-        "kcal": 584.6
+        "protein": 18.6,
+        "fat": 9.8,
+        "carbs": 25.4,
+        "kcal": 254
       },
       "tags": [],
       "recipeGroups": [],
       "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/74386",
-      "fetchedAt": "2026-06-09T10:37:42.673Z"
+      "sourceUrl": "https://calorizator.ru/recipes/16765",
+      "fetchedAt": "2026-06-09T11:06:08.083Z"
     },
     {
-      "id": 83381,
-      "sourceId": "83381",
-      "title": "Картошка с рыбой в духовке",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/83381.jpg",
+      "id": 58724,
+      "sourceId": "58724",
+      "title": "Запеканка из курицы и овощей",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/58724.jpg",
       "time": 45,
       "difficulty": "Средне",
       "diet": "meat",
@@ -726,22 +214,111 @@
         "slug": "",
         "name": ""
       },
-      "portions": 3,
+      "portions": 4,
       "ingredients": [
         {
-          "name": "Картофель",
-          "amount": 4,
-          "unit": "шт"
+          "name": "Сыр (лучше брать с низким содержанием жира)",
+          "amount": 75,
+          "unit": "гр"
         },
         {
-          "name": "Рыба хек (мороженная)",
+          "name": "Морковь",
+          "amount": 40,
+          "unit": "гр"
+        },
+        {
+          "name": "Лук",
+          "amount": 25,
+          "unit": "гр"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 10,
+          "unit": "гр"
+        },
+        {
+          "name": "Куриная грудка",
+          "amount": 300,
+          "unit": "гр"
+        },
+        {
+          "name": "Брюссельская капуста",
+          "amount": 80,
+          "unit": "гр"
+        },
+        {
+          "name": "Стручковая фасоль",
+          "amount": 80,
+          "unit": "гр"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Брюссельскую капусту и стручковую фасоль готовим на пару в течение 10 минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Куриную грудку, предварительно отваренную в течение 5 минут, порезать на мелкие кусочки.",
+          "timeMin": null
+        },
+        {
+          "text": "Обжарить куриные кусочки на среднем огне без масла на антипригарной сковородке в течение 10 минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Натереть сыр и морковь на крупной терке, лук тонко порезать полукольцами и измельчить чеснок.",
+          "timeMin": null
+        },
+        {
+          "text": "Брюссельскую капусту порезать на четыре части.",
+          "timeMin": null
+        },
+        {
+          "text": "Слоями уложить ингредиенты в чашу мультиварки: куриные кусочки, лук, морковь, чеснок, стручковую фасоль, брюссельскую капусту и сверху присыпать сыром. Готовить в режиме выпечка в течение 30 минут.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 24,
+        "fat": 7,
+        "carbs": 4.8,
+        "kcal": 175.6
+      },
+      "tags": [],
+      "recipeGroups": [],
+      "source": "calorizator.ru",
+      "sourceUrl": "https://calorizator.ru/recipes/58724",
+      "fetchedAt": "2026-06-09T11:05:47.381Z"
+    },
+    {
+      "id": 139756,
+      "sourceId": "139756",
+      "title": "Бефстроганов из курицы по-домашнему",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/139756.jpg",
+      "time": 45,
+      "difficulty": "Средне",
+      "diet": "meat",
+      "meatCategory": "no-red-meat",
+      "mealType": "main",
+      "category": {
+        "slug": "garnish",
+        "name": "Вторые блюда"
+      },
+      "cuisine": {
+        "slug": "",
+        "name": ""
+      },
+      "portions": 6,
+      "ingredients": [
+        {
+          "name": "Куриное филе",
           "amount": 400,
           "unit": "гр"
         },
         {
-          "name": "Грибы шампиньоны",
-          "amount": 200,
-          "unit": "гр"
+          "name": "Морковь",
+          "amount": 1,
+          "unit": "шт"
         },
         {
           "name": "Лук",
@@ -749,390 +326,64 @@
           "unit": "шт"
         },
         {
-          "name": "Сметана",
-          "amount": 2,
-          "unit": "ст. л"
+          "name": "Томатный сок",
+          "amount": 250,
+          "unit": "мл"
         },
-        {
-          "name": "Соль",
-          "amount": 0.5,
-          "unit": "ст. л"
-        },
-        {
-          "name": "Перец черный молотый",
-          "amount": 0.5,
-          "unit": "ч. л"
-        },
-        {
-          "name": "Прованские травы",
-          "amount": 1,
-          "unit": "ст. л"
-        },
-        {
-          "name": "Зелень петрушки",
-          "amount": 5,
-          "unit": "гр"
-        },
-        {
-          "name": "Масло растительное",
-          "amount": 3,
-          "unit": "ст. л"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Нашинкованный лук уложить на дно противня и добавить растительное масло.",
-          "timeMin": null
-        },
-        {
-          "text": "Картофель очистить, нарезать на тонкие пластинки и добавить к луку.",
-          "timeMin": null
-        },
-        {
-          "text": "Грибы тоже нарезать на тонкие ломтики, добавить в блюдо.",
-          "timeMin": null
-        },
-        {
-          "text": "Посолить, поперчить приправить травами и смазать все сметаной.",
-          "timeMin": null
-        },
-        {
-          "text": "Филе рыбы разморозить, посолить и выложить поверх картофеля.",
-          "timeMin": null
-        },
-        {
-          "text": "Запекать блюдо в духовке около 40-45 минут при 200-220 &deg;С.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 29.6,
-        "fat": 15.9,
-        "carbs": 26.5,
-        "kcal": 368.4
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/83381",
-      "fetchedAt": "2026-06-09T10:40:06.101Z"
-    },
-    {
-      "id": 84242,
-      "sourceId": "84242",
-      "title": "Безглютеновая пицца",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/84242.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 2,
-      "ingredients": [
         {
           "name": "Рисовая мука",
-          "amount": 100,
-          "unit": "гр"
-        },
-        {
-          "name": "Сливочное масло",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Сметана",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Сыр",
-          "amount": 150,
-          "unit": "гр"
-        },
-        {
-          "name": "Помидоры",
-          "amount": 100,
-          "unit": "гр"
-        },
-        {
-          "name": "Перец болгарский",
-          "amount": 100,
-          "unit": "гр"
-        },
-        {
-          "name": "Кабачок",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Колбаса сырокопченая сервелат",
-          "amount": 20,
-          "unit": "гр"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Растопить масло. Смешать муку маслом до крошки.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить сметану и еще раз перемешать тщательно.",
-          "timeMin": null
-        },
-        {
-          "text": "Из теста сформировать шар и отправить в морозилку на 30 минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Нарезать помидор, кабачок, перец и колбасу.",
-          "timeMin": null
-        },
-        {
-          "text": "Раскатать пласт для пиццы.",
-          "timeMin": null
-        },
-        {
-          "text": "Смазать томатной пастой и выложить колбасу и кабачок.",
-          "timeMin": null
-        },
-        {
-          "text": "Сверху положить помидорки и перчик.",
-          "timeMin": null
-        },
-        {
-          "text": "Отправить в духовку на 15 минут при 170 градусах.",
-          "timeMin": null
-        },
-        {
-          "text": "Натереть сыр, посыпать пиццу сыром и отправить в духовку на 3 минутки.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 26.4,
-        "fat": 49.8,
-        "carbs": 47.8,
-        "kcal": 749.1
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/84242",
-      "fetchedAt": "2026-06-09T10:37:52.380Z"
-    },
-    {
-      "id": 40415,
-      "sourceId": "40415",
-      "title": "Гречка, запеченная с сыром",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/40415.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "vegetarian",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 2,
-      "ingredients": [
-        {
-          "name": "Гречневая крупа",
           "amount": 1,
-          "unit": "ст"
-        },
-        {
-          "name": "Сыр Российский",
-          "amount": 150,
-          "unit": "гр"
-        },
-        {
-          "name": "Сыр Пармезан",
-          "amount": 50,
-          "unit": "гр"
-        },
-        {
-          "name": "Масло сливочное",
-          "amount": 50,
-          "unit": "гр"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Гречку отварить или приготовить на пару.",
-          "timeMin": null
-        },
-        {
-          "text": "Натереть сыр.",
-          "timeMin": null
-        },
-        {
-          "text": "Растопить сливочное масло.",
-          "timeMin": null
-        },
-        {
-          "text": "В форму для запекания выложить половину гречки, разровнять.",
-          "timeMin": null
-        },
-        {
-          "text": "На гречку выложить половину сыра.",
-          "timeMin": null
-        },
-        {
-          "text": "Сверху разложить оставшуюся гречку, полить растопленным маслом.",
-          "timeMin": null
-        },
-        {
-          "text": "Засыпать гречку оставшимся сыром.",
-          "timeMin": null
-        },
-        {
-          "text": "Запечь в духовке до образования корочки.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 37.2,
-        "fat": 52.6,
-        "carbs": 53.2,
-        "kcal": 823.3
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/40415",
-      "fetchedAt": "2026-06-09T10:37:55.864Z"
-    },
-    {
-      "id": 15860,
-      "sourceId": "15860",
-      "title": "Котлетки куриные с сыром",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/15860.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Куриная грудка",
-          "amount": 500,
-          "unit": "гр"
-        },
-        {
-          "name": "Хлеб белый (1/2 батона)",
-          "amount": 200,
-          "unit": "гр"
-        },
-        {
-          "name": "Молоко (тёплое)",
-          "amount": 1,
-          "unit": "/2 ст"
-        },
-        {
-          "name": "Сыр",
-          "amount": 100,
-          "unit": "гр"
-        },
-        {
-          "name": "Сливочное масло",
-          "amount": 6,
           "unit": "ст.л"
-        },
-        {
-          "name": "Панировочные сухари",
-          "amount": 1,
-          "unit": "/2 ст"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 1,
-          "unit": "зуб"
         },
         {
           "name": "Подсолнечное масло",
           "amount": 1,
           "unit": "ст.л"
-        },
-        {
-          "name": "Соль (по вкусу)",
-          "amount": 3,
-          "unit": "гр"
-        },
-        {
-          "name": "Перец (по вкусу)",
-          "amount": 3,
-          "unit": "гр"
         }
       ],
       "steps": [
         {
-          "text": "Хлеб размять и залить тёплым молоком.",
+          "text": "Нарезать куриное филе брусочками.",
           "timeMin": null
         },
         {
-          "text": "Мелко порезать куриную грудку и пропустить её через мясорубку.",
+          "text": "Очистить и мелко нарезать лук.",
           "timeMin": null
         },
         {
-          "text": "Пропустите через мясорубку замоченный хлеб и чеснок.",
+          "text": "Морковь натереть на терке.",
           "timeMin": null
         },
         {
-          "text": "Посолить и поперчить по вкусу, тщательно перемешать.",
+          "text": "Обжарить курицу до полуготовности с добавлением масла.",
           "timeMin": null
         },
         {
-          "text": "Слепить из полученного фарша котлеты, в середину поместить небольшой кусочек сыра, залепить его краями, чтобы сыр получился внутри.",
+          "text": "Добавить в сковороду лук и морковь, обжарить еще 10 минут.",
           "timeMin": null
         },
         {
-          "text": "Обвалять котлеты в панировочных сухарях и обжарить на сливочном масле в течение 3 минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Затем котлеты переложить на противень и поместить в духовку при температуре 180 градусов на 15 минут.",
+          "text": "Добавить томатный сок и рисовую муку, перемешать и томить 10 минут под крышкой на среднем огне.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 39.2,
-        "fat": 39.6,
-        "carbs": 36,
-        "kcal": 659.1
+        "protein": 16.4,
+        "fat": 2.6,
+        "carbs": 6.5,
+        "kcal": 119.3
       },
       "tags": [],
       "recipeGroups": [],
       "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/15860",
-      "fetchedAt": "2026-06-09T10:38:37.614Z"
+      "sourceUrl": "https://calorizator.ru/recipes/139756",
+      "fetchedAt": "2026-06-09T11:05:11.612Z"
     },
     {
-      "id": 179411,
-      "sourceId": "179411",
-      "title": "Гнезда с фаршем",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/179411.jpg",
+      "id": 68150,
+      "sourceId": "68150",
+      "title": "Диетические куриные котлеты с зеленью",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/68150.jpg",
       "time": 45,
       "difficulty": "Средне",
       "diet": "meat",
@@ -1149,13 +400,13 @@
       "portions": 4,
       "ingredients": [
         {
-          "name": "Макароны гнезда",
-          "amount": 400,
+          "name": "Куриное филе",
+          "amount": 180,
           "unit": "гр"
         },
         {
-          "name": "Фарш куриный",
-          "amount": 400,
+          "name": "Картофель",
+          "amount": 100,
           "unit": "гр"
         },
         {
@@ -1164,366 +415,8 @@
           "unit": "шт"
         },
         {
-          "name": "Лук",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Морковь",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Специи (по вкусу)",
-          "amount": 2,
-          "unit": "ч.л"
-        },
-        {
-          "name": "Масло подсолнечное",
-          "amount": 1,
-          "unit": "ст.л"
-        },
-        {
-          "name": "Вода (взяли 1 л., считаем только ту, что впиталась в продукт)",
-          "amount": 600,
-          "unit": "мл"
-        },
-        {
-          "name": "Соль (по вкусу)",
-          "amount": 1,
-          "unit": "/2 ч.л"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Выложить фарш в глубокую миску, добавить яйцо, часть специй и соль.",
-          "timeMin": null
-        },
-        {
-          "text": "Хорошо вымесить до однородности.",
-          "timeMin": null
-        },
-        {
-          "text": "Мелко нарезать лук.",
-          "timeMin": null
-        },
-        {
-          "text": "Морковь натереть на крупной терке.",
-          "timeMin": null
-        },
-        {
-          "text": "В сковороду влить масло, и добавить оставшиеся специи, нагреть минуту.",
-          "timeMin": null
-        },
-        {
-          "text": "Обжарить лук и морковь 3-5 минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Выложить гнезда плотно друг к другу.",
-          "timeMin": null
-        },
-        {
-          "text": "В каждое гнездо выложить шарик из фарша.",
-          "timeMin": null
-        },
-        {
-          "text": "Влить воду, накрыть крышкой и тушить 20 минут на среднем огне.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 31.4,
-        "fat": 14,
-        "carbs": 75.6,
-        "kcal": 555
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/179411",
-      "fetchedAt": "2026-06-09T10:39:05.817Z"
-    },
-    {
-      "id": 23935,
-      "sourceId": "23935",
-      "title": "Запеканка из макарон в мультиварке",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/23935.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "garnish",
-        "name": "Вторые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Вермишель",
-          "amount": 200,
-          "unit": "гр"
-        },
-        {
-          "name": "Фарш куриный",
-          "amount": 300,
-          "unit": "гр"
-        },
-        {
-          "name": "Перец болгарский (крупный)",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Лук репчатый (средний)",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Сыр твердых сортов",
-          "amount": 100,
-          "unit": "гр"
-        },
-        {
-          "name": "Соль (соль по вкусу)",
-          "amount": 2,
-          "unit": "гр"
-        },
-        {
-          "name": "Перец молотый (по вкусу)",
-          "amount": 2,
-          "unit": "гр"
-        },
-        {
-          "name": "Масло растительное",
-          "amount": 2,
-          "unit": "ст.л"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Лук и перец мелко порезать и обжарить на сковороде на растительном масле (немного лука оставить для фарша).",
-          "timeMin": null
-        },
-        {
-          "text": "Вермишель предварительно отварить и добавить в сковороду, посолить и поперчить по вкусу, перемешать и снять с огня.",
-          "timeMin": null
-        },
-        {
-          "text": "В фарш добавить лук, посолить и поперчить. Перемешать.",
-          "timeMin": null
-        },
-        {
-          "text": "Чашу мультиварки смазать растительном маслом и выложить фарш.",
-          "timeMin": null
-        },
-        {
-          "text": "Поверх фарша добавить обжаренную вермишель.",
-          "timeMin": null
-        },
-        {
-          "text": "Сыр натереть на мелкой терке и посыпать блюдо.",
-          "timeMin": null
-        },
-        {
-          "text": "Готовить в режиме «Выпечка» 30-40 минут.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 25.2,
-        "fat": 21.8,
-        "carbs": 38.4,
-        "kcal": 454.5
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/23935",
-      "fetchedAt": "2026-06-09T10:37:36.165Z"
-    },
-    {
-      "id": 80535,
-      "sourceId": "80535",
-      "title": "Американские макароны с сыром",
-      "image": "https://s1.eda.ru/StaticContent/Photos/Upscaled/160927114839/161010125030/p_O.png",
-      "time": 55,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "main",
-      "category": {
-        "slug": "",
-        "name": "Основные блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": "Американская кухня"
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Паста пипе ригате",
-          "amount": 400,
-          "unit": "г"
-        },
-        {
-          "name": "Куриное яйцо",
-          "amount": 1,
-          "unit": "штука"
-        },
-        {
-          "name": "Сливочное масло",
-          "amount": 80,
-          "unit": "г"
-        },
-        {
-          "name": "Пшеничная мука",
-          "amount": 50,
-          "unit": "г"
-        },
-        {
-          "name": "Молоко",
-          "amount": 750,
-          "unit": "мл"
-        },
-        {
-          "name": "Горчичный порошок",
-          "amount": 2,
-          "unit": "чайные ложки"
-        },
-        {
-          "name": "Твердый сыр",
-          "amount": 400,
-          "unit": "г"
-        },
-        {
-          "name": "Соль",
-          "amount": 0,
-          "unit": "по вкусу"
-        },
-        {
-          "name": "Молотый черный перец",
-          "amount": 0,
-          "unit": "по вкусу"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Подготовить необходимые ингредиенты.",
-          "timeMin": null
-        },
-        {
-          "text": "Сварить макароны до полуготовности в подсоленной воде.",
-          "timeMin": null
-        },
-        {
-          "text": "В большом сотейнике растопить сливочное масло на среднем огне.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить муку и готовить, помешивая пару минут.",
-          "timeMin": null
-        },
-        {
-          "text": "Добавить молоко и горчичный порошок, перемешивать до однородности.",
-          "timeMin": null
-        },
-        {
-          "text": "Затем, продолжая помешивать, готовить соус, пока он не загустеет.",
-          "timeMin": null
-        },
-        {
-          "text": "Взять немного соуса и в отдельной чаше быстро смешать с сырым яйцом.",
-          "timeMin": null
-        },
-        {
-          "text": "Затем соус с яйцом влить обратно в сотейник. Добавить большую часть тертого сыра, оставив грамм 50 для запекания, посолить и поперчить по вкусу.",
-          "timeMin": null
-        },
-        {
-          "text": "Макароны перемешать с соусом и поместить в форму для запекания.",
-          "timeMin": null
-        },
-        {
-          "text": "Посыпать оставшимся сыром и запекать при 180 градусах в течение 20-25 минут, до образования золотистой корочки.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 42,
-        "fat": 53,
-        "carbs": 64,
-        "kcal": 910
-      },
-      "rating": {
-        "value": 3.8,
-        "count": 88
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "sourceUrl": "https://eda.rambler.ru/recepty/osnovnye-blyuda/amerikanskie-makarony-s-syrom-80535",
-      "fetchedAt": "2026-06-09T10:42:46.956Z",
-      "source": "eda.rambler.ru"
-    },
-    {
-      "id": 68806,
-      "sourceId": "68806",
-      "title": "Борщ в духовке",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/68806.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "soup",
-      "category": {
-        "slug": "soups",
-        "name": "Первые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 1,
-      "ingredients": [
-        {
-          "name": "Картофель",
-          "amount": 70,
-          "unit": "гр"
-        },
-        {
-          "name": "Куриное филе",
-          "amount": 100,
-          "unit": "гр"
-        },
-        {
-          "name": "Лук",
-          "amount": 70,
-          "unit": "гр"
-        },
-        {
-          "name": "Свекла",
-          "amount": 40,
-          "unit": "гр"
-        },
-        {
-          "name": "Морковь",
-          "amount": 30,
-          "unit": "гр"
-        },
-        {
-          "name": "Вода",
-          "amount": 150,
-          "unit": "мл"
-        },
-        {
-          "name": "Зелень (для подачи)",
-          "amount": 2,
+          "name": "Зелень (по вкусу, много)",
+          "amount": 20,
           "unit": "гр"
         },
         {
@@ -1539,172 +432,55 @@
       ],
       "steps": [
         {
-          "text": "Картофель нарезать кубиками.",
+          "text": "Куриное филе прокрутить в блендере, картофель натереть на терке.",
           "timeMin": null
         },
         {
-          "text": "Куриное филе нарезать на кусочки.",
+          "text": "Зелень мелко нарезать, добавить в фарш.",
           "timeMin": null
         },
         {
-          "text": "Лук порубить мелко.",
+          "text": "Посолить и поперчить по вкусу, еще раз перемешать.",
           "timeMin": null
         },
         {
-          "text": "Выложить картофель, лук и филе в тарелку, перемешать.",
+          "text": "Добавить яйцо, еще раз перемешать.",
           "timeMin": null
         },
         {
-          "text": "Добавить натертую морковь и свеклу, снова перемешать.",
+          "text": "Выложить в силиконовые формочки фарш.",
           "timeMin": null
         },
         {
-          "text": "Посыпать солью и перцем, перемешать.",
+          "text": "Поставить формочки в чашу мультиварки, включить режим выпечка на 40 минут.",
           "timeMin": null
         },
         {
-          "text": "Выложить в горшочек, залить водой.",
+          "text": "Вынуть готовые котлетки, немного остудить и вынуть котлеты из формочек.",
           "timeMin": null
         },
         {
-          "text": "Поставить в духовку, разогретую до 200 градусов на 30 минут, предварительно закрыв крышкой горшочек.",
-          "timeMin": null
-        },
-        {
-          "text": "Готовый суп украсить зеленью и можно подавать.",
+          "text": "Перед подачей посыпать рубленной зеленью.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 26.5,
-        "fat": 1.6,
-        "carbs": 25.7,
-        "kcal": 221.4
+        "protein": 12.8,
+        "fat": 2.2,
+        "carbs": 4.9,
+        "kcal": 93
       },
       "tags": [],
       "recipeGroups": [],
       "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/68806",
-      "fetchedAt": "2026-06-09T10:41:13.663Z"
+      "sourceUrl": "https://calorizator.ru/recipes/68150",
+      "fetchedAt": "2026-06-09T11:06:32.759Z"
     },
     {
-      "id": 173506,
-      "sourceId": "173506",
-      "title": "Овощной суп с индейкой",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/173506.jpg",
-      "time": 45,
-      "difficulty": "Средне",
-      "diet": "meat",
-      "meatCategory": "no-red-meat",
-      "mealType": "soup",
-      "category": {
-        "slug": "soups",
-        "name": "Первые блюда"
-      },
-      "cuisine": {
-        "slug": "",
-        "name": ""
-      },
-      "portions": 4,
-      "ingredients": [
-        {
-          "name": "Вода",
-          "amount": 800,
-          "unit": "мл"
-        },
-        {
-          "name": "Картофель",
-          "amount": 2,
-          "unit": "шт"
-        },
-        {
-          "name": "Филе грудки индейки",
-          "amount": 200,
-          "unit": "гр"
-        },
-        {
-          "name": "Лук",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Морковь",
-          "amount": 1,
-          "unit": "/2 шт"
-        },
-        {
-          "name": "Болгарский перец",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Помидоры черри",
-          "amount": 4,
-          "unit": "шт"
-        },
-        {
-          "name": "Укроп",
-          "amount": 5,
-          "unit": "гр"
-        },
-        {
-          "name": "Соль",
-          "amount": 1,
-          "unit": "/2 ч.л"
-        },
-        {
-          "name": "Лавровый лист",
-          "amount": 1,
-          "unit": "шт"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Картофель помыть, почистить и нарезать некрупными кубиками, промыть в холодной воде, чтобы ушёл лишний крахмал.",
-          "timeMin": null
-        },
-        {
-          "text": "Лук почистить, помыть и мелко нарезать.",
-          "timeMin": null
-        },
-        {
-          "text": "Морковь натереть на крупной тёрке.",
-          "timeMin": null
-        },
-        {
-          "text": "Перец почистить от семян и плодоножки, нарезать мелким кубиком, а черри нарезать на четвертинки.",
-          "timeMin": null
-        },
-        {
-          "text": "В кастрюлю положить филе индейки, овощи, соль, лаврушку и залить водой. Готовить после закипания минут 45-50 на медленном огне.",
-          "timeMin": null
-        },
-        {
-          "text": "Укроп промыть и мелко порубить ножом.",
-          "timeMin": null
-        },
-        {
-          "text": "В конце приготовления положить в суп укроп, накрыть крышкой, снять с плиты и дать постоять 5 минут. Готовый суп разлить по тарелкам.",
-          "timeMin": null
-        }
-      ],
-      "macros": {
-        "protein": 11.7,
-        "fat": 0.6,
-        "carbs": 13.2,
-        "kcal": 105.2
-      },
-      "tags": [],
-      "recipeGroups": [],
-      "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/173506",
-      "fetchedAt": "2026-06-09T10:41:53.474Z"
-    },
-    {
-      "id": 36246,
-      "sourceId": "36246",
-      "title": "Куриный cуп с вермишелью",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/36246.jpg",
+      "id": 58406,
+      "sourceId": "58406",
+      "title": "Суп рыбный легкий",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/58406.jpg",
       "time": 45,
       "difficulty": "Средне",
       "diet": "meat",
@@ -1721,14 +497,136 @@
       "portions": 10,
       "ingredients": [
         {
+          "name": "Рыба толстолобик",
+          "amount": 400,
+          "unit": "гр"
+        },
+        {
+          "name": "Картофель",
+          "amount": 3,
+          "unit": "шт"
+        },
+        {
+          "name": "Морковь",
+          "amount": 1,
+          "unit": "шт"
+        },
+        {
+          "name": "Лук",
+          "amount": 1,
+          "unit": "шт"
+        },
+        {
+          "name": "Чеснок",
+          "amount": 1,
+          "unit": "зуб"
+        },
+        {
+          "name": "Зеленый лук",
+          "amount": 30,
+          "unit": "гр"
+        },
+        {
+          "name": "Укроп",
+          "amount": 30,
+          "unit": "гр"
+        },
+        {
+          "name": "Лавровый лист",
+          "amount": 2,
+          "unit": "шт"
+        },
+        {
+          "name": "Перец горошком",
+          "amount": 5,
+          "unit": "шт"
+        },
+        {
+          "name": "Соль",
+          "amount": 0.5,
+          "unit": "ст. л"
+        },
+        {
           "name": "Вода",
           "amount": 2,
           "unit": "л"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Картофель помыть и порезать дольками. Добавить в кастрюлю с водой.",
+          "timeMin": null
         },
         {
-          "name": "Грудка куриная",
-          "amount": 1,
-          "unit": "шт"
+          "text": "Морковь почистить и нарезать кружочками.",
+          "timeMin": null
+        },
+        {
+          "text": "Лук нарезать полукольцами, а чеснок &ndash; дольками.",
+          "timeMin": null
+        },
+        {
+          "text": "Все овощи отправить к картофелю, добавить соль и приправы.",
+          "timeMin": null
+        },
+        {
+          "text": "Рыбу отварить в отдельной кастрюле с лавровым листом несколько минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Отваренную рыбу порезать на кусочки и удалить косточки.",
+          "timeMin": null
+        },
+        {
+          "text": "В овощной бульон добавить рыбу и нарезанный зеленый лук, посолить.",
+          "timeMin": null
+        },
+        {
+          "text": "Когда суп закипит добавить укроп и снять с огня кастрюлю.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 8.7,
+        "fat": 0.5,
+        "carbs": 7.3,
+        "kcal": 66.2
+      },
+      "tags": [],
+      "recipeGroups": [],
+      "source": "calorizator.ru",
+      "sourceUrl": "https://calorizator.ru/recipes/58406",
+      "fetchedAt": "2026-06-09T11:07:24.740Z"
+    },
+    {
+      "id": 32177,
+      "sourceId": "32177",
+      "title": "Суп из крапивы",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/32177.jpg",
+      "time": 45,
+      "difficulty": "Средне",
+      "diet": "meat",
+      "meatCategory": "no-red-meat",
+      "mealType": "soup",
+      "category": {
+        "slug": "soups",
+        "name": "Первые блюда"
+      },
+      "cuisine": {
+        "slug": "",
+        "name": ""
+      },
+      "portions": 15,
+      "ingredients": [
+        {
+          "name": "Куриное филе",
+          "amount": 400,
+          "unit": "гр"
+        },
+        {
+          "name": "Крапива",
+          "amount": 150,
+          "unit": "гр"
         },
         {
           "name": "Лук репчатый (средний)",
@@ -1736,87 +634,215 @@
           "unit": "шт"
         },
         {
-          "name": "Морковь (средняя)",
+          "name": "Морковь",
           "amount": 1,
           "unit": "шт"
         },
         {
-          "name": "Картофель (средний)",
+          "name": "Картофель",
           "amount": 5,
           "unit": "шт"
         },
         {
-          "name": "Вермишель",
-          "amount": 100,
+          "name": "Петрушка",
+          "amount": 20,
           "unit": "гр"
         },
         {
-          "name": "Соль (по вкусу)",
-          "amount": 2,
-          "unit": "гр"
-        },
-        {
-          "name": "Перец молотый (по вкусу)",
-          "amount": 2,
+          "name": "Лук зеленый",
+          "amount": 20,
           "unit": "гр"
         },
         {
           "name": "Масло растительное",
           "amount": 1,
           "unit": "ст.л"
+        },
+        {
+          "name": "Соль (по вкусу)",
+          "amount": 10,
+          "unit": "гр"
+        },
+        {
+          "name": "Перец молотый (по вкусу)",
+          "amount": 5,
+          "unit": "гр"
+        },
+        {
+          "name": "Вода",
+          "amount": 2.5,
+          "unit": "л"
         }
       ],
       "steps": [
         {
-          "text": "Грудку отварить до готовности.",
+          "text": "Куриную грудку нарезать на небольшие кусочки, залить холодной водой и варить до закипания.",
           "timeMin": null
         },
         {
-          "text": "Картофель очистить и порезать кубиками.",
+          "text": "Картофель очистить, нарезать кубиками и отправить в кипящий куриный бульон.",
           "timeMin": null
         },
         {
-          "text": "Лук очистить и мелко нарезать.",
+          "text": "Репчатый лук мелко порезать, морковь натереть на терке.",
           "timeMin": null
         },
         {
-          "text": "Морковь очистить и натереть на мелкой терке.",
+          "text": "Морковь и лук обжарить на растительном масле. Обжаренные овощи добавить в бульон.",
           "timeMin": null
         },
         {
-          "text": "Лук обжарить на растительном масле до золотистого цвета, добавить морковь. Жарить, пока морковь не станет желтой.",
+          "text": "Петрушку и зеленый лук мелко порубить, листья крапивы промыть и измельчить.",
           "timeMin": null
         },
         {
-          "text": "В готовый бульон с грудкой добавить картофель и варить 15 минут (до готовности картофеля).",
-          "timeMin": null
-        },
-        {
-          "text": "Затем добавить обжаренные лук и морковь. По вкусу посолить и поперчить.",
-          "timeMin": null
-        },
-        {
-          "text": "За 2 минуты до готовности добавить вермишель.",
+          "text": "Зелень и крапиву добавить в бульон, по вкусу посолить и поперчить. Варить 5-7 минут, затем снять суп с огня и дать ему постоять с закрытой крышкой еще 5 минут.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 12.9,
-        "fat": 2.9,
-        "carbs": 17.7,
-        "kcal": 146.1
+        "protein": 7.3,
+        "fat": 1.6,
+        "carbs": 7.6,
+        "kcal": 74.1
       },
       "tags": [],
       "recipeGroups": [],
       "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/36246",
-      "fetchedAt": "2026-06-09T10:42:08.000Z"
+      "sourceUrl": "https://calorizator.ru/recipes/32177",
+      "fetchedAt": "2026-06-09T11:07:15.243Z"
     },
     {
-      "id": 73607,
-      "sourceId": "73607",
-      "title": "Легкий куриный суп",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/73607.jpg",
+      "id": 58710,
+      "sourceId": "58710",
+      "title": "Суп из куриного филе и овощей",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/58710.jpg",
+      "time": 45,
+      "difficulty": "Средне",
+      "diet": "meat",
+      "meatCategory": "no-red-meat",
+      "mealType": "soup",
+      "category": {
+        "slug": "soups",
+        "name": "Первые блюда"
+      },
+      "cuisine": {
+        "slug": "",
+        "name": ""
+      },
+      "portions": 12,
+      "ingredients": [
+        {
+          "name": "Куриное филе",
+          "amount": 250,
+          "unit": "гр"
+        },
+        {
+          "name": "Вода",
+          "amount": 2,
+          "unit": "л"
+        },
+        {
+          "name": "Лук репчатый (2 шт.)",
+          "amount": 200,
+          "unit": "гр"
+        },
+        {
+          "name": "Картофель",
+          "amount": 300,
+          "unit": "гр"
+        },
+        {
+          "name": "Макароны (Паутинка)",
+          "amount": 30,
+          "unit": "гр"
+        },
+        {
+          "name": "Соль (по вкусу)",
+          "amount": 5,
+          "unit": "гр"
+        },
+        {
+          "name": "Морковь (1 шт.)",
+          "amount": 100,
+          "unit": "гр"
+        },
+        {
+          "name": "Помидор (маленький)",
+          "amount": 100,
+          "unit": "гр"
+        },
+        {
+          "name": "Перец сладкий красный",
+          "amount": 100,
+          "unit": "гр"
+        },
+        {
+          "name": "Лавровый лист",
+          "amount": 1,
+          "unit": "шт"
+        },
+        {
+          "name": "Перец (5 горошин)",
+          "amount": 2,
+          "unit": "гр"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Отварить в течение 30 минут куриное филе, положив в бульон целую луковицу. Вынуть из готового бульона луковицу (она больше не нужна).",
+          "timeMin": null
+        },
+        {
+          "text": "Нарезать полукольцами вторую луковицу, морковь нарезать крупными ломтиками.",
+          "timeMin": null
+        },
+        {
+          "text": "Отваренное куриное филе вынуть из бульона, немного остудить и нарезать кусочками. Очистить и вымыть картофель, порезать крупными дольками.",
+          "timeMin": null
+        },
+        {
+          "text": "Выложить в бульон картофель и кусочки куриного филе, проварить 7 минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Посолить суп по вкусу. Всыпать макароны и размешать.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить лук и морковь.",
+          "timeMin": null
+        },
+        {
+          "text": "Разрезать помидор на 8 долек, порезать красный перец крупными кусочками.",
+          "timeMin": null
+        },
+        {
+          "text": "Добавить в кастрюлю перец и помидор, закрыть крышкой, сделать минимальный огонь и варить 10 минут.",
+          "timeMin": null
+        },
+        {
+          "text": "Положить в кастрюлю с супом лавровый лист и перец горошком. Выключить газ, и дать настояться под закрытой крышкой минут 10-15.",
+          "timeMin": null
+        }
+      ],
+      "macros": {
+        "protein": 6.1,
+        "fat": 0.4,
+        "carbs": 9.4,
+        "kcal": 64.8
+      },
+      "tags": [],
+      "recipeGroups": [],
+      "source": "calorizator.ru",
+      "sourceUrl": "https://calorizator.ru/recipes/58710",
+      "fetchedAt": "2026-06-09T11:06:53.305Z"
+    },
+    {
+      "id": 53103,
+      "sourceId": "53103",
+      "title": "Суп из чечевицы и риса",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/53103.jpg",
       "time": 45,
       "difficulty": "Средне",
       "diet": "meat",
@@ -1833,96 +859,107 @@
       "portions": 6,
       "ingredients": [
         {
-          "name": "Вода",
-          "amount": 2,
-          "unit": "л"
-        },
-        {
-          "name": "Куриное филе",
-          "amount": 200,
+          "name": "Чечевица",
+          "amount": 50,
           "unit": "гр"
         },
         {
-          "name": "Морковь",
-          "amount": 1,
-          "unit": "шт"
+          "name": "Рис",
+          "amount": 4,
+          "unit": "ст.л"
         },
         {
-          "name": "Картофель",
+          "name": "Лук репчатый (1 шт.)",
+          "amount": 60,
+          "unit": "гр"
+        },
+        {
+          "name": "Морковь (1 шт.)",
+          "amount": 50,
+          "unit": "гр"
+        },
+        {
+          "name": "Куриный бульон",
+          "amount": 1.5,
+          "unit": "л"
+        },
+        {
+          "name": "Чеснок (1 зуб.)",
           "amount": 3,
-          "unit": "шт"
+          "unit": "гр"
         },
         {
-          "name": "Лук",
-          "amount": 1,
-          "unit": "шт"
-        },
-        {
-          "name": "Чеснок",
-          "amount": 2,
-          "unit": "зуб"
-        },
-        {
-          "name": "Соль",
-          "amount": 1,
-          "unit": "ч. л"
-        },
-        {
-          "name": "Перец черный молотый",
+          "name": "Томатная паста",
           "amount": 0.5,
-          "unit": "ч. л"
+          "unit": "ст.л"
+        },
+        {
+          "name": "Лимон",
+          "amount": 20,
+          "unit": "гр"
+        },
+        {
+          "name": "Петрушка (2 ст.л.)",
+          "amount": 5,
+          "unit": "гр"
+        },
+        {
+          "name": "Соль (по вкусу)",
+          "amount": 5,
+          "unit": "гр"
+        },
+        {
+          "name": "Перец черный молотый (по вкусу)",
+          "amount": 5,
+          "unit": "гр"
         }
       ],
       "steps": [
         {
-          "text": "Куриное филе нарезать полосками.",
+          "text": "Чечевицу надо взять быстроразваривающуюся. Тщательно промыть чечевицу и рис в холодной воде.",
           "timeMin": null
         },
         {
-          "text": "Морковь очистить и нарезать соломкой.",
+          "text": "Всыпать в кипящий бульон чечевицу и рис.",
           "timeMin": null
         },
         {
-          "text": "Очистить лук и чеснок. Разрезать их на половинки.",
+          "text": "Очистить и помыть морковь и лук. Порезать их небольшими кубиками.",
           "timeMin": null
         },
         {
-          "text": "Картофель очистить и нарезать длинными полосками.",
+          "text": "Добавить в бульон с крупами нарезанные морковь и лук. Посолить и поперчить по вкусу и перемешать. Варить 35 мин.",
           "timeMin": null
         },
         {
-          "text": "В горячую воду добавить картофель и филе.",
+          "text": "Заправить в конце варки суп измельченным чесноком и томатной пастой, добавить тонко нарезанные дольки лимона и зелень петрушки. Размешать.",
           "timeMin": null
         },
         {
-          "text": "Через время &ndash; морковь, лук и чеснок. Посолить и поперчить.",
-          "timeMin": null
-        },
-        {
-          "text": "Довести до кипения, выключить и накрыть крышкой, дать настояться 15 минут.",
+          "text": "Снять суп с огня через 5 мин. Обжарить гренки и подавать суп с гренками.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 9.2,
-        "fat": 0.6,
-        "carbs": 10.8,
-        "kcal": 87.2
+        "protein": 8.5,
+        "fat": 1.6,
+        "carbs": 17.5,
+        "kcal": 119.8
       },
       "tags": [],
       "recipeGroups": [],
       "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/73607",
-      "fetchedAt": "2026-06-09T10:41:43.349Z"
+      "sourceUrl": "https://calorizator.ru/recipes/53103",
+      "fetchedAt": "2026-06-09T11:07:14.610Z"
     },
     {
-      "id": 15465,
-      "sourceId": "15465",
-      "title": "Окрошка на квасе",
-      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/15465.jpg",
+      "id": 82196,
+      "sourceId": "82196",
+      "title": "Окрошка с адыгейским сыром",
+      "image": "https://calorizator.ru/sites/default/files/imagecache/recipes_full/recipes/82196.jpg",
       "time": 45,
       "difficulty": "Средне",
-      "diet": "meat",
+      "diet": "vegetarian",
       "meatCategory": "no-red-meat",
       "mealType": "soup",
       "category": {
@@ -1933,100 +970,109 @@
         "slug": "",
         "name": ""
       },
-      "portions": 4,
+      "portions": 6,
       "ingredients": [
         {
-          "name": "Квас",
-          "amount": 1,
-          "unit": "л"
+          "name": "Картофель отварной (в мундире)",
+          "amount": 4,
+          "unit": "шт"
         },
         {
-          "name": "Картофель",
-          "amount": 500,
-          "unit": "гр"
-        },
-        {
-          "name": "Варёная колбаса",
-          "amount": 300,
-          "unit": "гр"
-        },
-        {
-          "name": "Яйца",
-          "amount": 3,
+          "name": "Огурцы",
+          "amount": 2,
           "unit": "шт"
         },
         {
           "name": "Редис",
-          "amount": 200,
+          "amount": 400,
           "unit": "гр"
         },
         {
-          "name": "Огурцы",
+          "name": "Сыр адыгейский (копченый)",
           "amount": 300,
           "unit": "гр"
         },
         {
-          "name": "Сметана",
-          "amount": 0,
-          "unit": ""
+          "name": "Минеральная вода (газированная)",
+          "amount": 1.5,
+          "unit": "л"
         },
         {
-          "name": "Зелень",
-          "amount": 0,
-          "unit": ""
+          "name": "Укроп",
+          "amount": 50,
+          "unit": "гр"
         },
         {
-          "name": "Приправа",
-          "amount": 0,
-          "unit": ""
+          "name": "Сметана (по вкусу)",
+          "amount": 3,
+          "unit": "ст.л"
         },
         {
-          "name": "Соль",
-          "amount": 0,
-          "unit": ""
+          "name": "Хмели-сунели",
+          "amount": 1,
+          "unit": "ст.л"
+        },
+        {
+          "name": "Горчица (по вкусу)",
+          "amount": 1,
+          "unit": "ст.л"
+        },
+        {
+          "name": "Асафетида",
+          "amount": 2,
+          "unit": "ч.л"
+        },
+        {
+          "name": "Соль (по вкусу)",
+          "amount": 2,
+          "unit": "ч.л"
         }
       ],
       "steps": [
         {
-          "text": "Сначала отварить картофель и яйца.",
+          "text": "Адыгейский сыр нарезать мелкими кубиками.",
           "timeMin": null
         },
         {
-          "text": "Пока картофель варится, нарезать колбасу кубиками.",
+          "text": "Огурцы нарезать мелкими кубиками.",
           "timeMin": null
         },
         {
-          "text": "Затем нарезать огурцы и добавить к колбасе. Нарезать редиску и добавить к колбасе и огурцам.",
+          "text": "Картофель, сваренный в мундире, очистить, остудить и нарезать кубиками.",
           "timeMin": null
         },
         {
-          "text": "Когда картофель отварился, немного его остудить и нарезать кубиками. Добавить в получившуюся овощную смесь.",
+          "text": "Редис промыть, удалить хвостики, нарезать тонкими пластинками.",
           "timeMin": null
         },
         {
-          "text": "Нарезать лук, петрушку и другую зелень по вкусу. Добавить их.",
+          "text": "Укроп нарезать очень мелко.",
           "timeMin": null
         },
         {
-          "text": "Почистить яйца, нарезать и добавить в полученную смесь. Посолить, поперчить.",
+          "text": "В глубокой емкости смешать нарезанные овощи и сыр.",
           "timeMin": null
         },
         {
-          "text": "Хорошо все перемешать и залить квасом. Подавать с чёрным хлебом.",
+          "text": "Приправить специями и посолить.",
+          "timeMin": null
+        },
+        {
+          "text": "Сметану, горчицу и минеральную воду добавить порционно при подаче.",
           "timeMin": null
         }
       ],
       "macros": {
-        "protein": 18.3,
-        "fat": 21.1,
-        "carbs": 40.9,
-        "kcal": 436.3
+        "protein": 11.9,
+        "fat": 9.8,
+        "carbs": 10.7,
+        "kcal": 199
       },
       "tags": [],
       "recipeGroups": [],
       "source": "calorizator.ru",
-      "sourceUrl": "https://calorizator.ru/recipes/15465",
-      "fetchedAt": "2026-06-09T10:41:02.219Z"
+      "sourceUrl": "https://calorizator.ru/recipes/82196",
+      "fetchedAt": "2026-06-09T11:06:58.475Z"
     }
   ]
 }
