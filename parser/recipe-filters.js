@@ -10,9 +10,14 @@
 
 // ===== ЕДИНЫЙ КОНФИГ (крутить тут) =====
 const CONFIG = {
-  // Пороги жёстких фильтров
-  MIN_PROTEIN_MAIN: 25, // г/порция
-  MIN_PROTEIN_SOUP: 8,
+  // Пороги жёстких фильтров.
+  // «Сытность» меряем источник-независимо: ДОЛЕЙ белка (белок·4/ккал), а не
+  // абсолютным белком на порцию — у calorizator порции огромные (белок раздут),
+  // у eda реалистичные. Абсолютный порог «25 г» ломал кросс-источник.
+  REQUIRE_ANIMAL_PROTEIN: true, // второе должно быть на мясе/птице/рыбе (не сыр/соя)
+  MIN_PROTEIN_RATIO: 0.20, // доля белка для вторых (белок·4/ккал)
+  MIN_PROTEIN_FLOOR: 12, // и абсолютный пол, г/порция (чтобы не пролезла мелочь)
+  MIN_PROTEIN_SOUP: 6, // супы — мягче
   MIN_CARBS_IF_NO_GARNISH: 25, // г/порция
   MAX_INGREDIENTS: 12,
   MAX_STEPS: 12,
@@ -67,6 +72,18 @@ const primaryProtein = (recipe) => {
 
 const hasGarnish = (recipe) => GARNISH.test(ingredientsText(recipe));
 
+// Растительный «белок» — НЕ считается животным (соя/тофу/сейтан и т.п.)
+const PLANT_PROTEIN = rx(`(соев|${LB}соя|тофу|сейтан|темпе|растительн|веган)`);
+const ANIMAL_SET = new Set(['chicken', 'turkey', 'fish']);
+// Второе считается «мясным/рыбным», если основной белок — птица/рыба/морепродукты,
+// либо фарш, но НЕ соевый.
+const isAnimalProtein = (recipe) => {
+  const p = primaryProtein(recipe);
+  if (ANIMAL_SET.has(p)) return true;
+  if (p === 'mince') return !PLANT_PROTEIN.test(ingredientsText(recipe));
+  return false;
+};
+
 // ===== Жёсткие фильтры H1..H10 → {pass, reason} =====
 const hardFilter = (recipe, { recentIds = new Set(), recentTitles = new Set(), normalizeTitle = (s) => s, config = CONFIG } = {}) => {
   const m = recipe.macros || {};
@@ -99,11 +116,15 @@ const hardFilter = (recipe, { recentIds = new Set(), recentTitles = new Set(), n
   if (recipe.timeBucket === 'long') return { pass: false, reason: 'H6:too-long' };
 
   if (isSoup) {
-    // H5 (суп): белок ≥ 8
+    // H5 (суп): мягкий порог белка
     if (m.protein < config.MIN_PROTEIN_SOUP) return { pass: false, reason: 'H5:soup-low-protein' };
   } else {
-    // H5 (второе): белок ≥ 25
-    if (m.protein < config.MIN_PROTEIN_MAIN) return { pass: false, reason: 'H5:low-protein' };
+    // H5a: животный белок (мясо/птица/рыба) — отсекает сыр/соя/овощные «вторые»
+    if (config.REQUIRE_ANIMAL_PROTEIN && !isAnimalProtein(recipe))
+      return { pass: false, reason: 'H5:not-animal-protein' };
+    // H5b: сытность по ДОЛЕ белка (источник-независимо) + абсолютный пол
+    if (proteinRatio(m) < config.MIN_PROTEIN_RATIO) return { pass: false, reason: 'H5:low-protein-ratio' };
+    if (m.protein < config.MIN_PROTEIN_FLOOR) return { pass: false, reason: 'H5:below-floor' };
     // H4: полноценная тарелка (гарнир ИЛИ углеводы ≥ 25)
     if (!hasGarnish(recipe) && m.carbs < config.MIN_CARBS_IF_NO_GARNISH)
       return { pass: false, reason: 'H4:no-garnish' };

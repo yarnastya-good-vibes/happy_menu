@@ -585,11 +585,16 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
   const tally = (reason) => { rejects[reason] = (rejects[reason] || 0) + 1; };
 
   // Общий сбор: фетч деталей + жёсткие фильтры (FILTERS.hardFilter).
-  const collectFromSource = async (sourceName, cands, mealType, fetchOne, cap) => {
+  // cap — сколько ПРОШЕДШИХ фильтр рецептов достаточно набрать.
+  // maxFetches — бюджет сетевых запросов (чтобы не качать сотни страниц при
+  // строгих фильтрах). Останавливаемся по любому из двух.
+  const collectFromSource = async (sourceName, cands, mealType, fetchOne, cap, maxFetches) => {
     const out = [];
+    let fetched = 0;
     for (const c of cands) {
-      if (out.length >= cap) break;
+      if (out.length >= cap || fetched >= maxFetches) break;
       let recipe;
+      fetched++;
       try {
         recipe = await fetchOne(c);
       } catch (e) {
@@ -615,26 +620,39 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
   };
 
   // ===== Источник 1: ЯДРО — calorizator.ru =====
+  // Тянем вторые из НЕСКОЛЬКИХ листингов: высокобелковые (kpfc/p2 — белки>20/100г)
+  // и быстрые (time/0-30) дают намного больше мясных и быстрых блюд, чем общая
+  // категория (calorizator — диетический сайт, в «вторых» много овощного).
   logger.log('[build] === calorizator: сбор ссылок ===');
-  const cVtorye = shuffleByWeek(
-    uniqById(await calor.fetchCategoryRecipes('garnish', { pageCount: 8, logger }))
-  );
+  const mainListings = [
+    ['kpfc/p2', 6], // высокобелковые
+    ['time/0-30', 5], // быстрые (для квоты ≥15 быстрых)
+    ['purpose/dinner', 4], // ужины
+    ['category/garnish', 6] // общая категория вторых
+  ];
+  const cVtoryeRaw = [];
+  for (const [path, pages] of mainListings) {
+    cVtoryeRaw.push(...(await calor.fetchListing(path, { pageCount: pages, logger })));
+  }
+  const cVtorye = shuffleByWeek(uniqById(cVtoryeRaw));
   const cSupy = shuffleByWeek(
-    uniqById(await calor.fetchCategoryRecipes('soups', { pageCount: 3, logger }))
+    uniqById(await calor.fetchCategoryRecipes('soups', { pageCount: 4, logger }))
   );
   logger.log(
     `[build] calorizator кандидатов: вторые ${cVtorye.length}, супы ${cSupy.length}`
   );
 
+  // Набираем пул ~50 вторых / ~12 супов (хватит для отбора 25+5 с разнообразием),
+  // бюджет запросов ограничен (строгие фильтры → много отсева).
   let mains = await collectFromSource(
     'calorizator', cVtorye, 'main',
     (c) => calor.fetchRecipe(`https://calorizator.ru${c.relativeUrl}`, { mealType: 'main' }),
-    120
+    50, 200
   );
   let soups = await collectFromSource(
     'calorizator', cSupy, 'soup',
     (c) => calor.fetchRecipe(`https://calorizator.ru${c.relativeUrl}`, { mealType: 'soup' }),
-    30
+    12, 70
   );
 
   // ===== Источник 2 (fallback): eda.rambler.ru — только если ядро не набрало =====
@@ -652,11 +670,11 @@ const buildWeekly = async ({ logger = console, exclude } = {}) => {
     try {
       if (mains.length < needMains) {
         const e = shuffleByWeek(uniqById(await fetchCategoryRecipes('osnovnye-blyuda', { pageCount: 12, logger })));
-        mains = mains.concat(await collectFromSource('eda', e, 'main', edaFetch('main'), 80));
+        mains = mains.concat(await collectFromSource('eda', e, 'main', edaFetch('main'), needMains - mains.length + 10, 120));
       }
       if (soups.length < needSoups) {
         const e = shuffleByWeek(uniqById(await fetchCategoryRecipes('supy', { pageCount: 6, logger })));
-        soups = soups.concat(await collectFromSource('eda', e, 'soup', edaFetch('soup'), 30));
+        soups = soups.concat(await collectFromSource('eda', e, 'soup', edaFetch('soup'), needSoups - soups.length + 5, 60));
       }
     } catch (e) {
       logger.warn(`[build] fallback eda пропущен: ${e.message}`);

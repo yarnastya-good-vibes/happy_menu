@@ -207,15 +207,18 @@ const parseRecipeHtml = (html, url, { mealType = 'main' } = {}) => {
 
 const fetchRecipe = async (url, opts = {}) => parseRecipeHtml(await httpGet(url), url, opts);
 
-const fetchCategoryRecipes = async (slug, { pageCount = 3, logger = console } = {}) => {
+// Универсальный сбор ссылок из любого листинга calorizator.
+// pathSuffix: 'category/garnish' | 'category/soups' | 'kpfc/p2' (белки>20/100г)
+//             | 'time/0-30' (быстрые) | 'purpose/dinner' (ужин) и т.п.
+const fetchListing = async (pathSuffix, { pageCount = 3, logger = console } = {}) => {
   const seen = new Set();
   const all = [];
   let emptyStreak = 0;
   for (let page = 0; page < pageCount; page++) {
     const url =
       page === 0
-        ? `${BASE}/recipes/category/${slug}`
-        : `${BASE}/recipes/category/${slug}?page=${page}`;
+        ? `${BASE}/recipes/${pathSuffix}`
+        : `${BASE}/recipes/${pathSuffix}?page=${page}`;
     logger.log(`[calorizator] fetch ${url}`);
     try {
       const html = await httpGet(url);
@@ -227,19 +230,23 @@ const fetchCategoryRecipes = async (slug, { pageCount = 3, logger = console } = 
         all.push(r);
         added++;
       }
-      logger.log(`[calorizator] page ${page}: +${added} (всего ${all.length})`);
+      logger.log(`[calorizator] ${pathSuffix} page ${page}: +${added} (всего ${all.length})`);
       emptyStreak = added === 0 ? emptyStreak + 1 : 0;
       if (emptyStreak >= 2) break;
     } catch (err) {
-      logger.warn(`[calorizator] page ${page} failed: ${err.message}`);
+      logger.warn(`[calorizator] ${pathSuffix} page ${page} failed: ${err.message}`);
     }
     await sleep(150);
   }
-  logger.log(`[calorizator] ${slug}: собрано ${all.length}`);
+  logger.log(`[calorizator] ${pathSuffix}: собрано ${all.length}`);
   return all;
 };
 
+// Совместимость: сбор по категории.
+const fetchCategoryRecipes = (slug, opts = {}) => fetchListing(`category/${slug}`, opts);
+
 module.exports = {
+  fetchListing,
   fetchCategoryRecipes,
   fetchRecipe,
   parseRecipeHtml,
