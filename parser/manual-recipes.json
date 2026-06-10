@@ -1,0 +1,15 @@
+{
+  "_comment": "Ручной список t-j.ru (и любых других непарсящихся источников). Рецепт идёт в меню только при ready:true и заполненных ingredients+steps. Заполни поля по рецепту со страницы t-j и поставь ready:true. Формат — см. шапку parser/fetch-manual.js.",
+  "recipes": [
+    { "ready": false, "sourceUrl": "https://t-j.ru/creamy-salmon-soup/", "title": "Финский сливочный суп с лососем", "mealType": "soup", "time": 40, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/meatball-soup/", "title": "Суп с фрикадельками", "mealType": "soup", "time": 40, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/chicken-potatoes-oven/", "title": "Курица с картошкой в духовке", "mealType": "main", "time": 60, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/kotletki-on-fire/", "title": "Котлетки (нужен гарнир)", "mealType": "main", "time": 40, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/doradosti/", "title": "Дорада", "mealType": "main", "time": 35, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/smashing-chicken/", "title": "Курица смэшинг (нужен гарнир)", "mealType": "main", "time": 40, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/le-poulet-francais/", "title": "Курица по-французски (нужен гарнир)", "mealType": "main", "time": 45, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/chicken-shawarma/", "title": "Шаурма с курицей", "mealType": "main", "categoryOverride": "cheat", "time": 30, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/easy-chicken-burrito/", "title": "Куриное буррито", "mealType": "main", "categoryOverride": "cheat", "time": 30, "ingredients": [], "steps": [] },
+    { "ready": false, "sourceUrl": "https://t-j.ru/pollo-quesadilla/", "title": "Кесадилья с курицей", "mealType": "main", "categoryOverride": "cheat", "time": 25, "ingredients": [], "steps": [] }
+  ]
+}

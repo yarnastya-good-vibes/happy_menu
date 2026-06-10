@@ -1,0 +1,9 @@
+{
+  "_comment": "Seed-список рецептов elementaree.ru (curated, КБЖУ нет). Добавляй понравившиеся ссылки. mealType: main|soup. Бургеры/кесадильи классифицируются как чит-мил автоматически по названию.",
+  "recipes": [
+    { "url": "https://elementaree.ru/recipes/recept-indejka-v-balzamike-s-letnim-kuskusom-i-sousom-iz-ogurca/", "mealType": "main" },
+    { "url": "https://elementaree.ru/recipes/recept-krabs-burgery-s-kartofelnymi-dolkami/", "mealType": "main" },
+    { "url": "https://elementaree.ru/recipes/recept-rybnyj-paj-so-slivkami-dla-agaty-kristi/", "mealType": "main" },
+    { "url": "https://elementaree.ru/recipes/recept-galeta-s-lososem-i-slivocnym-syrom/", "mealType": "main" }
+  ]
+}

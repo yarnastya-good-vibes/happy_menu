@@ -1,0 +1,10 @@
+{
+  "_comment": "Seed-список рецептов food.ru (каталог рендерится клиентски, авто-кроул по API — TODO). Добавляй сюда понравившиеся ссылки food.ru. mealType: main|soup.",
+  "recipes": [
+    { "url": "https://food.ru/recipes/234791-sup-s-frikadelkami-i-vermishelu", "mealType": "soup" },
+    { "url": "https://food.ru/recipes/230207-kotlety-pod-sousom", "mealType": "main" },
+    { "url": "https://food.ru/recipes/152133-frikase-iz-kuricy-klassicheskii", "mealType": "main" },
+    { "url": "https://food.ru/recipes/224565-mjaso-po-taiski-s-ovoshchami", "mealType": "main" },
+    { "url": "https://food.ru/recipes/240022-zharenyi-ris-s-kuricei-i-jaicom", "mealType": "main" }
+  ]
+}

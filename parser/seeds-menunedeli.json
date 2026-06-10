@@ -1,0 +1,9 @@
+{
+  "_comment": "Seed-список рецептов menunedeli.ru (curated, КБЖУ нет). Добавляй понравившиеся ссылки. mealType: main|soup.",
+  "recipes": [
+    { "url": "https://menunedeli.ru/recipe/sochnoe-myaso-po-francuzski/", "mealType": "main" },
+    { "url": "https://menunedeli.ru/recipe/kartofelnaya-zapekanka-s-farshem-klassicheskij-recept/", "mealType": "main" },
+    { "url": "https://menunedeli.ru/recipe/kurica-v-chesnochnoj-panirovke/", "mealType": "main" },
+    { "url": "https://menunedeli.ru/recipe/kurica-marinovannaya-v-kefire/", "mealType": "main" }
+  ]
+}
