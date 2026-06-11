@@ -40,14 +40,16 @@ const CONFIG = {
   LONG_TIME: 60,           // > этого — «долго» (мягкий штраф в скоринге)
   VLONG_TIME: 90,          // > этого — сильнее штраф
 
-  // Квоты недели
-  MAIN_TARGET: 25,
-  SOUP_TARGET: 5,
-  VEG_LIMIT: 5,            // вегетарианские + гарниры суммарно (пользователь: 2-3 + 2-3)
-  CHEAT_LIMIT: 2,          // чит-милы 1-2/нед
-  MIN_QUICK: 15,
+  // Квоты недели. ВАЖНО: WEEK_TARGET — это ОБЩЕЕ число блюд; категории распределяются
+  // ВНУТРИ него (а не добавляются сверху). 30 = ~20 вторых + 5 супов + 3 вегет/гарнир + 2 чит.
+  WEEK_TARGET: 30,        // всего блюд в неделю
+  SOUP_TARGET: 5,         // супов
+  VEG_TARGET: 3,          // вегетарианские + гарниры (макс)
+  CHEAT_TARGET: 2,        // чит-милы (макс)
+  MIN_QUICK: 12,          // целевой минимум «быстрых» вторых (≤30 мин)
   PROTEIN_LIMIT_DEFAULT: 4,
   CUISINE_LIMIT: 4,
+  SOURCE_LIMIT: 7,         // макс. блюд из одного источника/нед (разнообразие площадок)
   RED_MEAT_LIMIT: 5,       // говядина+свинина суммарно/нед (запрет снят 10.06.2026)
   HEARTY_PROTEIN: 30,
   HEARTY_FRACTION: 0.7,
@@ -222,59 +224,81 @@ const selectWeek = (pool, { seed = '', config = CONFIG } = {}) => {
 
   const proteinCount = {};
   const cuisineCount = {};
+  const sourceCount = {};
   let redMeat = 0;
   let quick = 0;
-  const picked = [];
   const used = new Set();
+  const cuisineName = (r) => ((r.cuisine && r.cuisine.name) || '').toLowerCase().trim();
+  const sourceName = (r) => (r.source || 'unknown').toLowerCase().trim();
+  const isQuick = (r) => r.timeBucket === 'quick' || (r.time && r.time <= 30);
 
   const limitFor = (p) => (p in config.PROTEIN_LIMIT_OVERRIDES ? config.PROTEIN_LIMIT_OVERRIDES[p] : config.PROTEIN_LIMIT_DEFAULT);
 
-  const canTake = (r) => {
+  // Лимит красного мяса — ВСЕГДА жёсткий (даже при доборе). Лимит источника — жёсткий на
+  // обычных фазах, но ослабляется при финальном доборе (relaxSrc), иначе при одном доступном
+  // источнике меню не набрать. Разнообразие (белок/кухня) ослабляется флагом relaxDiv.
+  const canTake = (r, { relaxDiv = false, relaxSrc = false } = {}) => {
+    if (isRedMeat(r) && redMeat >= config.RED_MEAT_LIMIT) return false;
+    if (!relaxSrc && (sourceCount[sourceName(r)] || 0) >= config.SOURCE_LIMIT) return false;
+    if (relaxDiv) return true;
     const p = primaryProtein(r);
     if ((proteinCount[p] || 0) >= limitFor(p)) return false;
-    if (isRedMeat(r) && redMeat >= config.RED_MEAT_LIMIT) return false;
-    const c = ((r.cuisine && r.cuisine.name) || '').toLowerCase().trim();
+    const c = cuisineName(r);
     if (c && (cuisineCount[c] || 0) >= config.CUISINE_LIMIT) return false;
     return true;
   };
-  const take = (r) => {
-    picked.push(r); used.add(r.id);
-    const p = primaryProtein(r);
-    proteinCount[p] = (proteinCount[p] || 0) + 1;
+  // countDiversity=true только для ВТОРЫХ: лимит «N на белок/кухню» — про разнообразие вторых,
+  // он НЕ должен блокировать суп/чит/гарнир (напр. куриный суп не должен «съедать» квоту курицы).
+  // Лимит красного мяса (redMeat) — общий для всех категорий.
+  const take = (r, bucket, countDiversity = false) => {
+    bucket.push(r); used.add(r.id);
     if (isRedMeat(r)) redMeat++;
-    const c = ((r.cuisine && r.cuisine.name) || '').toLowerCase().trim();
-    if (c) cuisineCount[c] = (cuisineCount[c] || 0) + 1;
-    if (r.timeBucket === 'quick' || (r.time && r.time <= 30)) quick++;
+    if (isQuick(r)) quick++;
+    sourceCount[sourceName(r)] = (sourceCount[sourceName(r)] || 0) + 1; // лимит источника — по всем категориям
+    if (countDiversity) {
+      const p = primaryProtein(r);
+      proteinCount[p] = (proteinCount[p] || 0) + 1;
+      const c = cuisineName(r);
+      if (c) cuisineCount[c] = (cuisineCount[c] || 0) + 1;
+    }
   };
 
+  // Сначала фиксированные категории (внутри общего WEEK_TARGET): супы, чит, вегет.
+  // Для них проверяем только лимит красного мяса (canTake с relax=true), без лимита разнообразия.
+  const soupPicked = [];
+  for (const r of soups) { if (soupPicked.length >= config.SOUP_TARGET) break; if (used.has(r.id) || !canTake(r, { relaxDiv: true })) continue; take(r, soupPicked, false); }
+  const cheatPicked = [];
+  for (const r of cheats) { if (cheatPicked.length >= config.CHEAT_TARGET) break; if (used.has(r.id) || !canTake(r, { relaxDiv: true })) continue; take(r, cheatPicked, false); }
+  const vegPicked = [];
+  for (const r of vegs) { if (vegPicked.length >= config.VEG_TARGET) break; if (used.has(r.id) || !canTake(r, { relaxDiv: true })) continue; take(r, vegPicked, false); }
+
+  // Вторые добивают остаток до общего лимита недели.
+  const mainTarget = Math.max(0, config.WEEK_TARGET - soupPicked.length - cheatPicked.length - vegPicked.length);
+  const mainPicked = [];
   // Фаза 1: быстрые вторые до MIN_QUICK
   for (const r of mains) {
-    if (quick >= config.MIN_QUICK || picked.length >= config.MAIN_TARGET) break;
-    if (used.has(r.id) || !(r.timeBucket === 'quick' || (r.time && r.time <= 30)) || !canTake(r)) continue;
-    take(r);
+    if (mainPicked.length >= mainTarget || quick >= config.MIN_QUICK) break;
+    if (used.has(r.id) || !isQuick(r) || !canTake(r)) continue;
+    take(r, mainPicked, true);
   }
-  // Фаза 2: вторые по score с лимитами
+  // Фаза 2: вторые по score с лимитами разнообразия
   for (const r of mains) {
-    if (picked.length >= config.MAIN_TARGET) break;
+    if (mainPicked.length >= mainTarget) break;
     if (used.has(r.id) || !canTake(r)) continue;
-    take(r);
+    take(r, mainPicked, true);
   }
-  // Фаза 3: добор по наименее представленному белку, если лимиты не дали набрать
-  while (picked.length < config.MAIN_TARGET) {
-    const remaining = mains.filter((r) => !used.has(r.id));
+  // Фаза 3: добор. Разнообразие белок/кухня ОСЛАБЛЯЕМ, но лимиты красного мяса и источника
+  // остаются жёсткими (если из-за них неделя недобрана — лучше короче, чем 10 блюд из 1 сайта).
+  while (mainPicked.length < mainTarget) {
+    const remaining = mains.filter((r) => !used.has(r.id) && canTake(r, { relaxDiv: true, relaxSrc: false }));
     if (!remaining.length) break;
     remaining.sort((a, b) => {
       const pa = proteinCount[primaryProtein(a)] || 0;
       const pb = proteinCount[primaryProtein(b)] || 0;
       return pa - pb || b.__score - a.__score;
     });
-    take(remaining[0]);
+    take(remaining[0], mainPicked, true);
   }
-
-  const pickTop = (list, n) => list.filter((r) => !used.has(r.id)).slice(0, n).map((r) => (used.add(r.id), r));
-  const soupPicked = pickTop(soups, config.SOUP_TARGET);
-  const vegPicked = pickTop(vegs, config.VEG_LIMIT);
-  const cheatPicked = pickTop(cheats, config.CHEAT_LIMIT);
 
   // Гарнирам с низким белком (или без КБЖУ) ставим пометку «добавьте белок».
   for (const r of vegPicked) {
@@ -282,11 +306,13 @@ const selectWeek = (pool, { seed = '', config = CONFIG } = {}) => {
     if (p > 0 && p < 12) r.note = r.note || 'гарнир — добавьте белок (рыба/индейка/тефтели)';
   }
 
-  const all = [...picked.slice(0, config.MAIN_TARGET), ...soupPicked, ...vegPicked, ...cheatPicked];
+  const picked = mainPicked; // для статистики ниже
+  const all = [...mainPicked, ...soupPicked, ...vegPicked, ...cheatPicked];
 
   const heartyMains = picked.filter((r) => (r.macros && r.macros.protein || 0) >= config.HEARTY_PROTEIN).length;
   const stats = {
-    mains: Math.min(picked.length, config.MAIN_TARGET),
+    total: all.length,
+    mains: mainPicked.length,
     soups: soupPicked.length,
     veg: vegPicked.length,
     cheat: cheatPicked.length,
@@ -294,7 +320,8 @@ const selectWeek = (pool, { seed = '', config = CONFIG } = {}) => {
     redMeat,
     heartyFraction: picked.length ? +(heartyMains / picked.length).toFixed(2) : 0,
     proteinMix: proteinCount,
-    cuisineMix: cuisineCount
+    cuisineMix: cuisineCount,
+    sourceMix: sourceCount
   };
   return { recipes: all, stats };
 };
